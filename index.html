@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualificador de Leads da Piel Telecom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body { height: 100%; font-family: 'Inter', sans-serif; }
+        .status-select {
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em;
+            padding-right: 2.5rem; color: #374151; font-weight: 500;
+        }
+        .status-select.placeholder { color: #374151; background-color: #f9fafb; }
+        .status-select.em-negociacao { background-color: #87CEEB; color: black; }
+        .status-select.aguardando-dados { background-color: #FFD700; color: black; }
+        .status-select.sem-interacao { background-color: #BDB76B; color: white; }
+        .status-select.sem-viabilidade { background-color: #DC3545; color: white; }
+        .status-select.instalacao-concluida { background-color: #28A745; color: white; }
+        .status-select.agendada-instalacao { background-color: #4682B4; color: white; }
+        .status-select.tentando-reversao { background-color: #8A2BE2; color: white; }
+        .status-select.chamei-whatsapp { background-color: #006400; color: white; }
+        .status-select.sem-interesse { background-color: #FF4500; color: white; }
+        .status-select.ja-cliente { background-color: #696969; color: white; }
+        .status-select.sem-porta-cto { background-color: #B22222; color: white; }
+        .status-select.golpista-fraude { background-color: #000000; color: white; }
+        .status-select.reprovado-credito { background-color: #800000; color: white; }
+        .modal-overlay { transition: opacity 0.3s ease; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Painel Principal -->
+    <div id="app" class="w-full max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 my-4 sm:my-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <div class="text-center md:text-left">
+                 <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Painel de Qualificação de Leads</h1>
+                 <p class="text-base sm:text-lg text-gray-600">Piel Telecom (Colaborativo)</p>
+            </div>
+            <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                <button id="addRowBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center"><i class="fas fa-plus mr-2"></i> Adicionar</button>
+                <button id="downloadBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 flex items-center"><i class="fas fa-download mr-2"></i> Baixar CSV</button>
+                <button id="resetBtn" class="bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 flex items-center"><i class="fas fa-sync-alt mr-2"></i> Resetar</button>
+            </div>
+        </div>
+        <div class="overflow-x-auto rounded-lg border border-gray-200">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Contato</th>
+                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Vendedor(a)</th>
+                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Qualificação</th>
+                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Observação</th>
+                        <th class="text-center p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="leadsTableBody" class="text-gray-700"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="resetModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 modal-overlay hidden z-50"><div class="bg-white rounded-lg shadow-2xl p-6 md:p-8 max-w-sm w-full"><h2 class="text-xl font-bold text-gray-800 mb-4">Confirmar Ação</h2><p class="text-gray-600 mb-6">Você tem certeza que deseja apagar todos os leads? Esta ação não pode ser desfeita.</p><div class="flex justify-end gap-4"><button id="cancelReset" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button><button id="confirmReset" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700">Confirmar</button></div></div></div>
+
+    <script type="module">
+        // Importações do Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4",
+            authDomain: "qualificacao-a14ff.firebaseapp.com",
+            projectId: "qualificacao-a14ff",
+            storageBucket: "qualificacao-a14ff.appspot.com",
+            messagingSenderId: "955642076737",
+            appId: "1:955642076737:web:f6db77134cd6a18b8f30c0"
+        };
+
+        // Inicialização do Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Elementos do DOM
+        const addRowBtn = document.getElementById('addRowBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const tableBody = document.getElementById('leadsTableBody');
+        const resetModal = document.getElementById('resetModal');
+        const cancelReset = document.getElementById('cancelReset');
+        const confirmReset = document.getElementById('confirmReset');
+        
+        // Mapeamento de cores para as tags
+        const statusColorClasses = {
+            'Em Negociação': 'em-negociacao', 'Aguardando Dados': 'aguardando-dados',
+            'Sem Interação - Retrabalhar': 'sem-interacao', 'Sem Viabilidade': 'sem-viabilidade',
+            'Instalação Concluída': 'instalacao-concluida', 'Agendada Instalação': 'agendada-instalacao',
+            'Tentando Reversão': 'tentando-reversao', 'Chamei no meu WhatsApp Business': 'chamei-whatsapp',
+            'Sem Interesse nos Planos': 'sem-interesse', 'Já é Cliente': 'ja-cliente',
+            'Sem Porta CTO': 'sem-porta-cto', 'Golpista/Fraude': 'golpista-fraude',
+            'Reprovado Crédito': 'reprovado-credito'
+        };
+        
+        // --- LÓGICA DO FIRESTORE (CRUD) ---
+        
+        // Ouvir mudanças nos leads em tempo real
+        function listenToLeads() {
+            const leadsCollection = collection(db, 'leads'); // Coleção pública 'leads'
+            const q = query(leadsCollection, orderBy('createdAt', 'desc'));
+
+            onSnapshot(q, (snapshot) => {
+                const existingIds = new Set(Array.from(tableBody.querySelectorAll('tr')).map(tr => tr.dataset.id));
+                const snapshotIds = new Set();
+
+                snapshot.docs.forEach(doc => {
+                    snapshotIds.add(doc.id);
+                    const existingRow = tableBody.querySelector(`tr[data-id="${doc.id}"]`);
+                    if (existingRow) {
+                        updateLeadRow(existingRow, doc.data());
+                    } else {
+                        renderLeadRow(doc);
+                    }
+                });
+
+                // Remove linhas que não existem mais no snapshot
+                existingIds.forEach(id => {
+                    if (!snapshotIds.has(id)) {
+                        const rowToRemove = tableBody.querySelector(`tr[data-id="${id}"]`);
+                        if(rowToRemove) rowToRemove.remove();
+                    }
+                });
+            }, (error) => {
+                console.error("Erro ao ouvir os leads:", error);
+            });
+        }
+        
+        // Adicionar um novo lead
+        async function addNewLead() {
+            try {
+                await addDoc(collection(db, 'leads'), {
+                    contato: '', vendedor: '', qualificação: '', observacao: '',
+                    createdAt: serverTimestamp()
+                });
+            } catch (error) {
+                console.error("Erro ao adicionar lead: ", error);
+            }
+        }
+        
+        // Valida a última linha e adiciona uma nova se estiver OK
+        addRowBtn.addEventListener('click', () => {
+            const lastRow = tableBody.firstElementChild; // A ordem é inversa (desc)
+            let canAdd = true;
+
+            if (lastRow) {
+                const inputs = lastRow.querySelectorAll('input[data-field], select[data-field]');
+                const contatoInput = inputs[0];
+                const vendedorInput = inputs[1];
+                const qualificacaoSelect = inputs[2];
+
+                // Reseta a validação visual anterior
+                [contatoInput, vendedorInput, qualificacaoSelect].forEach(el => el.classList.remove('border-red-500', 'ring-red-500'));
+
+                if (!contatoInput.value.trim()) {
+                    contatoInput.classList.add('border-red-500', 'ring-red-500');
+                    canAdd = false;
+                }
+                if (!vendedorInput.value.trim()) {
+                    vendedorInput.classList.add('border-red-500', 'ring-red-500');
+                    canAdd = false;
+                }
+                if (!qualificacaoSelect.value) {
+                    qualificacaoSelect.classList.add('border-red-500', 'ring-red-500');
+                    canAdd = false;
+                }
+            }
+
+            if (canAdd) {
+                addNewLead();
+            }
+        });
+
+        // Atualizar um lead
+        async function updateLead(docId, field, value) {
+            const docRef = doc(db, 'leads', docId);
+            try {
+                await updateDoc(docRef, { [field]: value });
+            } catch (error) {
+                console.error("Erro ao atualizar lead: ", error);
+            }
+        }
+
+        // Deletar um lead
+        async function deleteLead(docId) {
+            const docRef = doc(db, 'leads', docId);
+            try {
+                await deleteDoc(docRef);
+            } catch (error) {
+                console.error("Erro ao deletar lead: ", error);
+            }
+        }
+
+        // --- RENDERIZAÇÃO E EVENTOS DA TABELA ---
+
+        // Renderizar uma nova linha na tabela
+        function renderLeadRow(doc) {
+            const data = doc.data();
+            const tr = document.createElement('tr');
+            tr.className = 'border-b border-gray-200 hover:bg-gray-50';
+            tr.dataset.id = doc.id;
+
+            tr.innerHTML = `
+                <td class="p-2 align-middle"><input type="text" value="${data.contato || ''}" data-field="contato" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Contato do Lead"></td>
+                <td class="p-2 align-middle"><input type="text" value="${data.vendedor || ''}" data-field="vendedor" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome do vendedor"></td>
+                <td class="p-2 align-middle">
+                    <select data-field="qualificacao" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 status-select">
+                        <option value="" ${!data.qualificacao ? 'selected' : ''} disabled>Selecione</option>
+                        ${Object.keys(statusColorClasses).map(status => `<option value="${status}" ${data.qualificacao === status ? 'selected' : ''}>${status}</option>`).join('')}
+                    </select>
+                </td>
+                <td class="p-2 align-middle"><input type="text" value="${data.observacao || ''}" data-field="observacao" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Adicione uma nota..."></td>
+                <td class="p-2 text-center align-middle"><button class="removeRowBtn text-red-500 hover:text-red-700 p-2 rounded-full"><i class="fas fa-trash-alt fa-lg"></i></button></td>
+            `;
+            tableBody.insertBefore(tr, tableBody.firstChild);
+            updateSelectColor(tr.querySelector('select'));
+        }
+        
+        // Atualizar uma linha existente (evita piscar da tela)
+        function updateLeadRow(row, data) {
+            row.querySelector('[data-field="contato"]').value = data.contato || '';
+            row.querySelector('[data-field="vendedor"]').value = data.vendedor || '';
+            const select = row.querySelector('[data-field="qualificacao"]');
+            select.value = data.qualificacao || '';
+            updateSelectColor(select);
+            row.querySelector('[data-field="observacao"]').value = data.observacao || '';
+        }
+
+        // Delegação de eventos para a tabela (update e delete)
+        tableBody.addEventListener('input', (e) => { // 'input' cobre digitação e seleção
+            const target = e.target;
+            if (target.matches('input, select')) {
+                // Remove a borda de validação ao interagir
+                target.classList.remove('border-red-500', 'ring-red-500');
+
+                const docId = target.closest('tr').dataset.id;
+                const field = target.dataset.field;
+                const value = target.value;
+                updateLead(docId, field, value);
+                if (target.tagName === 'SELECT') {
+                    updateSelectColor(target);
+                }
+            }
+        });
+
+        tableBody.addEventListener('click', (e) => {
+            const removeButton = e.target.closest('.removeRowBtn');
+            if (removeButton) {
+                const docId = removeButton.closest('tr').dataset.id;
+                deleteLead(docId);
+            }
+        });
+
+        // Função para atualizar a cor do select
+        function updateSelectColor(select) {
+            Object.values(statusColorClasses).forEach(cls => select.classList.remove(cls));
+            select.classList.remove('placeholder');
+            const selectedValue = select.value;
+            if (selectedValue && statusColorClasses[selectedValue]) {
+                select.classList.add(statusColorClasses[selectedValue]);
+            } else {
+                select.classList.add('placeholder');
+            }
+        }
+
+        // --- BOTÕES DE AÇÃO (DOWNLOAD E RESET) ---
+        downloadBtn.addEventListener('click', function() {
+            let csvContent = "data:text/csv;charset=utf-8,Contato,Vendedor,Qualificacao,Observacao\r\n";
+            tableBody.querySelectorAll('tr').forEach(row => {
+                const inputs = row.querySelectorAll('input, select');
+                const cols = [
+                    `"${inputs[0].value.replace(/"/g, '""')}"`,
+                    `"${inputs[1].value.replace(/"/g, '""')}"`,
+                    `"${inputs[2].value.replace(/"/g, '""')}"`,
+                    `"${inputs[3].value.replace(/"/g, '""')}"`
+                ];
+                csvContent += cols.join(",") + "\r\n";
+            });
+            const link = document.createElement("a");
+            link.setAttribute("href", encodeURI(csvContent));
+            const date = new Date();
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
+            const year = date.getFullYear();
+            const formattedDate = `${day}-${month}-${year}`;
+            link.setAttribute("download", `QL '${formattedDate}'.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        resetBtn.addEventListener('click', () => resetModal.classList.remove('hidden'));
+        cancelReset.addEventListener('click', () => resetModal.classList.add('hidden'));
+        confirmReset.addEventListener('click', async () => {
+            const leadsCollection = collection(db, 'leads');
+            const snapshot = await getDocs(leadsCollection);
+            const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+            await Promise.all(deletePromises);
+            // Após deletar tudo, adiciona uma nova linha em branco.
+            await addNewLead();
+            resetModal.classList.add('hidden');
+        });
+
+        // Inicia a aplicação
+        async function startApp() {
+            // Primeiro, verifica se a coleção está vazia para garantir que haja pelo menos uma linha na primeira carga.
+            const leadsCollection = collection(db, 'leads');
+            const initialSnapshot = await getDocs(leadsCollection);
+            if (initialSnapshot.empty) {
+                await addNewLead();
+            }
+            // Depois, começa a ouvir as atualizações em tempo real.
+            listenToLeads();
+        }
+
+        startApp();
+    </script>
+</body>
+</html>
