@@ -280,25 +280,38 @@
 
         // --- BOTÕES DE AÇÃO (DOWNLOAD E RESET) ---
         downloadBtn.addEventListener('click', function() {
-            let csvContent = "data:text/csv;charset=utf-8,Contato,Vendedor,Qualificacao,Observacao\r\n";
+            const headers = ["Contato", "Vendedor", "Qualificacao", "Observacao"];
+            let csvRows = [];
+            
+            // Adiciona o cabeçalho
+            csvRows.push(headers.join(';'));
+
+            // Adiciona as linhas de dados
             tableBody.querySelectorAll('tr').forEach(row => {
                 const inputs = row.querySelectorAll('input, select');
                 const cols = [
-                    `"${inputs[0].value.replace(/"/g, '""')}"`,
-                    `"${inputs[1].value.replace(/"/g, '""')}"`,
-                    `"${inputs[2].value.replace(/"/g, '""')}"`,
-                    `"${inputs[3].value.replace(/"/g, '""')}"`
+                    `"${inputs[0].value.replace(/"/g, '""')}"`, // Contato
+                    `"${inputs[1].value.replace(/"/g, '""')}"`, // Vendedor
+                    `"${inputs[2].value.replace(/"/g, '""')}"`, // Qualificação
+                    `"${inputs[3].value.replace(/"/g, '""')}"`  // Observação
                 ];
-                csvContent += cols.join(",") + "\r\n";
+                csvRows.push(cols.join(';'));
             });
+
+            const csvString = csvRows.join('\r\n');
+            const blob = new Blob([`\uFEFF${csvString}`], { type: 'text/csv;charset=utf-8;' });
+            
             const link = document.createElement("a");
-            link.setAttribute("href", encodeURI(csvContent));
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+
             const date = new Date();
             const day = String(date.getDate()).padStart(2, '0');
             const month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
             const year = date.getFullYear();
             const formattedDate = `${day}-${month}-${year}`;
             link.setAttribute("download", `QL '${formattedDate}'.csv`);
+            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
