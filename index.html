@@ -18,6 +18,7 @@
             padding-right: 2.5rem; color: #374151; font-weight: 500;
         }
         .status-select.placeholder { color: #374151; background-color: #f9fafb; }
+        .status-select.venda-realizada { background-color: #FFC107; color: black; }
         .status-select.em-negociacao { background-color: #87CEEB; color: black; }
         .status-select.aguardando-dados { background-color: #FFD700; color: black; }
         .status-select.sem-interacao { background-color: #BDB76B; color: white; }
@@ -57,7 +58,7 @@
                         <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Contato</th>
                         <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Vendedor(a)</th>
                         <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Qualificação</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">CEP</th>
+                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">CEP/Endereço</th>
                         <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Observação</th>
                         <th class="text-center p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Ação</th>
                     </tr>
@@ -100,12 +101,19 @@
         
         // Mapeamento de cores para as tags
         const statusColorClasses = {
-            'Em Negociação': 'em-negociacao', 'Aguardando Dados': 'aguardando-dados',
-            'Sem Interação - Retrabalhar': 'sem-interacao', 'Sem Viabilidade': 'sem-viabilidade',
-            'Instalação Concluída': 'instalacao-concluida', 'Agendada Instalação': 'agendada-instalacao',
-            'Tentando Reversão': 'tentando-reversao', 'Chamei no meu WhatsApp Business': 'chamei-whatsapp',
-            'Sem Interesse nos Planos': 'sem-interesse', 'Já é Cliente': 'ja-cliente',
-            'Sem Porta CTO': 'sem-porta-cto', 'Golpista/Fraude': 'golpista-fraude',
+            'Venda Realizada': 'venda-realizada',
+            'Em Negociação': 'em-negociacao', 
+            'Aguardando Dados': 'aguardando-dados',
+            'Sem Interação - Retrabalhar': 'sem-interacao', 
+            'Sem Viabilidade': 'sem-viabilidade',
+            'Instalação Concluída': 'instalacao-concluida', 
+            'Agendada Instalação': 'agendada-instalacao',
+            'Tentando Reversão': 'tentando-reversao', 
+            'Chamei no meu WhatsApp Business': 'chamei-whatsapp',
+            'Sem Interesse nos Planos': 'sem-interesse', 
+            'Já é Cliente': 'ja-cliente',
+            'Sem Porta CTO': 'sem-porta-cto', 
+            'Golpista/Fraude': 'golpista-fraude',
             'Reprovado Crédito': 'reprovado-credito'
         };
         
@@ -146,7 +154,7 @@
         async function addNewLead() {
             try {
                 await addDoc(collection(db, 'leads'), {
-                    contato: '', vendedor: '', qualificação: '', cep: '', observacao: '',
+                    contato: '', vendedor: '', qualificação: '', cep_endereco: '', observacao: '',
                     createdAt: serverTimestamp()
                 });
             } catch (error) {
@@ -225,7 +233,7 @@
                         ${Object.keys(statusColorClasses).map(status => `<option value="${status}" ${data.qualificacao === status ? 'selected' : ''}>${status}</option>`).join('')}
                     </select>
                 </td>
-                <td class="p-2 align-middle"><input type="text" value="${data.cep || ''}" data-field="cep" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="CEP (Opcional)"></td>
+                <td class="p-2 align-middle"><input type="text" value="${data.cep_endereco || ''}" data-field="cep_endereco" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="CEP/Endereço (Opcional)"></td>
                 <td class="p-2 align-middle"><input type="text" value="${data.observacao || ''}" data-field="observacao" class="w-full px-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Adicione uma nota..."></td>
                 <td class="p-2 text-center align-middle"><button class="removeRowBtn text-red-500 hover:text-red-700 p-2 rounded-full"><i class="fas fa-trash-alt fa-lg"></i></button></td>
             `;
@@ -240,7 +248,7 @@
             const select = row.querySelector('[data-field="qualificacao"]');
             select.value = data.qualificacao || '';
             updateSelectColor(select);
-            row.querySelector('[data-field="cep"]').value = data.cep || '';
+            row.querySelector('[data-field="cep_endereco"]').value = data.cep_endereco || '';
             row.querySelector('[data-field="observacao"]').value = data.observacao || '';
         }
 
@@ -283,7 +291,7 @@
 
         // --- BOTÕES DE AÇÃO (DOWNLOAD E RESET) ---
         downloadBtn.addEventListener('click', function() {
-            const headers = ["Contato", "Vendedor", "Qualificacao", "CEP", "Observacao"];
+            const headers = ["Contato", "Vendedor", "Qualificacao", "CEP/Endereço", "Observacao"];
             let csvRows = [];
             
             // Adiciona o cabeçalho
@@ -296,7 +304,7 @@
                     `"${inputs[0].value.replace(/"/g, '""')}"`, // Contato
                     `"${inputs[1].value.replace(/"/g, '""')}"`, // Vendedor
                     `"${inputs[2].value.replace(/"/g, '""')}"`, // Qualificação
-                    `"${inputs[3].value.replace(/"/g, '""')}"`, // CEP
+                    `"${inputs[3].value.replace(/"/g, '""')}"`, // CEP/Endereço
                     `"${inputs[4].value.replace(/"/g, '""')}"`  // Observação
                 ];
                 csvRows.push(cols.join(';'));
