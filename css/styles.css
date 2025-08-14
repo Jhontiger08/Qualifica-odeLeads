@@ -1,0 +1,109 @@
+/* ============================================= */
+/* ===== VARIÁVEIS DE COR (CUSTOM PROPERTIES) ==== */
+/* ============================================= */
+/* Centralizar as cores aqui facilita a manutenção do tema. */
+:root {
+    --color-primary: #3B82F6; /* Azul Principal */
+    --color-danger: #EF4444;  /* Vermelho Principal */
+    --font-family-base: 'Inter', sans-serif;
+    --font-family-qualificador: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Cores de Status */
+    --status-venda-realizada: #FFC107;
+    --status-em-negociacao: #87CEEB;
+    --status-aguardando-dados: #FFD700;
+    --status-sem-interacao: #BDB76B;
+    --status-sem-viabilidade: #DC3545;
+    --status-instalacao-concluida: #28A745;
+    --status-agendada-instalacao: #4682B4;
+    --status-tentando-reversao: #8A2BE2;
+    --status-chamei-whatsapp: #006400;
+    --status-sem-interesse: #FF4500;
+    --status-ja-cliente: #696969;
+    --status-sem-porta-cto: #B22222;
+    --status-golpista-fraude: #000000;
+    --status-reprovado-credito: #800000;
+}
+
+/* ============================================= */
+/* =========== ESTILOS GLOBAIS ================= */
+/* ============================================= */
+html, body { 
+    font-family: var(--font-family-base); 
+    scroll-behavior: smooth; 
+    background-color: #f3f4f6; /* Um cinza um pouco mais suave */
+}
+
+/* Utilitário para esconder elementos */
+.hidden { 
+    display: none; 
+}
+
+/* ============================================= */
+/* =========== COMPONENTES ===================== */
+/* ============================================= */
+
+/* --- Tabela do Qualificador --- */
+
+/* MUDANÇA: Aplica a fonte customizada e um tamanho de fonte consistente. */
+.qualificador-row {
+    font-family: var(--font-family-qualificador);
+    font-size: 14px; /* Tamanho de fonte base para as linhas */
+    transition: background-color 0.2s ease-in-out; /* Efeito de hover mais suave */
+}
+
+.qualificador-row input,
+.qualificador-row select {
+    font-size: 14px; /* Garante que os inputs tenham o mesmo tamanho de fonte */
+}
+
+
+/* --- Seletor de Status (Qualificação) --- */
+.status-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    color: #374151;
+    font-weight: 600; /* Um pouco mais de destaque */
+    border-radius: 6px; /* Bordas levemente arredondadas */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave de cor */
+}
+
+/* Usando as variáveis de cor para os status */
+.status-select.placeholder { color: #374151; background-color: #f9fafb; }
+.status-select.venda-realizada { background-color: var(--status-venda-realizada); color: black; }
+.status-select.em-negociacao { background-color: var(--status-em-negociacao); color: black; }
+.status-select.aguardando-dados { background-color: var(--status-aguardando-dados); color: black; }
+.status-select.sem-interacao { background-color: var(--status-sem-interacao); color: white; }
+.status-select.sem-viabilidade { background-color: var(--status-sem-viabilidade); color: white; }
+.status-select.instalacao-concluida { background-color: var(--status-instalacao-concluida); color: white; }
+.status-select.agendada-instalacao { background-color: var(--status-agendada-instalacao); color: white; }
+.status-select.tentando-reversao { background-color: var(--status-tentando-reversao); color: white; }
+.status-select.chamei-whatsapp { background-color: var(--status-chamei-whatsapp); color: white; }
+.status-select.sem-interesse { background-color: var(--status-sem-interesse); color: white; }
+.status-select.ja-cliente { background-color: var(--status-ja-cliente); color: white; }
+.status-select.sem-porta-cto { background-color: var(--status-sem-porta-cto); color: white; }
+.status-select.golpista-fraude { background-color: var(--status-golpista-fraude); color: white; }
+.status-select.reprovado-credito { background-color: var(--status-reprovado-credito); color: white; }
+
+
+/* --- Estilos para Modais --- */
+.modal-overlay { 
+    transition: opacity 0.3s ease; 
+    animation: fadeIn 0.3s ease-in-out; /* Animação de entrada */
+}
+
+/* Animação de entrada para o modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

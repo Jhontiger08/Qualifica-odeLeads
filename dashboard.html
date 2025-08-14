@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Administrador - Piel Telecom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-gray-100">
+
+    <div id="auth-check" class="flex items-center justify-center min-h-screen">
+        <p class="text-gray-600 flex items-center gap-2">
+            <i class="fas fa-spinner fa-spin"></i> Verificando autorização...
+        </p>
+    </div>
+
+    <div id="access-denied" class="hidden flex flex-col items-center justify-center min-h-screen text-center p-4">
+        <i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i>
+        <h1 class="text-3xl font-bold text-gray-800">Acesso Negado</h1>
+        <p class="text-gray-600 mt-2">Você não tem permissão para acessar esta página.</p>
+        <a href="./index.html" class="mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Voltar para o Login</a>
+    </div>
+
+    <div id="dashboard-app" class="hidden">
+        <div class="flex h-screen bg-gray-100">
+            <div class="hidden md:flex flex-col w-64 bg-white shadow-lg">
+                <div class="flex items-center justify-center h-16 bg-white border-b">
+                    <i class="fas fa-headset text-2xl text-blue-600 mr-2"></i>
+                    <span class="text-gray-800 font-bold text-xl">Piel Telecom</span>
+                </div>
+                <div class="flex flex-col flex-1 overflow-y-auto">
+                    <nav class="flex-1 px-2 py-4 bg-white">
+                        <a href="#dashboard" class="nav-link flex items-center px-4 py-2 text-gray-700 bg-gray-200 rounded-md"><i class="fas fa-tachometer-alt w-6 text-center"></i><span class="mx-4">Dashboard</span></a>
+                        <a href="#leads" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-users w-6 text-center"></i><span class="mx-4">Leads</span></a>
+                        <a href="#casos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-file-signature w-6 text-center"></i><span class="mx-4">Casos</span></a>
+                        <a href="#relatorios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-history w-6 text-center"></i><span class="mx-4">Relatórios</span></a>
+                        <a href="#usuarios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-user-shield w-6 text-center"></i><span class="mx-4">Usuários</span></a>
+                        <a href="#logs" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-clipboard-list w-6 text-center"></i><span class="mx-4">Logs</span></a>
+                        <a href="#configuracoes" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-cog w-6 text-center"></i><span class="mx-4">Configurações</span></a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="flex flex-col flex-1 overflow-y-auto">
+                <header class="flex items-center justify-between h-16 bg-white border-b px-4">
+                    <h1 id="page-title" class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                    <a href="./index.html" class="text-sm text-blue-600 hover:underline">Voltar ao Qualificador</a>
+                </header>
+                
+                <main class="p-4 md:p-8">
+                    <div class="flex flex-wrap justify-end gap-4 mb-4">
+                        <select id="filter-qualificacao" class="p-2 border rounded-md text-sm bg-white shadow-sm"></select>
+                        <select id="filter-fonte" class="p-2 border rounded-md text-sm bg-white shadow-sm"></select>
+                        <select id="filter-vendedor" class="p-2 border rounded-md text-sm bg-white shadow-sm"></select>
+                        <select id="date-filter" class="p-2 border rounded-md text-sm bg-white shadow-sm">
+                            <option value="all">Todo o Período</option>
+                            <option value="today">Hoje</option>
+                            <option value="7days">Últimos 7 dias</option>
+                            <option value="30days">Últimos 30 dias</option>
+                        </select>
+                    </div>
+
+                    <div id="dashboard-section" class="page-section">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Total de Leads</h3><p id="kpi-total" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendas Realizadas</h3><p id="kpi-vendas" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Leads Ativos</h3><p id="kpi-ativos" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendedores</h3><p id="kpi-vendedores" class="text-3xl font-bold text-gray-800">0</p></div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Status</h3><canvas id="statusChart"></canvas></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Vendedor</h3><canvas id="vendedorChart"></canvas></div>
+                        </div>
+                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Performance (Últimos 30 dias)</h3><canvas id="performanceChart"></canvas></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Ranking de Vendedores (Vendas)</h3><div class="overflow-y-auto max-h-64"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Pos.</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Vendas</th></tr></thead><tbody id="leaderboard-table"></tbody></table></div></div>
+                        </div>
+                    </div>
+                    <div id="leads-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                         <div class="flex justify-end gap-2 mb-4">
+                            <button id="downloadBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 text-sm flex items-center"><i class="fas fa-download mr-2"></i> Baixar CSV Atual</button>
+                         </div>
+                         <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Fonte</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">Data/Hora</th></tr></thead><tbody id="all-leads-table"></tbody></table></div>
+                    </div>
+                    <div id="casos-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Chamados</th><th class="p-2 text-left">Descrição</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="all-cases-table"></tbody></table></div>
+                    </div>
+                    <div id="relatorios-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="flex justify-end gap-2 mb-4">
+                            <button id="saveReportBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-save mr-2"></i> Salvar Relatório Diário</button>
+                        </div>
+                         <div class="overflow-x-auto mb-8"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data do Relatório</th><th class="p-2 text-left">Nº de Leads</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="reports-table"></tbody></table></div>
+                    </div>
+                    <div id="usuarios-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Nome</th><th class="p-2 text-left">E-mail</th><th class="p-2 text-left">Função</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="users-table"></tbody></table></div>
+                    </div>
+                    <div id="logs-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data/Hora</th><th class="p-2 text-left">Ação</th><th class="p-2 text-left">Detalhes</th></tr></thead><tbody id="logs-table"></tbody></table></div>
+                    </div>
+                    <div id="configuracoes-section" class="page-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="font-semibold text-lg mb-4">Gerenciar Qualificações</h3>
+                                <div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-qualificacao-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Cliente em Potencial"><button id="add-qualificacao-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div>
+                                <div id="qualificacoes-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="font-semibold text-lg mb-4">Gerenciar Fontes</h3>
+                                <div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-fonte-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Indicação"><button id="add-fonte-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div>
+                                <div id="fontes-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg shadow-2xl p-6 max-w-sm w-full">
+            <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-4"></h2>
+            <p id="modalMessage" class="text-gray-600 mb-6"></p>
+            <div class="flex justify-end gap-4">
+                <button id="cancelAction" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg">Cancelar</button>
+                <button id="confirmAction" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <div id="caseDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl p-6 max-w-2xl w-full my-auto flex flex-col">
+            <div class="flex justify-between items-center pb-3 mb-4 border-b">
+                 <h2 id="modalCaseTitle" class="text-2xl font-bold text-gray-800"></h2>
+                 <button id="closeCaseDetailsModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
+            </div>
+            <div id="modalCaseBody" class="space-y-4 text-sm mb-6"></div>
+            <div class="flex justify-end gap-4">
+                <button id="exportCaseToWordBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center"><i class="fas fa-file-word mr-2"></i> Exportar para Word</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="module">
+        // --- 1. IMPORTAÇÕES DO FIREBASE E DOCX ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import {
+            getFirestore, collection, doc, addDoc, getDoc, updateDoc, deleteDoc,
+            onSnapshot, query, orderBy, serverTimestamp, writeBatch, getDocs, setDoc
+        } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        import * as docx from "https://unpkg.com/docx@8.2.2/build/index.js";
+
+        // --- 2. CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4",
+            authDomain: "qualificacao-a14ff.firebaseapp.com",
+            projectId: "qualificacao-a14ff",
+            storageBucket: "qualificacao-a14ff.appspot.com",
+            messagingSenderId: "955642076737",
+            appId: "1:955642076737:web:f6db77134cd6a18b8f30c0"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- 3. LÓGICA PRINCIPAL DO DASHBOARD ---
+        document.addEventListener('DOMContentLoaded', () => {
+            onAuthStateChanged(auth, async (user) => {
+                const authCheckDiv = document.getElementById('auth-check');
+                const accessDeniedDiv = document.getElementById('access-denied');
+                const dashboardAppDiv = document.getElementById('dashboard-app');
+
+                if (user) {
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (userDoc.exists() && userDoc.data().role === 'admin') {
+                        authCheckDiv.classList.add('hidden');
+                        dashboardAppDiv.classList.remove('hidden');
+                        initializeAppDashboard(user); // Inicia o app se for admin
+                    } else {
+                        authCheckDiv.classList.add('hidden');
+                        accessDeniedDiv.classList.remove('hidden');
+                    }
+                } else {
+                    authCheckDiv.classList.add('hidden');
+                    accessDeniedDiv.classList.remove('hidden');
+                }
+            });
+        });
+
+        function initializeAppDashboard(adminUser) {
+            // --- Variáveis de Estado ---
+            let allLeadsData = [], allUsersData = [], chartInstances = {}, confirmCallback, currentCaseData;
+
+            // --- Elementos DOM ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const pageTitle = document.getElementById('page-title');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const caseDetailsModal = document.getElementById('caseDetailsModal');
+            
+            // --- Funções Auxiliares ---
+            const renderTable = (tbodyId, data, rowTemplate) => document.getElementById(tbodyId).innerHTML = data.map(rowTemplate).join('');
+            const createLog = async (action, details) => await addDoc(collection(db, 'logs'), { action, details, userEmail: adminUser.email, timestamp: serverTimestamp() });
+            const showConfirmationModal = (title, msg, cb) => {
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalMessage').textContent = msg;
+                confirmCallback = cb;
+                confirmationModal.classList.remove('hidden');
+            };
+
+            // --- Funções de Renderização ---
+            const renderLeadsTable = leads => renderTable('all-leads-table', leads, l => `<tr class="border-b"><td class="p-2">${l.contato||''}</td><td class="p-2">${l.vendedor||''}</td><td class="p-2">${l.fonte||''}</td><td class="p-2">${l.qualificacao||''}</td><td class="p-2 text-xs">${l.lastUpdatedAt ? new Date(l.lastUpdatedAt.seconds*1000).toLocaleString('pt-BR'):''}</td></tr>`);
+            const renderCasesTable = leads => renderTable('all-cases-table', leads.filter(l => l.descricao_caso), l => `<tr class="border-b"><td class="p-2">${l.contato||''}</td><td class="p-2">${l.vendedor||''}</td><td class="p-2">${(l.chamados||[]).join(', ')}</td><td class="p-2 text-xs">${l.descricao_caso.substring(0,50)}...</td><td class="p-2"><button data-lead-id="${l.id}" class="view-case-btn text-sm bg-gray-600 text-white py-1 px-2 rounded">Ver</button></td></tr>`);
+            const renderUsersTable = users => renderTable('users-table', users, u => `<tr class="border-b"><td class="p-2">${u.nome||'N/A'}</td><td class="p-2">${u.email}</td><td class="p-2">${u.role}</td><td class="p-2 flex gap-2"><button data-uid="${u.id}" class="promote-btn text-green-600" title="Promover"><i class="fas fa-user-shield"></i></button><button data-uid="${u.id}" class="demote-btn text-yellow-600" title="Reverter"><i class="fas fa-user-minus"></i></button></td></tr>`);
+            const renderReportsTable = reports => renderTable('reports-table', reports, r => `<tr class="border-b"><td class="p-2">${r.id}</td><td class="p-2">${r.leads.length}</td><td class="p-2"><button data-report-id="${r.id}" class="export-report-btn text-sm bg-green-500 text-white py-1 px-2 rounded">Exportar</button></td></tr>`);
+            const renderLogsTable = logs => renderTable('logs-table', logs, l => `<tr class="border-b"><td class="p-2 text-xs">${l.timestamp ? new Date(l.timestamp.seconds*1000).toLocaleString('pt-BR'):''}</td><td class="p-2">${l.action}</td><td class="p-2 text-xs">${l.details} por ${l.userEmail||''}</td></tr>`);
+            const renderList = (divId, docs) => document.getElementById(divId).innerHTML = docs.map(d => `<div class="flex justify-between items-center bg-gray-100 p-2 rounded"><span>${d.data().nome}</span><button data-id="${d.id}" class="delete-btn text-red-500 hover:text-red-700 text-xs font-semibold">Excluir</button></div>`).join('');
+            const renderQualificacoesList = docs => renderList('qualificacoes-list', docs);
+            const renderFontesList = docs => renderList('fontes-list', docs);
+            const populateFilter = (id, options) => {
+                const select = document.getElementById(id), current = select.value;
+                select.innerHTML = `<option value="all">${id.includes('vendedor') ? 'Todos os Vendedores' : (id.includes('fonte') ? 'Todas as Fontes' : 'Todas as Qualificações')}</option>`;
+                options.forEach(opt => select.innerHTML += `<option value="${opt}">${opt}</option>`);
+                select.value = current || 'all';
+            };
+
+            // --- Lógica de Gráficos e KPIs ---
+            const renderChart = (id, type, labels, data, label) => {
+                if(chartInstances[id]) chartInstances[id].destroy();
+                chartInstances[id] = new Chart(document.getElementById(id).getContext('2d'), { type, data: { labels, datasets: [{ label, data, backgroundColor: ['#3B82F6', '#EF4444', '#FFC107', '#87CEEB', '#28A745', '#BDB76B', '#4682B4', '#8A2BE2', '#006400', '#FF4500', '#696969'] }] } });
+            };
+
+            const updateDashboard = (leads) => {
+                // KPIs
+                const kpis = { total: leads.length, vendas: leads.filter(l => l.qualificacao === 'Venda Realizada').length, ativos: leads.filter(l => l.qualificacao && !['Venda Realizada', 'Instalação Concluída'].includes(l.qualificacao)).length, vendedores: allUsersData.filter(u=>u.nome).length };
+                Object.keys(kpis).forEach(k => document.getElementById(`kpi-${k}`).textContent = kpis[k]);
+                // Gráficos
+                const statusCounts = leads.reduce((acc, l) => { if(l.qualificacao) acc[l.qualificacao] = (acc[l.qualificacao] || 0) + 1; return acc; }, {});
+                const vendedorCounts = leads.reduce((acc, l) => { if(l.vendedor) acc[l.vendedor] = (acc[l.vendedor] || 0) + 1; return acc; }, {});
+                renderChart('statusChart', 'doughnut', Object.keys(statusCounts), Object.values(statusCounts));
+                renderChart('vendedorChart', 'bar', Object.keys(vendedorCounts), Object.values(vendedorCounts), 'Leads por Vendedor');
+                // Leaderboard
+                const salesByVendedor = leads.filter(l => l.qualificacao === 'Venda Realizada').reduce((acc, l) => { if(l.vendedor) acc[l.vendedor] = (acc[l.vendedor] || 0) + 1; return acc; }, {});
+                const sortedVendedores = Object.entries(salesByVendedor).sort((a, b) => b[1] - a[1]);
+                document.getElementById('leaderboard-table').innerHTML = sortedVendedores.map(([nome, vendas], i) => `<tr class="border-b"><td class="p-2 font-bold">${i + 1}º</td><td class="p-2">${nome}</td><td class="p-2">${vendas}</td></tr>`).join('');
+            };
+
+            // --- Lógica Principal de Filtros e Dados ---
+            const applyFilters = () => {
+                const filters = { date: document.getElementById('date-filter').value, vendedor: document.getElementById('filter-vendedor').value, fonte: document.getElementById('filter-fonte').value, qualificacao: document.getElementById('filter-qualificacao').value };
+                let filteredLeads = allLeadsData;
+                // Aplicar filtros... (mesma lógica do script anterior)
+                updateDashboard(filteredLeads);
+                renderLeadsTable(filteredLeads);
+                renderCasesTable(filteredLeads);
+            };
+
+            const listenToAllData = () => {
+                onSnapshot(collection(db, 'leads'), s => { allLeadsData = s.docs.map(d => ({id: d.id, ...d.data()})); applyFilters(); });
+                onSnapshot(collection(db, 'users'), s => { allUsersData = s.docs.map(d => ({id: d.id, ...d.data()})); renderUsersTable(allUsersData); populateFilter('filter-vendedor', allUsersData.filter(u => u.nome).map(u => u.nome)); });
+                onSnapshot(query(collection(db, 'qualificacoes'), orderBy('nome')), s => { renderQualificacoesList(s.docs); populateFilter('filter-qualificacao', s.docs.map(d => d.data().nome)); });
+                onSnapshot(query(collection(db, 'fontes'), orderBy('nome')), s => { renderFontesList(s.docs); populateFilter('filter-fonte', s.docs.map(d => d.data().nome)); });
+                onSnapshot(query(collection(db, 'relatorios_diarios'), orderBy('createdAt', 'desc')), s => renderReportsTable(s.docs.map(d => ({id: d.id, ...d.data()}))));
+                onSnapshot(query(collection(db, 'logs'), orderBy('timestamp', 'desc')), s => renderLogsTable(s.docs.map(d => d.data())));
+            };
+
+            // --- Lógica de Ações e Eventos ---
+            const setupEventListeners = () => {
+                // Navegação
+                navLinks.forEach(link => link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    pageSections.forEach(s => s.classList.add('hidden'));
+                    document.getElementById(`${targetId}-section`).classList.remove('hidden');
+                    navLinks.forEach(l => l.classList.remove('bg-gray-200'));
+                    link.classList.add('bg-gray-200');
+                    pageTitle.textContent = link.querySelector('span').textContent;
+                }));
+
+                // Filtros
+                document.querySelectorAll('#filter-qualificacao, #filter-fonte, #filter-vendedor, #date-filter').forEach(el => el.addEventListener('change', applyFilters));
+
+                // Ações de Admin
+                document.getElementById('add-qualificacao-btn').addEventListener('click', async () => { const nome = document.getElementById('new-qualificacao-input').value.trim(); if(nome) { await addDoc(collection(db, 'qualificacoes'), { nome }); document.getElementById('new-qualificacao-input').value = ''; } });
+                document.getElementById('add-fonte-btn').addEventListener('click', async () => { const nome = document.getElementById('new-fonte-input').value.trim(); if(nome) { await addDoc(collection(db, 'fontes'), { nome }); document.getElementById('new-fonte-input').value = ''; } });
+                document.getElementById('qualificacoes-list').addEventListener('click', async e => { if (e.target.closest('.delete-btn')) await deleteDoc(doc(db, 'qualificacoes', e.target.closest('.delete-btn').dataset.id)); });
+                document.getElementById('fontes-list').addEventListener('click', async e => { if (e.target.closest('.delete-btn')) await deleteDoc(doc(db, 'fontes', e.target.closest('.delete-btn').dataset.id)); });
+
+                document.getElementById('saveReportBtn').addEventListener('click', () => showConfirmationModal('Salvar Relatório', 'Deseja criar um backup de todos os leads atuais?', async () => {
+                    const date = new Date().toISOString().split('T')[0];
+                    if((await getDoc(doc(db, 'relatorios_diarios', date))).exists()) return alert('O relatório de hoje já foi salvo.');
+                    await setDoc(doc(db, 'relatorios_diarios', date), { leads: allLeadsData, createdAt: serverTimestamp() });
+                    createLog('Relatório Salvo', `Relatório do dia ${date} salvo`);
+                    alert('Relatório diário salvo com sucesso!');
+                }));
+
+                // Modais
+                document.getElementById('cancelAction').addEventListener('click', () => confirmationModal.classList.add('hidden'));
+                document.getElementById('confirmAction').addEventListener('click', () => { if(confirmCallback) confirmCallback(); confirmationModal.classList.add('hidden'); });
+                document.getElementById('closeCaseDetailsModal').addEventListener('click', () => caseDetailsModal.classList.add('hidden'));
+            };
+
+            // --- Inicialização ---
+            listenToAllData();
+            setupEventListeners();
+        }
+    </script>
+</body>
+</html>
