@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Gestor - Piel Telecom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-gray-100">
+
+    <div id="auth-check" class="flex items-center justify-center min-h-screen"><p class="text-gray-600 flex items-center gap-2"><i class="fas fa-spinner fa-spin"></i> Verificando autorização...</p></div>
+    <div id="access-denied" class="hidden flex flex-col items-center justify-center min-h-screen text-center p-4"><i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i><h1 class="text-3xl font-bold text-gray-800">Acesso Negado</h1><p class="text-gray-600 mt-2">Você não tem permissão para acessar esta página.</p><a href="./index.html" class="mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Voltar</a></div>
+
+    <div id="manager-app" class="hidden w-full max-w-[95vw] mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 my-4">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Painel de Gestão</h1>
+                <p id="user-info" class="text-sm text-gray-500"></p>
+            </div>
+            <a href="./index.html" class="text-sm text-blue-600 hover:underline mt-4 md:mt-0">Voltar ao Qualificador</a>
+        </header>
+
+        <main>
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="flex -mb-px" aria-label="Tabs">
+                    <a href="#" id="tab-vendas" class="nav-tab border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Gerenciamento de Vendas</a>
+                    <a href="#" id="tab-casos" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ml-8">Acompanhamento de Casos</a>
+                </nav>
+            </div>
+
+            <div id="vendas-section" class="page-section">
+                <div class="flex flex-wrap items-center gap-4 p-4 bg-gray-50 rounded-lg mb-4">
+                    <div class="flex-grow w-full md:w-auto">
+                        <label for="search-input" class="text-sm font-medium text-gray-700">Pesquisar</label>
+                        <input type="search" id="search-input" placeholder="Nome, CPF, contato..." class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm">
+                    </div>
+                    <div class="flex-grow">
+                        <label for="filter-vendedor" class="text-sm font-medium text-gray-700">Vendedor</label>
+                        <select id="filter-vendedor" class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm"></select>
+                    </div>
+                    <div class="flex-grow">
+                        <label for="filter-status" class="text-sm font-medium text-gray-700">Status da Venda</label>
+                        <select id="filter-status" class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm">
+                            <option value="all">Todos os Status</option>
+                            <option value="Ativa">Ativas</option>
+                            <option value="Agendada">Agendadas</option>
+                            <option value="Pendente">Pendentes</option>
+                            <option value="Cancelada">Canceladas</option>
+                            <option value="Suspensa">Suspensas</option>
+                        </select>
+                    </div>
+                    <div class="flex-grow">
+                        <label for="filter-month" class="text-sm font-medium text-gray-700">Mês da Venda</label>
+                        <input type="month" id="filter-month" class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm">
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border">
+                    <table class="min-w-full text-sm bg-white">
+                        <thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Plano</th><th class="p-3 font-semibold">Valor</th><th class="p-3 font-semibold">Status</th><th class="p-3 font-semibold">Data da Venda</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead>
+                        <tbody id="manager-sales-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="casos-section" class="page-section hidden">
+                <div class="overflow-x-auto rounded-lg border">
+                    <table class="min-w-full text-sm bg-white">
+                        <thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Data de Retorno</th><th class="p-3 font-semibold">Descrição Breve</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead>
+                        <tbody id="manager-cases-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="saleDetailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl max-w-4xl w-full my-auto flex flex-col h-[95vh]">
+            <div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white"><h2 id="modal-title" class="text-xl font-bold text-gray-800"></h2><button id="closeSaleDetailModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div>
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados do Cliente</legend><div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 text-sm"><div><label class="font-semibold text-gray-500">Nome:</label><p id="detail-nome"></p></div><div><label class="font-semibold text-gray-500">CPF:</label><p id="detail-cpf"></p></div><div><label class="font-semibold text-gray-500">RG:</label><p id="detail-rg"></p></div><div><label class="font-semibold text-gray-500">Nascimento:</label><p id="detail-nascimento"></p></div><div><label class="font-semibold text-gray-500">Telefone:</label><p id="detail-telefone"></p></div><div><label class="font-semibold text-gray-500">E-mail:</label><p id="detail-email"></p></div></div></fieldset>
+                <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Endereço</legend><div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2 text-sm"><div class="md:col-span-4"><label class="font-semibold text-gray-500">Endereço Completo:</label><p id="detail-endereco"></p></div><div><label class="font-semibold text-gray-500">Bairro:</label><p id="detail-bairro"></p></div><div><label class="font-semibold text-gray-500">Cidade:</label><p id="detail-cidade"></p></div><div><label class="font-semibold text-gray-500">CEP:</label><p id="detail-cep"></p></div></div></fieldset>
+                <fieldset id="venda-details-fieldset" class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados da Venda</legend><div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 text-sm"><div><label class="font-semibold text-gray-500">Plano:</label><p id="detail-plano"></p></div><div><label class="font-semibold text-gray-500">Valor:</label><p id="detail-valor"></p></div><div><label class="font-semibold text-gray-500">Operadora:</label><p id="detail-operadora"></p></div><div><label class="font-semibold text-gray-500">Fonte:</label><p id="detail-fonte"></p></div><div><label class="font-semibold text-gray-500">Vendedor:</label><p id="detail-vendedor"></p></div><div><label class="font-semibold text-gray-500">Data da Venda:</label><p id="detail-data-venda"></p></div><div><label class="font-semibold text-gray-500">Contrato:</label><p id="detail-contrato"></p></div><div><label class="font-semibold text-gray-500">Protocolo:</label><p id="detail-protocolo"></p></div></div><div class="mt-4 text-sm"><label class="font-semibold text-gray-500">Observação do Vendedor:</label><p id="detail-obs-vendedor" class="p-2 bg-gray-50 rounded mt-1 whitespace-pre-wrap"></p></div></fieldset>
+                <fieldset id="caso-details-fieldset" class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Detalhes do Caso</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 text-sm"><div><label class="font-semibold text-gray-500">Prazo de Retorno:</label><p id="detail-prazo"></p></div><div><label class="font-semibold text-gray-500">Nível de Urgência:</label><p id="detail-urgencia"></p></div><div class="col-span-2"><label class="font-semibold text-gray-500">Descrição Detalhada:</label><p id="detail-descricao-caso" class="p-2 bg-gray-50 rounded mt-1 whitespace-pre-wrap"></p></div></div></fieldset>
+                <fieldset class="border p-4 rounded-lg bg-blue-50 border-blue-200"><legend class="text-lg font-medium text-blue-800 px-2">Gerenciamento</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2"><div id="status-management-section">
+                            <label for="detail-status" class="block text-sm font-medium text-gray-700 mb-1">Alterar Status</label>
+                            <select id="detail-status" class="w-full p-2 border rounded-md text-sm shadow-sm"></select>
+                            <p class="text-xs text-gray-500 mt-1">Última atualização: <span id="detail-data-status"></span></p>
+                        </div><div>
+                            <label for="detail-obs-gestor" class="block text-sm font-medium text-gray-700 mb-1">Observação do Gestor</label>
+                            <textarea id="detail-obs-gestor" rows="3" class="w-full p-2 border rounded-md text-sm shadow-sm" placeholder="Adicione uma nota sobre este caso..."></textarea>
+                        </div></div></fieldset>
+            </div>
+            <div class="flex justify-end gap-4 p-4 border-t sticky bottom-0 bg-gray-50"><button id="cancelSaleDetail" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button><button id="saveSaleDetail" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Salvar Alterações</button></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, onSnapshot, query, updateDoc, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4", authDomain: "qualificacao-a14ff.firebaseapp.com", projectId: "qualificacao-a14ff", storageBucket: "qualificacao-a14ff.appspot.com", messagingSenderId: "955642076737", appId: "1:955642076737:web:f6db77134cd6a18b8f30c0" };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let allLeadsData = [], allUsersData = [], allQualificacoesData = [], currentEditingLeadId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            onAuthStateChanged(auth, async (user) => {
+                const authCheckDiv=document.getElementById('auth-check'),accessDeniedDiv=document.getElementById('access-denied'),managerAppDiv=document.getElementById('manager-app');
+                if(user){const userDoc=await getDoc(doc(db,'users',user.uid));if(userDoc.exists()&&(userDoc.data().role==='admin'||userDoc.data().role==='gestor')){authCheckDiv.classList.add('hidden');managerAppDiv.classList.remove('hidden');document.getElementById('user-info').textContent=`Logado como: ${userDoc.data().nome} (${userDoc.data().role})`;initializeAppManager()}else{authCheckDiv.classList.add('hidden');accessDeniedDiv.classList.remove('hidden')}}else{authCheckDiv.classList.add('hidden');accessDeniedDiv.classList.remove('hidden')}});
+        });
+
+        function initializeAppManager() {
+            const searchInput = document.getElementById('search-input');
+            const vendedorFilter = document.getElementById('filter-vendedor');
+            const statusFilter = document.getElementById('filter-status');
+            const monthFilter = document.getElementById('filter-month');
+            const saleDetailModal = document.getElementById('saleDetailModal');
+
+            // Lógica das Abas
+            document.querySelectorAll('.nav-tab').forEach(tab=>{tab.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('.page-section').forEach(s=>s.classList.add('hidden'));document.querySelectorAll('.nav-tab').forEach(t=>{t.classList.remove('border-blue-500','text-blue-600');t.classList.add('border-transparent','text-gray-500','hover:text-gray-700')});if(tab.id==='tab-vendas'){document.getElementById('vendas-section').classList.remove('hidden')}else if(tab.id==='tab-casos'){document.getElementById('casos-section').classList.remove('hidden')}tab.classList.add('border-blue-500','text-blue-600');tab.classList.remove('border-transparent','text-gray-500')})});
+
+            const loadInitialData = () => {
+                onSnapshot(query(collection(db,'users')),s=>{allUsersData=s.docs.map(d=>d.data());vendedorFilter.innerHTML='<option value="all">Todos os Vendedores</option>';allUsersData.filter(u=>u.nome).sort((a,b)=>a.nome.localeCompare(b.nome)).forEach(u=>vendedorFilter.innerHTML+=`<option value="${u.nome}">${u.nome}</option>`)});
+                onSnapshot(query(collection(db,'qualificacoes')),s=>{allQualificacoesData=s.docs.map(d=>({...d.data(),id:d.id}));applyFiltersAndRender()});
+                onSnapshot(query(collection(db,'leads'),orderBy('createdAt','desc')),s=>{allLeadsData=s.docs.map(d=>({...d.data(),id:d.id}));applyFiltersAndRender()});
+            };
+
+            const applyFiltersAndRender = () => {
+                const salesQualificacoes = allQualificacoesData.filter(q => q.showInSales === 'true' || q.kpiLink === 'vendasRealizadas' || q.kpiLink === 'vendasAgendadas').map(q => q.nome);
+                let sales = allLeadsData.filter(l => salesQualificacoes.includes(l.qualificacao));
+                let cases = allLeadsData.filter(l => l.descricao_caso && l.descricao_caso.trim() !== '');
+
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const vendedor = vendedorFilter.value;
+                const status = statusFilter.value;
+                const month = monthFilter.value;
+
+                if (searchTerm) {
+                    const searchFilter = l => [l.nome_completo, l.cpfCnpj, l.contato, l.protocolo, l.contrato].some(f => f && f.toLowerCase().includes(searchTerm));
+                    sales = sales.filter(searchFilter);
+                    cases = cases.filter(searchFilter);
+                }
+
+                if (vendedor !== 'all') sales = sales.filter(l => l.vendedor === vendedor);
+                if (status !== 'all') sales = sales.filter(l => l.subStatusAgendamento === status);
+                if (month) sales = sales.filter(l => l.dataVenda && l.dataVenda.startsWith(month));
+
+                renderSalesTable(sales);
+                renderCasesTable(cases);
+            };
+            
+            const renderSalesTable = (data) => {
+                const tableBody = document.getElementById('manager-sales-table');
+                tableBody.innerHTML = data.length === 0 ? `<tr><td colspan="7" class="text-center p-4 text-gray-500">Nenhuma venda encontrada.</td></tr>` : data.map(l => {
+                    const statusColors={'Ativa':'bg-green-100 text-green-800','Cancelada':'bg-red-100 text-red-800','Pendente':'bg-yellow-100 text-yellow-800','Suspensa':'bg-gray-100 text-gray-800','Agendada':'bg-blue-100 text-blue-800'};
+                    return `<tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-medium">${l.nome_completo||'N/A'}</td><td class="p-3">${l.vendedor||'N/A'}</td><td class="p-3">${l.plano||'N/A'}</td>
+                        <td class="p-3">R$ ${l.valorPlano||'0.00'}</td><td class="p-3"><span class="px-2 py-1 text-xs font-semibold rounded-full ${statusColors[l.subStatusAgendamento]||'bg-gray-100'}">${l.subStatusAgendamento||'N/A'}</span></td>
+                        <td class="p-3">${l.dataVenda ? new Date(l.dataVenda+'T00:00:00').toLocaleDateString('pt-BR'):'N/A'}</td><td class="p-3 text-center"><button data-lead-id="${l.id}" data-type="venda" class="view-detail-btn text-sm bg-blue-600 text-white font-semibold py-1 px-3 rounded-lg hover:bg-blue-700">Ver/Editar</button></td>
+                    </tr>`;
+                }).join('');
+            };
+
+            const renderCasesTable = (data) => {
+                const tableBody = document.getElementById('manager-cases-table');
+                tableBody.innerHTML = data.length === 0 ? `<tr><td colspan="5" class="text-center p-4 text-gray-500">Nenhum caso encontrado.</td></tr>` : data.map(l => `
+                    <tr class="border-b hover:bg-gray-50"><td class="p-3 font-medium">${l.nome_completo||l.contato||'N/A'}</td><td class="p-3">${l.vendedor||'N/A'}</td>
+                        <td class="p-3">${l.prazo?new Date(l.prazo+'T00:00:00').toLocaleDateString('pt-BR'):'Não definido'}</td><td class="p-3 text-gray-600">${l.descricao_caso.substring(0,70)}...</td>
+                        <td class="p-3 text-center"><button data-lead-id="${l.id}" data-type="caso" class="view-detail-btn text-sm bg-purple-600 text-white font-semibold py-1 px-3 rounded-lg hover:bg-purple-700">Ver Detalhes</button></td>
+                    </tr>`).join('');
+            };
+
+            const openDetailModal = (leadId, type) => {
+                currentEditingLeadId = leadId;
+                const lead = allLeadsData.find(l => l.id === leadId);
+                if (!lead) return;
+
+                document.getElementById('modal-title').textContent = type === 'venda' ? 'Detalhes da Venda' : 'Detalhes do Caso';
+                document.getElementById('venda-details-fieldset').style.display = type === 'venda' ? 'block' : 'none';
+                document.getElementById('caso-details-fieldset').style.display = type === 'caso' ? 'block' : 'none';
+                document.getElementById('status-management-section').style.display = type === 'venda' ? 'block' : 'none';
+
+                const N_A = 'Não informado', formatDate = d => d ? new Date(d+'T00:00:00').toLocaleDateString('pt-BR'):N_A;
+                const setText = (id, val) => document.getElementById(id).textContent = val || N_A;
+                
+                setText('detail-nome',lead.nome_completo); setText('detail-cpf',lead.cpfCnpj); setText('detail-rg',lead.rg); setText('detail-nascimento',formatDate(lead.dataNascimento)); setText('detail-telefone',lead.contato); setText('detail-email',lead.email); setText('detail-endereco',`${lead.rua||''}, ${lead.numero||''}`); setText('detail-bairro',lead.bairro); setText('detail-cidade',lead.cidade); setText('detail-cep',lead.cep); setText('detail-plano',lead.plano); setText('detail-valor',`R$ ${lead.valorPlano||'0.00'}`); setText('detail-operadora',lead.operadora); setText('detail-fonte',lead.fonteVenda||lead.fonte); setText('detail-vendedor',lead.vendedor); setText('detail-data-venda',formatDate(lead.dataVenda)); setText('detail-contrato',lead.contrato); setText('detail-protocolo',lead.protocolo); setText('detail-obs-vendedor',lead.observacaoVenda); setText('detail-prazo',formatDate(lead.prazo)); setText('detail-urgencia',lead.urgencia); setText('detail-descricao-caso',lead.descricao_caso);
+                
+                document.getElementById('detail-obs-gestor').value = lead.gestor_observacao || '';
+                setText('detail-data-status', lead.lastStatusUpdate ? lead.lastStatusUpdate.toDate().toLocaleString('pt-BR') : 'Nunca');
+
+                const statusSelect=document.getElementById('detail-status'),statuses=['Pendente','Ativa','Cancelada','Suspensa','Agendada'];
+                statusSelect.innerHTML=statuses.map(s=>`<option value="${s}" ${lead.subStatusAgendamento===s?'selected':''}>${s}</option>`).join('');
+                saleDetailModal.classList.remove('hidden');
+            };
+
+            const saveSaleDetails = async () => {
+                if(!currentEditingLeadId) return;
+                const dataToUpdate = {
+                    subStatusAgendamento: document.getElementById('detail-status').value,
+                    gestor_observacao: document.getElementById('detail-obs-gestor').value,
+                    lastStatusUpdate: serverTimestamp()
+                };
+                await updateDoc(doc(db,'leads',currentEditingLeadId),dataToUpdate);
+                saleDetailModal.classList.add('hidden');
+                currentEditingLeadId = null;
+                alert('Alterações salvas com sucesso!');
+            };
+
+            [searchInput, vendedorFilter, statusFilter, monthFilter].forEach(el => el.addEventListener('input', applyFiltersAndRender));
+            document.getElementById('manager-sales-table').addEventListener('click', e => { const btn = e.target.closest('.view-detail-btn'); if(btn) openDetailModal(btn.dataset.leadId, btn.dataset.type) });
+            document.getElementById('manager-cases-table').addEventListener('click', e => { const btn = e.target.closest('.view-detail-btn'); if(btn) openDetailModal(btn.dataset.leadId, btn.dataset.type) });
+            document.getElementById('closeSaleDetailModal').addEventListener('click', () => saleDetailModal.classList.add('hidden'));
+            document.getElementById('cancelSaleDetail').addEventListener('click', () => saleDetailModal.classList.add('hidden'));
+            document.getElementById('saveSaleDetail').addEventListener('click', saveSaleDetails);
+
+            loadInitialData();
+        }
+    </script>
+</body>
+</html>
