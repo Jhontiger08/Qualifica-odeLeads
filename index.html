@@ -55,7 +55,11 @@
     <div id="app" class="hidden w-full max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 my-4 sm:my-8">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
             <div class="text-center md:text-left"><h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Painel de Qualificação de Leads</h1><div id="user-info" class="text-sm text-gray-500"></div></div>
-            <div class="flex flex-wrap justify-center md:justify-end gap-2"><a href="./dashboard.html" id="dashboard-link" class="bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center hidden"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a><button id="addRowBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center"><i class="fas fa-plus mr-2"></i> Adicionar</button><button id="logoutBtn" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 flex items-center"><i class="fas fa-sign-out-alt mr-2"></i> Sair</button></div>
+            <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                <a href="#" id="admin-gestor-link" class="bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 hidden items-center"><i class="fas fa-shield-alt mr-2"></i> Painel de Gestão</a>
+                <button id="addRowBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center"><i class="fas fa-plus mr-2"></i> Adicionar</button>
+                <button id="logoutBtn" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 flex items-center"><i class="fas fa-sign-out-alt mr-2"></i> Sair</button>
+            </div>
         </div>
 
         <div class="border-t border-b border-gray-200 py-3 mb-4">
@@ -117,89 +121,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             let currentUserData = null, leadsUnsubscribe = null, qualificacoesDinamicas = [], fontesDinamicas = [], currentEditingDocId = null, allUserLeads = [], allVendors = [];
             const authScreen = document.getElementById('auth-screen'), loginForm = document.getElementById('login-form'), registerForm = document.getElementById('register-form'), googleLoginBtn = document.getElementById('google-login-btn'), toggleFormLink = document.getElementById('toggle-form'), loginError = document.getElementById('login-error'), registerError = document.getElementById('register-error');
-            const appScreen = document.getElementById('app'), userInfo = document.getElementById('user-info'), logoutBtn = document.getElementById('logoutBtn'), dashboardLink = document.getElementById('dashboard-link'), addRowBtn = document.getElementById('addRowBtn'), tableBody = document.getElementById('leadsTableBody');
+            const appScreen = document.getElementById('app'), userInfo = document.getElementById('user-info'), logoutBtn = document.getElementById('logoutBtn'), adminGestorLink = document.getElementById('admin-gestor-link'), addRowBtn = document.getElementById('addRowBtn'), tableBody = document.getElementById('leadsTableBody');
             const caseModal = document.getElementById('caseModal'), closeCaseModalBtn = document.getElementById('closeCaseModal'), cancelCaseModalBtn = document.getElementById('cancelCaseModal'), saveCaseBtn = document.getElementById('saveCaseBtn');
             const salesModal = document.getElementById('salesModal'), closeSalesModalBtn = document.getElementById('closeSalesModal'), cancelSalesModalBtn = document.getElementById('cancelSalesModal'), saveSaleBtn = document.getElementById('saveSaleBtn');
             const qualificadorSearchInput = document.getElementById('qualificador-search-input');
             
-            // --- NOVA LÓGICA DE AUTENTICAÇÃO ---
-
-            // Esta função centraliza a lógica de redirecionamento após um login BEM SUCEDIDO
             async function handleSuccessfulLogin(user) {
-                if (!user) return;
+    if (!user) return;
+    const userDocSnap = await getDoc(doc(db, 'users', user.uid));
 
-                const userDocRef = doc(db, 'users', user.uid);
-                const userDocSnap = await getDoc(userDocRef);
+    if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
 
-                if (userDocSnap.exists()) {
-                    const userData = userDocSnap.data();
-                    
-                    if (userData.role === 'admin') {
-                        window.location.href = './dashboard.html';
-                    } else if (userData.role === 'gestor') {
-                        window.location.href = './gestor.html';
-                    } else {
-                        // Se for um usuário comum, mostra o qualificador na página atual
-                        authScreen.classList.add('hidden');
-                        appScreen.classList.remove('hidden');
-                        await setupQualificador(user);
-                    }
-                } else {
-                    // Se o perfil não for encontrado, especialmente após um login social
-                    console.error("Perfil do usuário não encontrado. Criando um novo perfil.");
-                    // Cria um perfil básico e tenta o redirecionamento novamente
-                    await createUserProfileDocument(user);
-                    await handleSuccessfulLogin(user);
-                }
-            }
+        // LÓGICA CORRIGIDA AQUI
+        if (userData.role === 'gestor' && userData.isVendedor !== true) {
+            // ÚNICO CASO DE REDIRECIONAMENTO: Gestor que NÃO é vendedor
+            window.location.href = './gestor.html';
+        } else {
+            // TODOS OS OUTROS (Admin, Vendedor, Gestor-Vendedor) vão para o qualificador
+            authScreen.classList.add('hidden');
+            appScreen.classList.remove('hidden');
+            await setupQualificador(user);
+        }
 
-            // onAuthStateChanged agora serve APENAS para tratar do LOGOUT.
-            // Ele NÃO fará mais o login automático ao carregar a página.
-            onAuthStateChanged(auth, (user) => {
-                if (!user) {
-                    // Se o usuário fez logout, garante que a tela de login seja exibida.
-                    if (!appScreen.classList.contains('hidden')) {
-                        appScreen.classList.add('hidden');
-                    }
-                    if (authScreen.classList.contains('hidden')) {
-                        authScreen.classList.remove('hidden');
-                    }
-                    if (leadsUnsubscribe) leadsUnsubscribe();
-                    tableBody.innerHTML = '';
-                }
-            });
+    } else {
+        // Se o perfil não existir, cria e tenta o login novamente
+        await createUserProfileDocument(user);
+        await handleSuccessfulLogin(user);
+    }
+}
 
-            // Adiciona o redirecionamento na função de login por e-mail
-            async function handleEmailLogin(e) { 
-                e.preventDefault(); 
-                try { 
-                    const userCredential = await signInWithEmailAndPassword(auth, loginForm['login-email'].value, loginForm['login-password'].value); 
-                    await handleSuccessfulLogin(userCredential.user);
-                } catch (error) { 
-                    loginError.textContent = 'E-mail ou senha inválidos.'; 
-                    loginError.classList.remove('hidden'); 
-                } 
-            }
-
-            // Adiciona o redirecionamento na função de login com Google
-            async function handleGoogleLogin() { 
-                try { 
-                    const result = await signInWithPopup(auth, googleProvider); 
-                    // Garante que o documento do usuário exista antes de prosseguir
-                    await createUserProfileDocument(result.user);
-                    await handleSuccessfulLogin(result.user); 
-                } catch (error) { 
-                    loginError.textContent = 'Não foi possível fazer login com o Google.'; 
-                    loginError.classList.remove('hidden'); 
-                } 
-            }
+            onAuthStateChanged(auth, (user) => { if (!user) { appScreen.classList.add('hidden'); authScreen.classList.remove('hidden'); if (leadsUnsubscribe) leadsUnsubscribe(); tableBody.innerHTML = ''; } });
+            async function handleEmailLogin(e) { e.preventDefault(); try { const cred = await signInWithEmailAndPassword(auth, loginForm['login-email'].value, loginForm['login-password'].value); await handleSuccessfulLogin(cred.user); } catch (error) { loginError.textContent = 'E-mail ou senha inválidos.'; loginError.classList.remove('hidden'); } }
+            async function handleGoogleLogin() { try { const result = await signInWithPopup(auth, googleProvider); await createUserProfileDocument(result.user); await handleSuccessfulLogin(result.user); } catch (error) { loginError.textContent = 'Não foi possível fazer login com o Google.'; loginError.classList.remove('hidden'); } }
 
             loginForm.addEventListener('submit', handleEmailLogin);
             googleLoginBtn.addEventListener('click', handleGoogleLogin);
             
-            // --- FIM DA NOVA LÓGICA DE AUTENTICAÇÃO ---
-
-
             registerForm.addEventListener('submit', handleEmailRegister);
             toggleFormLink.addEventListener('click', toggleAuthForms);
             logoutBtn.addEventListener('click', () => signOut(auth));
@@ -216,7 +174,19 @@
                     qualificacoesDinamicas = qualificacoesSnap.docs.map(d => d.data().nome).sort();
                     fontesDinamicas = fontesSnap.docs.map(d => d.data().nome).sort();
                     userInfo.textContent = `Vendedor: ${currentUserData.nome} (${currentUserData.email})`;
-                    dashboardLink.classList.toggle('hidden', currentUserData.role !== 'admin' && currentUserData.role !== 'gestor');
+
+                    if (currentUserData.role === 'admin') {
+                        adminGestorLink.href = './dashboard.html';
+                        adminGestorLink.innerHTML = '<i class="fas fa-user-shield mr-2"></i> Painel Admin';
+                        adminGestorLink.classList.remove('hidden');
+                    } else if (currentUserData.role === 'gestor' && currentUserData.isVendedor === true) {
+                        adminGestorLink.href = './gestor.html';
+                        adminGestorLink.innerHTML = '<i class="fas fa-user-tie mr-2"></i> Página do Gestor';
+                        adminGestorLink.classList.remove('hidden');
+                    } else {
+                        adminGestorLink.classList.add('hidden');
+                    }
+                    
                     if (currentUserData.role === 'admin' || currentUserData.role === 'gestor') { const usersSnap = await getDocs(collection(db, 'users')); allVendors = usersSnap.docs.map(d => ({id: d.id, ...d.data()})); }
                     listenToLeads(user.uid);
                 } catch (error) { console.error("Erro ao configurar o qualificador:", error); signOut(auth); }
