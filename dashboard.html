@@ -25,15 +25,15 @@
                     <nav class="flex-1 px-2 py-4 bg-white">
                         <a href="#dashboard" class="nav-link flex items-center px-4 py-2 text-gray-700 bg-gray-200 rounded-md"><i class="fas fa-tachometer-alt w-6 text-center"></i><span class="mx-4">Dashboard</span></a>
                         <a href="./gestor.html" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-user-tie w-6 text-center"></i><span class="mx-4">Página do Gestor</span></a>
-                        <a href="http://central.desktop.com.br/" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-file-invoice-dollar w-6 text-center"></i><span class="mx-4">Central do Cliente</span></a>
-                        <a href="#vendas" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-dollar-sign w-6 text-center"></i><span class="mx-4">Vendas</span></a>
+                        <a href="#financeiro" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-chart-pie w-6 text-center"></i><span class="mx-4">Financeiro</span></a>
+                        <a href="#empresas" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-building w-6 text-center"></i><span class="mx-4">Empresas</span></a>
                         <a href="#produtos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-box-open w-6 text-center"></i><span class="mx-4">Produtos</span></a>
                         <a href="#leads" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-users w-6 text-center"></i><span class="mx-4">Leads</span></a>
                         <a href="#casos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-file-signature w-6 text-center"></i><span class="mx-4">Casos</span></a>
                         <a href="#relatorios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-history w-6 text-center"></i><span class="mx-4">Relatórios Salvos</span></a>
                         <a href="#usuarios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-user-shield w-6 text-center"></i><span class="mx-4">Usuários</span></a>
                         <a href="#times" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-sitemap w-6 text-center"></i><span class="mx-4">Times</span></a>
-                        <a href="#logs" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-clipboard-list w-6 text-center"></i><span class="mx-4">Logs</span></a>
+                        <a href="#parceiros" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-store w-6 text-center"></i><span class="mx-4">Parceiros</span></a>
                         <a href="#configuracoes" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-cog w-6 text-center"></i><span class="mx-4">Configurações</span></a>
                     </nav>
                 </div>
@@ -72,9 +72,127 @@
                         </div>
                     </div>
 
-                    <div id="vendas-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Painel de Vendas</h2>
-                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Plano</th><th class="p-2 text-left">Valor</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">Status Agend.</th><th class="p-2 text-left">Data da Venda</th></tr></thead><tbody id="sales-table-body"></tbody></table></div>
+                    <div id="financeiro-section" class="page-section hidden">
+                        <div class="border-b border-gray-200 mb-6">
+                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                <a href="#" id="tab-financeiro-dashboard" class="finance-tab border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Visão Geral</a>
+                                <a href="#" id="tab-financeiro-despesas" class="finance-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Lançar Despesas</a>
+                                <a href="#" id="tab-financeiro-metas" class="finance-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Configurar Metas</a>
+                                <a href="#" id="tab-financeiro-relatorios" class="finance-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Relatório de Comissões</a>
+                            </nav>
+                        </div>
+
+                        <div id="financeiro-dashboard-content" class="finance-sub-section">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                                <div class="bg-green-50 p-6 rounded-lg border border-green-200"><h3 class="text-sm font-medium text-green-700">Receita Bruta (Mês)</h3><p id="kpi-receita" class="text-3xl font-bold text-green-800 mt-2">R$ 0,00</p></div>
+                                <div class="bg-red-50 p-6 rounded-lg border border-red-200"><h3 class="text-sm font-medium text-red-700">Despesas Totais (Mês)</h3><p id="kpi-despesas" class="text-3xl font-bold text-red-800 mt-2">R$ 0,00</p></div>
+                                <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200"><h3 class="text-sm font-medium text-yellow-700">Comissões a Pagar (Mês)</h3><p id="kpi-comissoes" class="text-3xl font-bold text-yellow-800 mt-2">R$ 0,00</p></div>
+                                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200"><h3 class="text-sm font-medium text-blue-700">Lucro Líquido (Mês)</h3><p id="kpi-lucro" class="text-3xl font-bold text-blue-800 mt-2">R$ 0,00</p></div>
+                            </div>
+                            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Receita vs. Despesas vs. Lucro</h3><canvas id="lucroChart"></canvas></div>
+                                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Despesas por Categoria</h3><canvas id="despesasChart"></canvas></div>
+                            </div>
+                        </div>
+
+                        <div id="financeiro-despesas-content" class="finance-sub-section hidden">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow sticky top-8"><h3 class="font-semibold text-xl mb-4">Nova Despesa</h3><form id="despesa-form" class="space-y-4"><div><label for="despesa-descricao" class="block text-sm font-medium">Descrição</label><input type="text" id="despesa-descricao" class="mt-1 w-full p-2 border rounded-md" required></div><div><label for="despesa-valor" class="block text-sm font-medium">Valor (R$)</label><input type="number" id="despesa-valor" class="mt-1 w-full p-2 border rounded-md" step="0.01" required></div>
+                                    <div>
+                                        <label for="despesa-categoria" class="block text-sm font-medium">Categoria</label>
+                                        <div class="flex items-center gap-2 mt-1">
+                                            <select id="despesa-categoria" class="w-full p-2 border rounded-md"></select>
+                                            <button type="button" id="add-categoria-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-3 rounded-lg" title="Criar Nova Categoria">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div id="nova-categoria-container" class="hidden mt-2">
+                                            <input type="text" id="nova-categoria-input" placeholder="Nome da nova categoria" class="w-full p-2 border rounded-md">
+                                            <button type="button" id="save-categoria-btn" class="w-full mt-2 bg-green-500 text-white font-semibold py-2 px-4 rounded-lg">Salvar Categoria</button>
+                                        </div>
+                                    </div>
+                                    <div><label for="despesa-data" class="block text-sm font-medium">Data</label><input type="date" id="despesa-data" class="mt-1 w-full p-2 border rounded-md" required></div><button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Lançar Despesa</button></form></div></div>
+                                <div class="lg:col-span-2"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-xl mb-4">Despesas Recentes</h3><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data</th><th class="p-2 text-left">Descrição</th><th class="p-2 text-left">Categoria</th><th class="p-2 text-right">Valor</th><th class="p-2 text-center">Ações</th></tr></thead><tbody id="despesas-table-body"></tbody></table></div></div></div>
+                            </div>
+                        </div>
+
+                        <div id="financeiro-metas-content" class="finance-sub-section hidden">
+                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow sticky top-8"><h3 class="font-semibold text-xl mb-4">Nova Meta</h3><form id="meta-form" class="space-y-4"><div><label for="meta-nome" class="block text-sm font-medium">Nome da Meta (Ex: Bônus Ouro)</label><input type="text" id="meta-nome" class="mt-1 w-full p-2 border rounded-md" required></div>
+                                <div><label for="meta-empresa" class="block text-sm font-medium">Empresa</label><select id="meta-empresa" class="mt-1 w-full p-2 border rounded-md" required><option value="">Selecione a Empresa</option></select></div>
+                                <div><label for="meta-valor" class="block text-sm font-medium">Valor Mínimo de Vendas (R$)</label><input type="number" id="meta-valor" class="mt-1 w-full p-2 border rounded-md" step="0.01" required></div><div><label for="meta-bonus" class="block text-sm font-medium">Bônus Adicional (%)</label><input type="number" id="meta-bonus" class="mt-1 w-full p-2 border rounded-md" step="0.1" required></div><button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Salvar Meta</button></form></div></div>
+                                <div class="lg:col-span-2"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-xl mb-4">Metas Ativas</h3><div id="metas-list-container" class="space-y-3"></div></div></div>
+                            </div>
+                        </div>
+
+                        <div id="financeiro-relatorios-content" class="finance-sub-section hidden">
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="font-semibold text-xl mb-4">Relatório de Comissões por Vendedor</h3>
+                                <div class="flex flex-wrap gap-4 mb-6 p-4 bg-gray-50 rounded-lg border">
+                                    <div class="flex-1 min-w-[200px]">
+                                        <label for="comissao-mes" class="block text-sm font-medium text-gray-700">Mês de Referência</label>
+                                        <input type="month" id="comissao-mes" class="mt-1 w-full p-2 border rounded-md" required>
+                                    </div>
+                                    <div class="flex-1 min-w-[200px]">
+                                        <label for="comissao-vendedor" class="block text-sm font-medium text-gray-700">Vendedor (Opcional)</label>
+                                        <select id="comissao-vendedor" class="mt-1 w-full p-2 border rounded-md">
+                                            <option value="all">Todos os Vendedores</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-end">
+                                        <button id="gerar-relatorio-comissao" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2"><i class="fas fa-cogs"></i> Gerar Relatório</button>
+                                    </div>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="p-2 text-left">Vendedor</th>
+                                                <th class="p-2 text-right">Total Vendas (R$)</th>
+                                                <th class="p-2 text-right">Estornos (R$)</th>
+                                                <th class="p-2 text-right">Base de Comissão (R$)</th>
+                                                <th class="p-2 text-right">Comissão (R$)</th>
+                                                <th class="p-2 text-center">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="comissao-table-body">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="empresas-section" class="page-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-1">
+                                <div class="bg-white p-6 rounded-lg shadow sticky top-8">
+                                    <h3 id="empresa-form-title" class="font-semibold text-xl mb-4">Adicionar Nova Empresa</h3>
+                                    <form id="empresa-form" class="space-y-4">
+                                        <input type="hidden" id="empresa-id">
+                                        <div>
+                                            <label for="empresa-nome" class="block text-sm font-medium text-gray-700">Nome da Empresa</label>
+                                            <input type="text" id="empresa-nome" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Desktop">
+                                        </div>
+                                        <div>
+                                            <label for="empresa-comissao" class="block text-sm font-medium text-gray-700">Comissão Padrão (%)</label>
+                                            <input type="number" id="empresa-comissao" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: 10" step="0.1">
+                                        </div>
+                                        <div class="flex items-center gap-4 pt-2">
+                                            <button type="submit" id="save-empresa-btn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Empresa</button>
+                                            <button type="button" id="cancel-edit-empresa-btn" class="hidden w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-2">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h3 class="font-semibold text-xl mb-4">Empresas e Comissões</h3>
+                                    <div id="empresas-list-container" class="space-y-3">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div id="produtos-section" class="page-section hidden">
@@ -90,7 +208,12 @@
                                         </div>
                                         <div class="grid grid-cols-2 gap-4">
                                              <div><label for="product-tipo" class="block text-sm font-medium text-gray-700">Tipo</label><input type="text" id="product-tipo" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Fibra, Combo, Móvel"></div>
-                                            <div><label for="product-empresa" class="block text-sm font-medium text-gray-700">Empresa</label><input type="text" id="product-empresa" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Piel Telecom"></div>
+                                             <div>
+                                                <label for="product-empresa" class="block text-sm font-medium text-gray-700">Empresa</label>
+                                                <select id="product-empresa" class="mt-1 block w-full px-3 py-2 border rounded-md" required>
+                                                    <option value="">Selecione uma Empresa</option>
+                                                    </select>
+                                            </div>
                                         </div>
                                         <div><label for="product-inclusoes" class="block text-sm font-medium text-gray-700">Inclusões</label><textarea id="product-inclusoes" rows="4" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Descreva o que o plano inclui. Ex: Wi-Fi Grátis..."></textarea></div>
                                         <div class="flex items-center gap-4 pt-2"><button type="submit" id="save-product-btn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Produto</button><button type="button" id="cancel-edit-product-btn" class="hidden w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button></div>
@@ -127,7 +250,17 @@
                     </div>
                     
                     <div id="relatorios-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
-                        <div class="flex justify-end gap-2 mb-4"><button id="saveReportBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-save mr-2"></i> Salvar Relatório do Dia</button></div>
+                        <div class="flex justify-between items-center gap-4 mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div>
+                                <h3 class="font-semibold text-blue-800">Importação de Relatório CSV</h3>
+                                <p class="text-sm text-blue-700">O nome do arquivo deve conter a data (AAAA-MM-DD) para criar o relatório diário.</p>
+                            </div>
+                            <input type="file" id="csv-importer" class="hidden" accept=".csv">
+                            <button id="import-csv-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center flex-shrink-0"><i class="fas fa-upload mr-2"></i> Selecionar Arquivo</button>
+                        </div>
+                        <div class="flex justify-end gap-2 mb-4">
+                            <button id="saveReportBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 text-sm flex items-center"><i class="fas fa-save mr-2"></i> Salvar Relatório do Dia</button>
+                        </div>
                         <div class="overflow-x-auto mb-8"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data do Relatório</th><th class="p-2 text-left">Nº de Leads</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="reports-table"></tbody></table></div>
                     </div>
                     
@@ -151,28 +284,73 @@
                         </div>
                     </div>
 
-                    <div id="logs-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
-                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-6">
-                            <h3 class="font-semibold text-lg text-blue-800 mb-2">Importação de Relatório CSV</h3>
-                            <p class="text-sm text-blue-700 mb-4">Selecione um arquivo CSV. O nome deve conter a data no formato AAAA-MM-DD (ex: `relatorio_2025-08-15.csv`) para criar o relatório diário.</p>
-                            <input type="file" id="csv-importer" class="hidden" accept=".csv"><button id="import-csv-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-upload mr-2"></i> Selecionar Arquivo</button>
+                    <div id="parceiros-section" class="page-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-1">
+                                <div class="bg-white p-6 rounded-lg shadow sticky top-8">
+                                    <h3 id="parceiro-form-title" class="font-semibold text-xl mb-4">Adicionar Novo Parceiro</h3>
+                                    <form id="parceiro-form" class="space-y-4">
+                                        <div>
+                                            <label for="parceiro-nome" class="block text-sm font-medium text-gray-700">Nome da Loja (Fonte)</label>
+                                            <input type="text" id="parceiro-nome" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Magazine da Cidade">
+                                            <p class="text-xs text-gray-500 mt-1">Este nome deve ser idêntico à 'Fonte' usada nos leads.</p>
+                                        </div>
+                                        <div>
+                                            <label for="parceiro-responsavel" class="block text-sm font-medium text-gray-700">Nome do Responsável</label>
+                                            <input type="text" id="parceiro-responsavel" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: João da Silva">
+                                        </div>
+                                        <div>
+                                            <label for="parceiro-email" class="block text-sm font-medium text-gray-700">E-mail de Acesso</label>
+                                            <input type="email" id="parceiro-email" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="email@parceiro.com">
+                                        </div>
+                                         <div>
+                                            <label for="parceiro-telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                                            <input type="tel" id="parceiro-telefone" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="(XX) XXXXX-XXXX">
+                                        </div>
+                                        <div class="pt-2">
+                                            <label for="parceiro-senha" class="block text-sm font-medium text-gray-700">Senha de Acesso</label>
+                                            <input type="password" id="parceiro-senha" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Senha temporária (mín. 6 carac.)">
+                                            <p id="parceiro-senha-aviso" class="text-xs text-gray-500 mt-1 hidden">Deixe em branco para não alterar a senha atual.</p>
+                                        </div>
+                                        <div class="flex items-center gap-4 pt-2">
+                                            <button type="submit" id="save-parceiro-btn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Parceiro</button>
+                                            <button type="button" id="cancel-edit-parceiro-btn" class="hidden w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-2">
+                                <div class="bg-white p-6 rounded-lg shadow">
+                                    <h3 class="font-semibold text-xl mb-4">Parceiros Cadastrados</h3>
+                                    <div id="parceiros-list-container" class="space-y-3">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data/Hora</th><th class="p-2 text-left">Ação</th><th class="p-2 text-left">Detalhes</th></tr></thead><tbody id="logs-table"></tbody></table></div>
                     </div>
                     
                     <div id="configuracoes-section" class="page-section hidden">
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Qualificações</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-qualificacao-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Cliente em Potencial"><button id="add-qualificacao-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="qualificacoes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
-                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Fontes</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-fonte-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Indicação"><button id="add-fonte-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="fontes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
+                            
                             <div class="bg-white p-6 rounded-lg shadow">
-                                <h3 class="font-semibold text-lg mb-4">Configurações Financeiras</h3>
-                                <div class="space-y-4">
-                                    <div><label for="config-comissao" class="block text-sm font-medium text-gray-700">Comissão Padrão (%)</label><input type="number" id="config-comissao" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 10"></div>
-                                    <div><label for="config-meta" class="block text-sm font-medium text-gray-700">Meta Mensal de Vendas (R$)</label><input type="number" id="config-meta" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 5000"></div>
-                                    <div><label for="config-bonus" class="block text-sm font-medium text-gray-700">Comissão Bônus (se meta atingida, %)</label><input type="number" id="config-bonus" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 15"></div>
-                                    <div><label for="config-estornos-toggle" class="block text-sm font-medium text-gray-700">Considerar Estornos no Cálculo</label><select id="config-estornos-toggle" class="mt-1 block w-full px-3 py-2 border rounded-md"><option value="true">Sim</option><option value="false">Não</option></select></div>
+                                <h3 class="font-semibold text-lg mb-4">Gerenciar Fontes</h3>
+                                <div class="mt-1 flex gap-2 mb-4">
+                                    <input type="text" id="new-fonte-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Indicação, Facebook...">
+                                    <button id="add-fonte-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button>
                                 </div>
-                                <div class="mt-6"><button id="save-finance-config-btn" class="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700">Salvar Configurações</button></div>
+                                <div id="fontes-list-container" class="space-y-4 max-h-60 overflow-y-auto">
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-600 border-b pb-2 mb-2">Fontes Manuais</h4>
+                                        <div id="fontes-manual-list" class="space-y-2">
+                                            </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-600 border-b pb-2 mb-2">Fontes de Parceiros</h4>
+                                        <div id="fontes-parceiro-list" class="space-y-2">
+                                            </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -187,6 +365,9 @@
     <div id="editQualificacaoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50"><div class="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full"><h2 class="text-xl font-bold text-gray-800 mb-4">Editar Qualificação</h2><div class="space-y-4"><div><label for="edit-qualificacao-name" class="block text-sm font-medium text-gray-700">Nome da Qualificação</label><input type="text" id="edit-qualificacao-name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="edit-qualificacao-kpi" class="block text-sm font-medium text-gray-700">Função Especial (para os Cards)</label><select id="edit-qualificacao-kpi" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"><option value="none">Nenhuma</option><option value="vendasRealizadas">Conta como Venda Realizada</option><option value="vendasAgendadas">Conta como Venda Agendada</option></select></div><div><label for="edit-qualificacao-show-in-sales" class="block text-sm font-medium text-gray-700">Visibilidade</label><select id="edit-qualificacao-show-in-sales" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"><option value="false">Padrão</option><option value="true">Mostrar na Aba de Vendas</option></select></div></div><div class="flex justify-end gap-4 mt-6"><button id="cancelEditQualificacao" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg">Cancelar</button><button id="saveEditQualificacao" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Salvar</button></div></div></div>
     <div id="salesModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50"><div class="bg-white rounded-lg shadow-2xl max-w-md w-full"><div class="flex justify-between items-center p-6 border-b"><h2 class="text-xl font-bold text-gray-800">Dados da Venda</h2><button id="closeSalesModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div><div class="p-6 space-y-4"><div><label for="saleProtocolo" class="block text-sm font-medium text-gray-700">Número de Protocolo</label><input type="text" id="saleProtocolo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="saleContrato" class="block text-sm font-medium text-gray-700">Número de Contrato</label><input type="text" id="saleContrato" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div></div><div class="flex justify-end gap-4 p-6 bg-gray-50 rounded-b-lg"><button id="cancelSalesModal" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg">Cancelar</button><button id="saveSaleBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Salvar</button></div></div></div>
     <div id="sellerReportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto"><div class="bg-white rounded-lg shadow-2xl max-w-6xl w-full my-auto flex flex-col h-[95vh]"><div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10"><h2 id="sellerReportModalTitle" class="text-xl font-bold text-gray-800">Relatório do Vendedor</h2><div class="flex items-center gap-4"><button id="exportSellerReportPdf" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center text-sm"><i class="fas fa-file-pdf mr-2"></i> Baixar PDF</button><button id="closeSellerReportModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div></div><div id="sellerReportContent" class="p-6 overflow-y-auto flex-1"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"><div class="bg-green-50 p-4 rounded-lg border border-green-200"><h3 class="text-sm font-medium text-green-700">Vendas Realizadas</h3><p id="report-kpi-vendas" class="text-2xl font-bold text-green-800">0</p></div><div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><h3 class="text-sm font-medium text-blue-700">Valor Total (Vendas)</h3><p id="report-kpi-valor" class="text-2xl font-bold text-blue-800">R$ 0,00</p></div><div class="bg-red-50 p-4 rounded-lg border border-red-200"><h3 class="text-sm font-medium text-red-700">Total Estornos</h3><p id="report-kpi-estornos" class="text-2xl font-bold text-red-800">R$ 0,00</p></div><div class="bg-purple-50 p-4 rounded-lg border border-purple-200"><h3 class="text-sm font-medium text-purple-700">Comissão (Estimado)</h3><p id="report-kpi-comissao" class="text-2xl font-bold text-purple-800">R$ 0,00</p></div></div><div class="mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes das Vendas</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Operadora</th></tr></thead><tbody id="seller-sales-table-body"></tbody></table></div></div><div><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes dos Estornos (Vendas Canceladas)</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Status</th></tr></thead><tbody id="seller-estornos-table-body"></tbody></table></div></div></div></div></div>
+
+    <div id="toast-container" class="fixed top-5 right-5 z-[100] space-y-2">
+        </div>
 
     <script type="module" src="./js/dashboard.js"></script>
 </body>
