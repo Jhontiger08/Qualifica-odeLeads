@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Gestor - Piel Telecom</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body class="bg-gray-100">
@@ -15,26 +18,50 @@
     <div id="access-denied" class="hidden flex flex-col items-center justify-center min-h-screen text-center p-4"><i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i><h1 class="text-3xl font-bold text-gray-800">Acesso Negado</h1><p class="text-gray-600 mt-2">Você não tem permissão para acessar esta página.</p><a href="./index.html" class="mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Voltar</a></div>
 
     <div id="manager-app" class="hidden w-full max-w-[95vw] mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 my-4">
-        <header class="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Painel de Gestão</h1>
                 <p id="user-info" class="text-sm text-gray-500"></p>
             </div>
-            <a href="./index.html" class="text-sm text-blue-600 hover:underline mt-4 md:mt-0">Voltar ao Qualificador</a>
+            <div class="flex items-center gap-4">
+                <a href="http://central.desktop.com.br/" class="text-sm text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-invoice-dollar mr-1"></i> Central do Cliente</a>
+                <a href="./index.html" class="text-sm text-blue-600 hover:underline"><i class="fas fa-arrow-left mr-1"></i> Voltar ao Qualificador</a>
+            </div>
         </header>
 
         <main>
             <div class="border-b border-gray-200 mb-4">
-                <nav class="flex -mb-px" aria-label="Tabs">
-                    <a href="#" id="tab-vendas" class="nav-tab border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Gerenciamento de Vendas</a>
-                    <a href="#" id="tab-casos" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ml-8 flex items-center">
-                        Acompanhamento de Casos
+                <nav class="flex -mb-px flex-wrap" aria-label="Tabs">
+                    <a href="#" id="tab-dashboard" class="nav-tab whitespace-nowrap py-4 px-2 border-b-2 font-medium text-sm">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" id="tab-vendas" class="nav-tab whitespace-nowrap py-4 px-2 border-b-2 font-medium text-sm ml-4">
+                        <i class="fas fa-dollar-sign mr-2"></i>Gerenciamento de Vendas
+                    </a>
+                    <a href="#" id="tab-casos" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-2 border-b-2 font-medium text-sm ml-4 flex items-center">
+                        <i class="fas fa-file-signature mr-2"></i>Acompanhamento de Casos
                         <span id="case-notification" class="hidden ml-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="#" id="tab-time" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-2 border-b-2 font-medium text-sm ml-4">
+                        <i class="fas fa-users mr-2"></i>Gerenciamento de Time
                     </a>
                 </nav>
             </div>
 
-            <div id="vendas-section" class="page-section">
+            <div id="dashboard-section" class="page-section">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="text-sm font-medium text-gray-500">Total de Leads (no filtro)</h3><p id="kpi-total" class="text-3xl font-bold text-gray-800">0</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="text-sm font-medium text-gray-500">Vendas Realizadas (vendedores)</h3><p id="kpi-vendas" class="text-3xl font-bold text-gray-800">0</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="text-sm font-medium text-gray-500">Vendas Agendadas (vendedores)</h3><p id="kpi-agendadas" class="text-3xl font-bold text-gray-800">0</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="text-sm font-medium text-gray-500">Vendedores Ativos</h3><p id="kpi-vendedores" class="text-3xl font-bold text-gray-800">0</p></div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="font-semibold mb-4">Leads por Status (vendedores)</h3><canvas id="statusChart"></canvas></div>
+                    <div class="bg-white p-6 rounded-lg shadow border"><h3 class="font-semibold mb-4">Leads por Vendedor (vendedores)</h3><canvas id="vendedorChart"></canvas></div>
+                </div>
+            </div>
+
+            <div id="vendas-section" class="page-section hidden">
                 <div class="flex flex-wrap items-end gap-4 p-4 bg-gray-50 rounded-lg mb-4">
                     <div class="flex-grow w-full md:w-auto"><label for="search-input" class="text-sm font-medium text-gray-700">Pesquisar</label><input type="search" id="search-input" placeholder="Nome, CPF, contato..." class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm"></div>
                     <div class="flex-grow"><label for="filter-vendedor" class="text-sm font-medium text-gray-700">Vendedor</label><select id="filter-vendedor" class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm"></select></div>
@@ -44,22 +71,16 @@
                     <div class="flex-grow"><label for="filter-end-date" class="text-sm font-medium text-gray-700">Data Fim</label><input type="date" id="filter-end-date" class="mt-1 block w-full p-2 border rounded-md text-sm shadow-sm"></div>
                     <div class="flex gap-2"><button id="save-period-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm">Salvar Período</button><button id="clear-period-btn" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 text-sm">Limpar</button></div>
                 </div>
-
-                <div class="overflow-x-auto rounded-lg border">
-                    <table class="min-w-full text-sm bg-white">
-                        <thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Plano</th><th class="p-3 font-semibold">Valor</th><th class="p-3 font-semibold">Status</th><th class="p-3 font-semibold">Data da Venda</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead>
-                        <tbody id="manager-sales-table"></tbody>
-                    </table>
-                </div>
+                <div class="overflow-x-auto rounded-lg border"><table class="min-w-full text-sm bg-white"><thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Plano</th><th class="p-3 font-semibold">Valor</th><th class="p-3 font-semibold">Status</th><th class="p-3 font-semibold">Data da Venda</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead><tbody id="manager-sales-table"></tbody></table></div>
             </div>
 
             <div id="casos-section" class="page-section hidden">
-                <div class="overflow-x-auto rounded-lg border">
-                    <table class="min-w-full text-sm bg-white">
-                        <thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Data de Retorno</th><th class="p-3 font-semibold">Descrição Breve</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead>
-                        <tbody id="manager-cases-table"></tbody>
-                    </table>
-                </div>
+                <div class="overflow-x-auto rounded-lg border"><table class="min-w-full text-sm bg-white"><thead class="bg-gray-100"><tr class="text-left"><th class="p-3 font-semibold">Cliente</th><th class="p-3 font-semibold">Vendedor</th><th class="p-3 font-semibold">Data de Retorno</th><th class="p-3 font-semibold">Descrição Breve</th><th class="p-3 font-semibold text-center">Ações</th></tr></thead><tbody id="manager-cases-table"></tbody></table></div>
+            </div>
+            
+            <div id="time-section" class="page-section hidden">
+                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Meu Time de Vendedores</h2>
+                 <div id="team-members-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
             </div>
         </main>
     </div>
@@ -72,178 +93,33 @@
                 <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Endereço</legend><div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2 text-sm"><div class="md:col-span-4"><label class="font-semibold text-gray-500">Endereço Completo:</label><p id="detail-endereco"></p></div><div><label class="font-semibold text-gray-500">Bairro:</label><p id="detail-bairro"></p></div><div><label class="font-semibold text-gray-500">Cidade:</label><p id="detail-cidade"></p></div><div><label class="font-semibold text-gray-500">CEP:</label><p id="detail-cep"></p></div></div></fieldset>
                 <fieldset id="venda-details-fieldset" class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados da Venda</legend><div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 text-sm"><div><label class="font-semibold text-gray-500">Plano:</label><p id="detail-plano"></p></div><div><label class="font-semibold text-gray-500">Valor:</label><p id="detail-valor"></p></div><div><label class="font-semibold text-gray-500">Operadora:</label><p id="detail-operadora"></p></div><div><label class="font-semibold text-gray-500">Fonte:</label><p id="detail-fonte"></p></div><div><label class="font-semibold text-gray-500">Vendedor:</label><p id="detail-vendedor"></p></div><div><label class="font-semibold text-gray-500">Data da Venda:</label><p id="detail-data-venda"></p></div><div><label class="font-semibold text-gray-500">Contrato:</label><p id="detail-contrato"></p></div><div><label class="font-semibold text-gray-500">Protocolo:</label><p id="detail-protocolo"></p></div></div><div class="mt-4 text-sm"><label class="font-semibold text-gray-500">Observação do Vendedor:</label><p id="detail-obs-vendedor" class="p-2 bg-gray-50 rounded mt-1 whitespace-pre-wrap"></p></div></fieldset>
                 <fieldset id="caso-details-fieldset" class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Detalhes do Caso</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 text-sm"><div><label class="font-semibold text-gray-500">Prazo de Retorno:</label><p id="detail-prazo"></p></div><div><label class="font-semibold text-gray-500">Nível de Urgência:</label><p id="detail-urgencia"></p></div><div class="col-span-2"><label class="font-semibold text-gray-500">Descrição Detalhada:</label><p id="detail-descricao-caso" class="p-2 bg-gray-50 rounded mt-1 whitespace-pre-wrap"></p></div></div></fieldset>
-                <fieldset class="border p-4 rounded-lg bg-blue-50 border-blue-200"><legend class="text-lg font-medium text-blue-800 px-2">Gerenciamento</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2"><div id="status-management-section">
-                            <label for="detail-status" class="block text-sm font-medium text-gray-700 mb-1">Alterar Status</label>
-                            <select id="detail-status" class="w-full p-2 border rounded-md text-sm shadow-sm"></select>
-                            <p class="text-xs text-gray-500 mt-1">Última atualização: <span id="detail-data-status"></span></p>
-                        </div><div>
-                            <label for="detail-obs-gestor" class="block text-sm font-medium text-gray-700 mb-1">Observação do Gestor</label>
-                            <textarea id="detail-obs-gestor" rows="3" class="w-full p-2 border rounded-md text-sm shadow-sm" placeholder="Adicione uma nota sobre este caso..."></textarea>
-                        </div></div></fieldset>
+                <fieldset class="border p-4 rounded-lg bg-blue-50 border-blue-200"><legend class="text-lg font-medium text-blue-800 px-2">Gerenciamento</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2"><div id="status-management-section"><label for="detail-status" class="block text-sm font-medium text-gray-700 mb-1">Alterar Status</label><select id="detail-status" class="w-full p-2 border rounded-md text-sm shadow-sm"></select><p class="text-xs text-gray-500 mt-1">Última atualização: <span id="detail-data-status"></span></p></div><div><label for="detail-obs-gestor" class="block text-sm font-medium text-gray-700 mb-1">Observação do Gestor</label><textarea id="detail-obs-gestor" rows="3" class="w-full p-2 border rounded-md text-sm shadow-sm" placeholder="Adicione uma nota sobre este caso..."></textarea></div></div></fieldset>
             </div>
             <div class="flex justify-end gap-4 p-4 border-t sticky bottom-0 bg-gray-50"><button id="cancelSaleDetail" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button><button id="saveSaleDetail" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Salvar Alterações</button></div>
         </div>
     </div>
-    <div id="chat-widget-container" class="fixed bottom-4 right-4 z-50 hidden">
-    <button id="chat-toggle-btn" class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
-        <i class="fas fa-comments fa-2x"></i>
-        <span id="chat-notification-badge" class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white hidden"></span>
-    </button>
 
-    <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl flex flex-col transition-all duration-300 transform opacity-0 translate-y-4" style="height: 500px;">
-        <div class="flex-shrink-0 flex justify-between items-center p-4 bg-gray-50 border-b rounded-t-xl">
-            <h3 class="font-bold text-gray-800">Chat Global da Equipe</h3>
-            <button id="chat-close-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+    <div id="sellerReportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl max-w-6xl w-full my-auto flex flex-col h-[95vh]">
+            <div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10"><h2 id="sellerReportModalTitle" class="text-xl font-bold text-gray-800">Relatório do Vendedor</h2><div class="flex items-center gap-4"><button id="exportSellerReportPdf" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center text-sm"><i class="fas fa-file-pdf mr-2"></i> Baixar PDF</button><button id="closeSellerReportModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div></div>
+            <div id="sellerReportContent" class="p-6 overflow-y-auto flex-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"><div class="bg-green-50 p-4 rounded-lg border border-green-200"><h3 class="text-sm font-medium text-green-700">Vendas Realizadas</h3><p id="report-kpi-vendas" class="text-2xl font-bold text-green-800">0</p></div><div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><h3 class="text-sm font-medium text-blue-700">Valor Total (Vendas)</h3><p id="report-kpi-valor" class="text-2xl font-bold text-blue-800">R$ 0,00</p></div><div class="bg-red-50 p-4 rounded-lg border border-red-200"><h3 class="text-sm font-medium text-red-700">Total Estornos</h3><p id="report-kpi-estornos" class="text-2xl font-bold text-red-800">R$ 0,00</p></div><div class="bg-purple-50 p-4 rounded-lg border border-purple-200"><h3 class="text-sm font-medium text-purple-700">Comissão (Estimado)</h3><p id="report-kpi-comissao" class="text-2xl font-bold text-purple-800">R$ 0,00</p></div></div>
+                <div class="mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes das Vendas</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Operadora</th></tr></thead><tbody id="seller-sales-table-body"></tbody></table></div></div>
+                <div><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes dos Estornos (Vendas Canceladas)</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Status</th></tr></thead><tbody id="seller-estornos-table-body"></tbody></table></div></div>
+            </div>
         </div>
-        
-        <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto">
-            </div>
-        
-        <form id="chat-form" class="flex-shrink-0 p-4 border-t bg-gray-50 rounded-b-xl">
-            <div class="flex items-center gap-2">
-                <input type="text" id="chat-message-input" class="flex-1 w-full px-3 py-2 border rounded-lg" placeholder="Digite sua mensagem..." autocomplete="off">
-                <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-3 rounded-lg"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </form>
     </div>
-</div>
+    
+    <div id="chat-widget-container" class="fixed bottom-4 right-4 z-50 hidden">
+        <button id="chat-toggle-btn" class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110"><i class="fas fa-comments fa-2x"></i><span id="chat-notification-badge" class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white hidden"></span></button>
+        <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl flex flex-col transition-all duration-300 transform opacity-0 translate-y-4" style="height: 500px;">
+            <div class="flex-shrink-0 flex justify-between items-center p-4 bg-gray-50 border-b rounded-t-xl"><h3 class="font-bold text-gray-800">Chat Global da Equipe</h3><button id="chat-close-btn" class="text-gray-500 hover:text-gray-800">&times;</button></div>
+            <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto"></div>
+            <form id="chat-form" class="flex-shrink-0 p-4 border-t bg-gray-50 rounded-b-xl"><div class="flex items-center gap-2"><input type="text" id="chat-message-input" class="flex-1 w-full px-3 py-2 border rounded-lg" placeholder="Digite sua mensagem..." autocomplete="off"><button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-3 rounded-lg"><i class="fas fa-paper-plane"></i></button></div></form>
+        </div>
+    </div>
+    <audio id="chat-notification-sound" src="https://firebasestorage.googleapis.com/v0/b/qualificacao-a14ff.appspot.com/o/notification.mp3?alt=media&token=c1c2f0f4-9a4f-4a3a-8c8c-1e1b29a8f4b1" preload="auto"></audio>
 
-<audio id="chat-notification-sound" src="https://firebasestorage.googleapis.com/v0/b/qualificacao-a14ff.appspot.com/o/notification.mp3?alt=media&token=c1c2f0f4-9a4f-4a3a-8c8c-1e1b29a8f4b1" preload="auto"></audio>
-
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    import { getFirestore, collection, doc, getDoc, onSnapshot, query, updateDoc, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-    const firebaseConfig = { apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4", authDomain: "qualificacao-a14ff.firebaseapp.com", projectId: "qualificacao-a14ff", storageBucket: "qualificacao-a14ff.appspot.com", messagingSenderId: "955642076737", appId: "1:955642076737:web:f6db77134cd6a18b8f30c0" };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    let allLeadsData = [], allUsersData = [], allQualificacoesData = [], currentEditingLeadId = null;
-    let chatUnsubscribe = null, isChatOpen = false, isInitialMessagesLoad = true;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        onAuthStateChanged(auth, async (user) => {
-            const authCheckDiv=document.getElementById('auth-check'),accessDeniedDiv=document.getElementById('access-denied'),managerAppDiv=document.getElementById('manager-app');
-            const chatWidgetContainer = document.getElementById('chat-widget-container');
-            
-            if(user){
-                const userDoc=await getDoc(doc(db,'users',user.uid));
-                if(userDoc.exists()&&(userDoc.data().role==='admin'||userDoc.data().role==='gestor')){
-                    authCheckDiv.classList.add('hidden');
-                    managerAppDiv.classList.remove('hidden');
-                    chatWidgetContainer.classList.remove('hidden'); // MOSTRA O CHAT
-                    document.getElementById('user-info').textContent=`Logado como: ${userDoc.data().nome} (${userDoc.data().role})`;
-                    initializeAppManager();
-                    initializeGlobalChat(userDoc.data());
-                }else{
-                    authCheckDiv.classList.add('hidden');
-                    accessDeniedDiv.classList.remove('hidden');
-                    chatWidgetContainer.classList.add('hidden');
-                }
-            }else{
-                authCheckDiv.classList.add('hidden');
-                accessDeniedDiv.classList.remove('hidden');
-                chatWidgetContainer.classList.add('hidden');
-            }
-        });
-    });
-
-    function initializeAppManager() {
-        const searchInput = document.getElementById('search-input'), vendedorFilter = document.getElementById('filter-vendedor'), statusFilter = document.getElementById('filter-status'), monthFilter = document.getElementById('filter-month'), startDateFilter = document.getElementById('filter-start-date'), endDateFilter = document.getElementById('filter-end-date'), savePeriodBtn = document.getElementById('save-period-btn'), clearPeriodBtn = document.getElementById('clear-period-btn'), saleDetailModal = document.getElementById('saleDetailModal'), caseNotification = document.getElementById('case-notification');
-        document.querySelectorAll('.nav-tab').forEach(tab=>{tab.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('.page-section').forEach(s=>s.classList.add('hidden'));document.querySelectorAll('.nav-tab').forEach(t=>{t.classList.remove('border-blue-500','text-blue-600');t.classList.add('border-transparent','text-gray-500','hover:text-gray-700')});if(tab.id==='tab-vendas'){document.getElementById('vendas-section').classList.remove('hidden')}else if(tab.id==='tab-casos'){document.getElementById('casos-section').classList.remove('hidden');markCasesAsSeen()}tab.classList.add('border-blue-500','text-blue-600');tab.classList.remove('border-transparent','text-gray-500')})});
-        const loadInitialData = () => {
-            loadSavedPeriod();
-            onSnapshot(query(collection(db,'users')),s=>{allUsersData=s.docs.map(d=>d.data());vendedorFilter.innerHTML='<option value="all">Todos</option>';allUsersData.filter(u=>u.nome).sort((a,b)=>a.nome.localeCompare(b.nome)).forEach(u=>vendedorFilter.innerHTML+=`<option value="${u.nome}">${u.nome}</option>`)});
-            onSnapshot(query(collection(db,'qualificacoes')),s=>{allQualificacoesData=s.docs.map(d=>({...d.data(),id:d.id}));applyFiltersAndRender()});
-            onSnapshot(query(collection(db,'leads'),orderBy('createdAt','desc')),s=>{allLeadsData=s.docs.map(d=>({...d.data(),id:d.id}));applyFiltersAndRender();checkForNewCases()});
-        };
-        const applyFiltersAndRender = () => {
-            const salesQualificacoes = allQualificacoesData.filter(q => q.showInSales === 'true' || q.kpiLink === 'vendasRealizadas' || q.kpiLink === 'vendasAgendadas').map(q => q.nome);
-            let sales = allLeadsData.filter(l => salesQualificacoes.includes(l.qualificacao));
-            let cases = allLeadsData.filter(l => l.descricao_caso && l.descricao_caso.trim() !== '');
-            const searchTerm=searchInput.value.toLowerCase().trim(),vendedor=vendedorFilter.value,status=statusFilter.value,month=monthFilter.value,startDate=startDateFilter.value,endDate=endDateFilter.value;
-            if (searchTerm) { const searchFilter = l => [l.nome_completo, l.cpfCnpj, l.contato].some(f => f && f.toLowerCase().includes(searchTerm)); sales = sales.filter(searchFilter); cases = cases.filter(searchFilter); }
-            if (vendedor !== 'all') { sales = sales.filter(l => l.vendedor === vendedor); cases = cases.filter(l => l.vendedor === vendedor); }
-            if (startDate && endDate) { sales = sales.filter(l => l.dataVenda && l.dataVenda >= startDate && l.dataVenda <= endDate); monthFilter.value = ''; } else if (month) { sales = sales.filter(l => l.dataVenda && l.dataVenda.startsWith(month)); }
-            if (status !== 'all') sales = sales.filter(l => l.subStatusAgendamento === status);
-            renderSalesTable(sales);
-            renderCasesTable(cases);
-        };
-        const renderSalesTable=(d)=>{const t=document.getElementById('manager-sales-table');t.innerHTML=d.length===0?`<tr><td colspan="7" class="text-center p-4 text-gray-500">Nenhuma venda.</td></tr>`:d.map(l=>{const s={'Ativa':'bg-green-100 text-green-800','Cancelada':'bg-red-100 text-red-800','Pendente':'bg-yellow-100 text-yellow-800','Suspensa':'bg-gray-100 text-gray-800','Agendada':'bg-blue-100 text-blue-800'};return`<tr class="border-b hover:bg-gray-50"><td class="p-3 font-medium">${l.nome_completo||'N/A'}</td><td class="p-3">${l.vendedor||'N/A'}</td><td class="p-3">${l.plano||'N/A'}</td><td class="p-3">R$ ${l.valorPlano||'0.00'}</td><td class="p-3"><span class="px-2 py-1 text-xs font-semibold rounded-full ${s[l.subStatusAgendamento]||'bg-gray-100'}">${l.subStatusAgendamento||'N/A'}</span></td><td class="p-3">${l.dataVenda?new Date(l.dataVenda+'T00:00:00').toLocaleDateString('pt-BR'):'N/A'}</td><td class="p-3 text-center"><button data-lead-id="${l.id}" data-type="venda" class="view-detail-btn text-sm bg-blue-600 text-white py-1 px-3 rounded-lg hover:bg-blue-700">Ver/Editar</button></td></tr>`}).join('')};
-        const renderCasesTable=(d)=>{const t=document.getElementById('manager-cases-table');t.innerHTML=d.length===0?`<tr><td colspan="5" class="text-center p-4 text-gray-500">Nenhum caso.</td></tr>`:d.map(l=>{const r=l.gestor_observacao?'bg-green-50 hover:bg-green-100':'hover:bg-gray-50';return`<tr class="border-b ${r}"><td class="p-3 font-medium">${l.nome_completo||l.contato||'N/A'}</td><td class="p-3">${l.vendedor||'N/A'}</td><td class="p-3">${l.prazo?new Date(l.prazo+'T00:00:00').toLocaleDateString('pt-BR'):'Não definido'}</td><td class="p-3 text-gray-600">${l.descricao_caso.substring(0,70)}...</td><td class="p-3 text-center"><button data-lead-id="${l.id}" data-type="caso" class="view-detail-btn text-sm bg-purple-600 text-white py-1 px-3 rounded-lg hover:bg-purple-700">Ver Detalhes</button></td></tr>`}).join('')};
-        const openDetailModal=(leadId,type)=>{currentEditingLeadId=leadId;const l=allLeadsData.find(l=>l.id===leadId);if(!l)return;document.getElementById('modal-title').textContent=type==='venda'?'Detalhes da Venda':'Detalhes do Caso';document.getElementById('venda-details-fieldset').style.display=type==='venda'?'block':'none';document.getElementById('caso-details-fieldset').style.display=type==='caso'?'block':'none';document.getElementById('status-management-section').style.display=type==='venda'?'block':'none';const N_A='Não informado',f=d=>d?new Date(d+'T00:00:00').toLocaleDateString('pt-BR'):N_A,s=(i,v)=>document.getElementById(i).textContent=v||N_A;s('detail-nome',l.nome_completo);s('detail-cpf',l.cpfCnpj);s('detail-rg',l.rg);s('detail-nascimento',f(l.dataNascimento));s('detail-telefone',l.contato);s('detail-email',l.email);s('detail-endereco',`${l.rua||''}, ${l.numero||''}`);s('detail-bairro',l.bairro);s('detail-cidade',l.cidade);s('detail-cep',l.cep);s('detail-plano',l.plano);s('detail-valor',`R$ ${l.valorPlano||'0.00'}`);s('detail-operadora',l.operadora);s('detail-fonte',l.fonteVenda||l.fonte);s('detail-vendedor',l.vendedor);s('detail-data-venda',f(l.dataVenda));s('detail-contrato',l.contrato);s('detail-protocolo',l.protocolo);s('detail-obs-vendedor',l.observacaoVenda);s('detail-prazo',f(l.prazo));s('detail-urgencia',l.urgencia);s('detail-descricao-caso',l.descricao_caso);document.getElementById('detail-obs-gestor').value=l.gestor_observacao||'';s('detail-data-status',l.lastStatusUpdate?l.lastStatusUpdate.toDate().toLocaleString('pt-BR'):'Nunca');const sel=document.getElementById('detail-status'),st=['Pendente','Ativa','Cancelada','Suspensa','Agendada'];sel.innerHTML=st.map(s=>`<option value="${s}" ${l.subStatusAgendamento===s?'selected':''}>${s}</option>`).join('');saleDetailModal.classList.remove('hidden')};
-        const saveSaleDetails=async()=>{if(!currentEditingLeadId)return;const d={subStatusAgendamento:document.getElementById('detail-status').value,gestor_observacao:document.getElementById('detail-obs-gestor').value,lastStatusUpdate:serverTimestamp()};await updateDoc(doc(db,'leads',currentEditingLeadId),d);saleDetailModal.classList.add('hidden');currentEditingLeadId=null;alert('Alterações salvas!')};
-        const savePeriod=()=>{const s=startDateFilter.value,e=endDateFilter.value;if(s&&e){localStorage.setItem('gestor_startDate',s);localStorage.setItem('gestor_endDate',e);monthFilter.value='';alert('Período salvo!');applyFiltersAndRender()}};
-        const clearPeriod=()=>{localStorage.removeItem('gestor_startDate');localStorage.removeItem('gestor_endDate');startDateFilter.value='';endDateFilter.value='';alert('Período limpo!');applyFiltersAndRender()};
-        const loadSavedPeriod=()=>{const s=localStorage.getItem('gestor_startDate'),e=localStorage.getItem('gestor_endDate');if(s&&e){startDateFilter.value=s;endDateFilter.value=e}};
-        const checkForNewCases = () => { const allCaseIds = allLeadsData.filter(l => l.descricao_caso).map(l => l.id); const seenCaseIds = JSON.parse(localStorage.getItem('seenCaseIds_gestor') || '[]'); const newCasesCount = allCaseIds.filter(id => !seenCaseIds.includes(id)).length; if (newCasesCount > 0) { caseNotification.textContent = newCasesCount; caseNotification.classList.remove('hidden'); } else { caseNotification.classList.add('hidden'); } };
-        const markCasesAsSeen = () => { const allCaseIds = allLeadsData.filter(l => l.descricao_caso).map(l => l.id); localStorage.setItem('seenCaseIds_gestor', JSON.stringify(allCaseIds)); caseNotification.classList.add('hidden'); };
-        [searchInput,vendedorFilter,statusFilter,monthFilter,startDateFilter,endDateFilter].forEach(el=>el.addEventListener('input',applyFiltersAndRender));
-        savePeriodBtn.addEventListener('click', savePeriod);
-        clearPeriodBtn.addEventListener('click', clearPeriod);
-        document.getElementById('manager-sales-table').addEventListener('click',e=>{const b=e.target.closest('.view-detail-btn');if(b)openDetailModal(b.dataset.leadId,b.dataset.type)});
-        document.getElementById('manager-cases-table').addEventListener('click',e=>{const b=e.target.closest('.view-detail-btn');if(b)openDetailModal(b.dataset.leadId,b.dataset.type)});
-        document.getElementById('closeSaleDetailModal').addEventListener('click',()=>saleDetailModal.classList.add('hidden'));
-        document.getElementById('cancelSaleDetail').addEventListener('click',()=>saleDetailModal.classList.add('hidden'));
-        document.getElementById('saveSaleDetail').addEventListener('click',saveSaleDetails);
-        loadInitialData();
-    }
-    // ======================================================
-    // INÍCIO DA LÓGICA DO CHAT GLOBAL (CORRIGIDO)
-    // ======================================================
-    function initializeGlobalChat(userData) {
-        if (!userData) return;
-        const chatToggleButton = document.getElementById('chat-toggle-btn');
-        const chatWindow = document.getElementById('chat-window');
-        const chatCloseButton = document.getElementById('chat-close-btn');
-        const chatForm = document.getElementById('chat-form');
-        const chatMessageInput = document.getElementById('chat-message-input');
-        const chatNotificationBadge = document.getElementById('chat-notification-badge');
-        const chatNotificationSound = document.getElementById('chat-notification-sound');
-        const toggleChatWindow = () => { isChatOpen = !isChatOpen; if (isChatOpen) { chatWindow.classList.remove('hidden'); setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatNotificationBadge.classList.add('hidden'); document.getElementById('chat-messages-container').scrollTop = document.getElementById('chat-messages-container').scrollHeight; }, 10); } else { chatWindow.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => { chatWindow.classList.add('hidden'); }, 300); } };
-        chatToggleButton.addEventListener('click', toggleChatWindow);
-        chatCloseButton.addEventListener('click', toggleChatWindow);
-        chatForm.addEventListener('submit', async (e) => { e.preventDefault(); const messageText = chatMessageInput.value.trim(); if (messageText && auth.currentUser) { chatMessageInput.value = ''; await addDoc(collection(db, 'chat_messages'), { text: messageText, userId: auth.currentUser.uid, userName: userData.nome, userRole: userData.role, timestamp: serverTimestamp() }); } });
-        if (chatUnsubscribe) chatUnsubscribe();
-        const q = query(collection(db, 'chat_messages'), orderBy('timestamp', 'asc'));
-        chatUnsubscribe = onSnapshot(q, (snapshot) => {
-            snapshot.docChanges().forEach(change => { if (change.type === "added" && !isInitialMessagesLoad) { if (change.doc.data().userId !== auth.currentUser.uid && !isChatOpen) { chatNotificationBadge.classList.remove('hidden'); chatNotificationSound.play().catch(e => console.log("Interação do usuário necessária para tocar som.")); } } });
-            const chatMessagesContainer = document.getElementById('chat-messages-container');
-            chatMessagesContainer.innerHTML = '';
-            snapshot.forEach(doc => { renderChatMessage(doc.data(), auth.currentUser.uid); });
-            isInitialMessagesLoad = false;
-            if(isChatOpen) { chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight; }
-        });
-    }
-    function renderChatMessage(data, currentUserId) {
-        const messagesContainer = document.getElementById('chat-messages-container');
-        if (!messagesContainer) return;
-        const isSentByMe = data.userId === currentUserId;
-        const messageWrapper = document.createElement('div');
-        messageWrapper.className = `flex mb-3 ${isSentByMe ? 'justify-end' : 'justify-start'}`;
-        const roleBadges = { admin: 'bg-red-500 text-white', gestor: 'bg-purple-500 text-white', user: 'bg-blue-500 text-white' };
-        const roleNames = { admin: 'Admin', gestor: 'Gestor', user: 'Vendedor' };
-        messageWrapper.innerHTML = `
-            <div class="max-w-xs">
-                <div class="flex items-center gap-2 ${isSentByMe ? 'flex-row-reverse' : ''}">
-                    <span class="font-bold text-sm">${isSentByMe ? 'Você' : data.userName}</span>
-                    <span class="text-xs px-2 py-0.5 rounded-full ${roleBadges[data.userRole] || 'bg-gray-500 text-white'}">${roleNames[data.userRole] || 'Usuário'}</span>
-                </div>
-                <div class="text-sm p-3 mt-1 rounded-lg ${isSentByMe ? 'bg-blue-100' : 'bg-gray-100'}">
-                    <p style="word-wrap: break-word;">${data.text}</p>
-                </div>
-                <p class="text-xs text-gray-400 mt-1 ${isSentByMe ? 'text-right' : 'text-left'}">
-                    ${data.timestamp ? data.timestamp.toDate().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : ''}
-                </p>
-            </div>
-        `;
-        messagesContainer.appendChild(messageWrapper);
-    }
-    // ======================================================
-    // FIM DA LÓGICA DO CHAT GLOBAL
-    // ======================================================
-</script>
+    <script type="module" src="./js/gestor.js"></script>
 </body>
 </html>

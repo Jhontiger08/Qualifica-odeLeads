@@ -1,0 +1,292 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getFirestore, collection, doc, addDoc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4", authDomain: "qualificacao-a14ff.firebaseapp.com", projectId: "qualificacao-a14ff", storageBucket: "qualificacao-a14ff.appspot.com", messagingSenderId: "955642076737", appId: "1:955642076737:web:f6db77134cd6a18b8f30c0" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Variáveis de Estado da Aplicação ---
+    let currentUserData = null, leadsUnsubscribe = null, qualificacoesDinamicas = [], allQualificacoesData = [], fontesDinamicas = [], allProductsData = [], currentEditingDocId = null, allUserLeads = [], allVendors = [];
+    let chatUnsubscribe = null, isChatOpen = false, isInitialMessagesLoad = true, chatListenersAttached = false;
+
+    // --- Seletores de Elementos DOM ---
+    const authScreen = document.getElementById('auth-screen'), loginForm = document.getElementById('login-form'), registerForm = document.getElementById('register-form'), googleLoginBtn = document.getElementById('google-login-btn'), toggleFormLink = document.getElementById('toggle-form'), loginError = document.getElementById('login-error'), registerError = document.getElementById('register-error');
+    const appScreen = document.getElementById('app'), userInfo = document.getElementById('user-info'), logoutBtn = document.getElementById('logoutBtn'), adminGestorLink = document.getElementById('admin-gestor-link'), addRowBtn = document.getElementById('addRowBtn'), tableBody = document.getElementById('leadsTableBody');
+    const caseModal = document.getElementById('caseModal'), closeCaseModalBtn = document.getElementById('closeCaseModal'), cancelCaseModalBtn = document.getElementById('cancelCaseModal'), saveCaseBtn = document.getElementById('saveCaseBtn');
+    const salesModal = document.getElementById('salesModal'), closeSalesModalBtn = document.getElementById('closeSalesModal'), cancelSalesModalBtn = document.getElementById('cancelSalesModal'), saveSaleBtn = document.getElementById('saveSaleBtn');
+    const qualificadorSearchInput = document.getElementById('qualificador-search-input');
+    const chatWidgetContainer = document.getElementById('chat-widget-container');
+    const saleProductSelect = document.getElementById('saleProductSelect');
+    
+    // --- Lógica de Autenticação ---
+    async function handleSuccessfulLogin(user) {
+        if (!user) return;
+        const userDocSnap = await getDoc(doc(db, 'users', user.uid));
+        if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            if (userData.role === 'gestor' && userData.isVendedor !== true) {
+                window.location.href = './gestor.html';
+            } else {
+                authScreen.classList.add('hidden');
+                appScreen.classList.remove('hidden');
+                chatWidgetContainer.classList.remove('hidden');
+                await setupQualificador(user);
+            }
+        } else {
+            await createUserProfileDocument(user);
+            await handleSuccessfulLogin(user);
+        }
+    }
+
+    onAuthStateChanged(auth, (user) => { 
+        if (!user) { 
+            appScreen.classList.add('hidden'); 
+            authScreen.classList.remove('hidden'); 
+            chatWidgetContainer.classList.add('hidden');
+            if (leadsUnsubscribe) leadsUnsubscribe(); 
+            if (chatUnsubscribe) chatUnsubscribe(); 
+            tableBody.innerHTML = ''; 
+        } 
+    });
+    
+    async function handleEmailLogin(e) { e.preventDefault(); try { const cred = await signInWithEmailAndPassword(auth, loginForm['login-email'].value, loginForm['login-password'].value); await handleSuccessfulLogin(cred.user); } catch (error) { loginError.textContent = 'E-mail ou senha inválidos.'; loginError.classList.remove('hidden'); } }
+    async function handleGoogleLogin() { try { const result = await signInWithPopup(auth, googleProvider); await createUserProfileDocument(result.user); await handleSuccessfulLogin(result.user); } catch (error) { loginError.textContent = 'Não foi possível fazer login com o Google.'; loginError.classList.remove('hidden'); } }
+    async function handleEmailRegister(e) { e.preventDefault(); const name = registerForm['register-name'].value; if (!name.trim()) { registerError.textContent = 'Por favor, insira seu nome.'; return registerError.classList.remove('hidden'); } try { const cred = await createUserWithEmailAndPassword(auth, registerForm['register-email'].value, registerForm['register-password'].value); await createUserProfileDocument(cred.user, { nome: name }); await handleSuccessfulLogin(cred.user); } catch (error) { registerError.textContent = error.code === 'auth/email-already-in-use' ? 'Este e-mail já está em uso.' : 'Ocorreu um erro ao cadastrar.'; registerError.classList.remove('hidden'); } }
+    function toggleAuthForms(e) { e.preventDefault(); loginForm.classList.toggle('hidden'); registerForm.classList.toggle('hidden'); loginError.classList.add('hidden'); registerError.classList.add('hidden'); toggleFormLink.textContent = loginForm.classList.contains('hidden') ? 'Já tem uma conta? Entre' : 'Não tem uma conta? Cadastre-se'; }
+    async function createUserProfileDocument(user, additionalData = {}) { if (!user) return; const userRef = doc(db, 'users', user.uid); const snapshot = await getDoc(userRef); if (!snapshot.exists()) { const { email, displayName } = user; await setDoc(userRef, { email, nome: additionalData.nome || displayName || 'Usuário', role: 'user', createdAt: serverTimestamp() }); } }
+    
+    loginForm.addEventListener('submit', handleEmailLogin);
+    googleLoginBtn.addEventListener('click', handleGoogleLogin);
+    registerForm.addEventListener('submit', handleEmailRegister);
+    toggleFormLink.addEventListener('click', toggleAuthForms);
+    logoutBtn.addEventListener('click', () => signOut(auth));
+    
+    // --- Lógica Principal da Aplicação ---
+    async function setupQualificador(user) {
+        try {
+            const [userDoc, qualificacoesSnap, fontesSnap, productsSnap] = await Promise.all([ 
+                getDoc(doc(db, 'users', user.uid)), 
+                getDocs(query(collection(db, 'qualificacoes'), orderBy('nome'))), 
+                getDocs(query(collection(db, 'fontes'), orderBy('nome'))),
+                getDocs(query(collection(db, 'produtos'), orderBy('nome'))) // Carrega os produtos
+            ]);
+            if (!userDoc.exists()) return signOut(auth);
+            
+            currentUserData = userDoc.data();
+            allQualificacoesData = qualificacoesSnap.docs.map(d => d.data());
+            qualificacoesDinamicas = allQualificacoesData.map(d => d.nome);
+            fontesDinamicas = fontesSnap.docs.map(d => d.data().nome);
+            allProductsData = productsSnap.docs.map(d => ({ id: d.id, ...d.data() })); // Armazena os produtos
+
+            userInfo.textContent = `Vendedor: ${currentUserData.nome} (${currentUserData.email})`;
+            initializeGlobalChat(currentUserData);
+            
+            if (currentUserData.role === 'admin') { adminGestorLink.href = './dashboard.html'; adminGestorLink.innerHTML = '<i class="fas fa-user-shield mr-2"></i> Painel Admin'; adminGestorLink.classList.remove('hidden'); } else if (currentUserData.role === 'gestor') { adminGestorLink.href = './gestor.html'; adminGestorLink.innerHTML = '<i class="fas fa-user-tie mr-2"></i> Página do Gestor'; adminGestorLink.classList.remove('hidden'); } else { adminGestorLink.classList.add('hidden'); }
+            
+            if (currentUserData.role === 'admin' || currentUserData.role === 'gestor') { const usersSnap = await getDocs(collection(db, 'users')); allVendors = usersSnap.docs.map(d => ({id: d.id, ...d.data()})); }
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+                    document.querySelectorAll('.nav-tab').forEach(t => {
+                        t.classList.remove('border-blue-500', 'text-blue-600');
+                        t.classList.add('border-transparent', 'text-gray-500');
+                    });
+                    const targetId = tab.id.replace('tab-', '');
+                    document.getElementById(`${targetId}-section`).classList.remove('hidden');
+                    tab.classList.add('border-blue-500', 'text-blue-600');
+                });
+            });
+
+            listenToLeads(user.uid);
+        } catch (error) { console.error("Erro ao configurar o qualificador:", error); signOut(auth); }
+    }
+    
+    // --- Lógica de Leads (Qualificador) ---
+    addRowBtn.addEventListener('click', handleAddNewLead);
+    tableBody.addEventListener('change', e => { if (e.target.matches('input, select')) { const tr = e.target.closest('tr'); if (tr) updateLead(tr.dataset.id, { [e.target.dataset.field]: e.target.value }); } });
+    tableBody.addEventListener('click', e => { const removeBtn = e.target.closest('.removeRowBtn'), openCaseBtn = e.target.closest('.openCaseModalBtn'), openSalesBtn = e.target.closest('.openSalesModalBtn'); if (removeBtn && confirm('Tem certeza?')) deleteLead(removeBtn.closest('tr').dataset.id); if (openCaseBtn) openCaseModal(openCaseBtn.closest('tr').dataset.id); if (openSalesBtn) openSalesModal(openSalesBtn.closest('tr').dataset.id); });
+    qualificadorSearchInput.addEventListener('input', filterAndRenderLeads);
+    
+    function filterAndRenderLeads() { const searchTerm = qualificadorSearchInput.value.toLowerCase().trim(); let leadsToRender = allUserLeads.map(doc => ({ id: doc.id, ...doc.data() })); if (searchTerm) { leadsToRender = leadsToRender.filter(data => { const searchText = [ data.contato, data.nome_completo, data.rua, data.bairro, data.cidade ].join(' ').toLowerCase(); return searchText.includes(searchTerm); }); } tableBody.innerHTML = ''; if (leadsToRender.length === 0 && allUserLeads.length > 0) { tableBody.innerHTML = `<tr><td colspan="8" class="text-center p-4 text-gray-500">Nenhum lead encontrado para "${qualificadorSearchInput.value}"</td></tr>`; } else { leadsToRender.forEach(renderLeadRow); } }
+    function listenToLeads(userId) { if (leadsUnsubscribe) leadsUnsubscribe(); const q = query(collection(db, 'leads'), where("userId", "==", userId), orderBy('createdAt', 'desc')); leadsUnsubscribe = onSnapshot(q, snap => { allUserLeads = snap.docs; if (snap.empty) { addNewLead(); } filterAndRenderLeads(); renderMySales(allUserLeads.map(d => d.data())); renderMyCases(allUserLeads.map(d => d.data())); }); }
+    async function handleAddNewLead() { const firstRow = tableBody.firstElementChild; if (firstRow) { const contatoInput = firstRow.querySelector('[data-field="contato"]'); const qualificacaoSelect = firstRow.querySelector('[data-field="qualificacao"]'); if (contatoInput && qualificacaoSelect && (!contatoInput.value || !qualificacaoSelect.value)) { return alert('Preencha o Contato e a Qualificação do lead atual antes de adicionar um novo.'); } } await addNewLead(); }
+    async function addNewLead() { if (!auth.currentUser || !currentUserData) return; await addDoc(collection(db, 'leads'), { userId: auth.currentUser.uid, vendedor: currentUserData.nome, createdAt: serverTimestamp(), contato: '', fonte: '', qualificacao: '', cep: '', numero: '', observacao_rapida: '', nome_completo: '', rua: '', bairro: '', cidade: '', prazo: '', urgencia: 'Média', descricao_caso: '', protocolo: '', contrato: '', cpfCnpj: '', rg: '', dataNascimento: '', email: '', plano: '', valorPlano: '', operadora: '', fonteVenda: '', observacaoVenda: '', dataVenda: '', productId: '' }); }
+    async function updateLead(docId, data) { await updateDoc(doc(db, 'leads', docId), data); }
+    async function deleteLead(docId) { await deleteDoc(doc(db, 'leads', docId)); }
+    function renderLeadRow(data) { const tr = document.createElement('tr'); tr.className = 'border-b border-gray-200 hover:bg-gray-50'; tr.dataset.id = data.id; const options = (arr, sel) => arr.map(f => `<option value="${f}" ${sel === f ? 'selected' : ''}>${f}</option>`).join(''); tr.innerHTML = `<td class="p-2 align-middle text-xs text-gray-500">${data.createdAt ? data.createdAt.toDate().toLocaleString('pt-BR') : '...'}</td><td class="p-2 align-middle"><input type="text" value="${data.contato || ''}" data-field="contato" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Contato"></td><td class="p-2 align-middle"><select data-field="fonte" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"><option value="" disabled ${!data.fonte ? 'selected' : ''}>Selecione</option>${options(fontesDinamicas, data.fonte)}</select></td><td class="p-2 align-middle"><select data-field="qualificacao" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md status-select"><option value="" disabled ${!data.qualificacao ? 'selected' : ''}>Selecione</option>${options(qualificacoesDinamicas, data.qualificacao)}</select></td><td class="p-2 align-middle"><input type="text" value="${data.cep || ''}" data-field="cep" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="CEP"></td><td class="p-2 align-middle"><input type="text" value="${data.numero || ''}" data-field="numero" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Nº"></td><td class="p-2 align-middle"><input type="text" value="${data.observacao_rapida || ''}" data-field="observacao_rapida" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Nota rápida"></td><td class="p-2 text-center align-middle"><div class="flex items-center justify-center gap-2"><button class="openSalesModalBtn text-green-600 hover:text-green-800 p-2 rounded-full" title="Registrar Venda"><i class="fas fa-dollar-sign fa-lg"></i></button><button class="openCaseModalBtn text-blue-600 hover:text-blue-800 p-2 rounded-full" title="Formular Caso"><i class="fas fa-file-alt fa-lg"></i></button><button class="removeRowBtn text-red-500 hover:text-red-700 p-2 rounded-full" title="Excluir"><i class="fas fa-trash-alt fa-lg"></i></button></div></td>`; tableBody.appendChild(tr); }
+    
+    // --- Lógica das Abas (Vendas e Casos) ---
+    function renderMySales(leadsData) { const salesTable = document.getElementById('my-sales-table'); const salesKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasRealizadas' || q.showInSales === 'true').map(q => q.nome); const scheduledKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasAgendadas').map(q => q.nome); const mySales = leadsData.filter(l => salesKpiNames.includes(l.qualificacao) || (scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento === 'Ativo')); const statusStyles = {'Ativa':'bg-green-100 text-green-800','Cancelada':'bg-red-100 text-red-800','Pendente':'bg-yellow-100 text-yellow-800','Suspensa':'bg-gray-100 text-gray-800','Agendada':'bg-blue-100 text-blue-800'}; if (mySales.length === 0) { salesTable.innerHTML = `<tr><td colspan="6" class="text-center p-4 text-gray-500">Você ainda não realizou nenhuma venda.</td></tr>`; return; } salesTable.innerHTML = mySales.map(l => { return `<tr class="border-b"><td class="p-3">${l.nome_completo || l.contato}</td><td class="p-3">${l.plano || 'N/A'}</td><td class="p-3">R$ ${parseFloat(l.valorPlano || 0).toFixed(2)}</td><td class="p-3">${l.dataVenda ? new Date(l.dataVenda+'T00:00:00').toLocaleDateString('pt-BR') : 'N/A'}</td><td class="p-3"><span class="px-2 py-1 text-xs font-semibold rounded-full ${statusStyles[l.subStatusAgendamento] || 'bg-gray-100'}">${l.subStatusAgendamento || 'Pendente'}</span></td><td class="p-3 text-xs text-gray-600">${l.gestor_observacao || 'Nenhum comentário.'}</td></tr>`; }).join(''); }
+    function renderMyCases(leadsData) { const casesTable = document.getElementById('my-cases-table'); const myCases = leadsData.filter(l => l.descricao_caso && l.descricao_caso.trim() !== ''); if (myCases.length === 0) { casesTable.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-gray-500">Você não registrou nenhum caso.</td></tr>`; return; } casesTable.innerHTML = myCases.map(l => { return `<tr class="border-b"><td class="p-3">${l.nome_completo || l.contato}</td><td class="p-3 text-xs">${(l.descricao_caso || '').substring(0, 100)}...</td><td class="p-3">${l.prazo ? new Date(l.prazo+'T00:00:00').toLocaleDateString('pt-BR') : 'Não definido'}</td><td class="p-3 text-xs text-blue-700 font-medium">${l.gestor_observacao || 'Aguardando feedback.'}</td></tr>`; }).join(''); }
+
+    // --- Lógica dos Modais (Caso e Venda) ---
+    closeCaseModalBtn.addEventListener('click', () => caseModal.classList.add('hidden')); cancelCaseModalBtn.addEventListener('click', () => caseModal.classList.add('hidden')); saveCaseBtn.addEventListener('click', saveCaseData);
+    async function openCaseModal(docId) { currentEditingDocId = docId; const docSnap = await getDoc(doc(db, 'leads', docId)); if (docSnap.exists()) { const data = docSnap.data(); document.getElementById('caseContato').textContent = data.contato || 'N/A'; document.getElementById('caseVendedor').textContent = data.vendedor || 'N/A'; document.getElementById('caseNomeCompleto').value = data.nome_completo || ''; document.getElementById('caseRua').value = data.rua || ''; document.getElementById('caseNumero').value = data.numero || ''; document.getElementById('caseBairro').value = data.bairro || ''; document.getElementById('caseCidade').value = data.cidade || ''; document.getElementById('casePrazo').value = data.prazo || ''; document.getElementById('caseUrgencia').value = data.urgencia || 'Média'; document.getElementById('caseTextArea').value = data.descricao_caso || ''; caseModal.classList.remove('hidden'); } }
+    async function saveCaseData() { if (!currentEditingDocId) return; const dataToSave = { nome_completo: document.getElementById('caseNomeCompleto').value, rua: document.getElementById('caseRua').value, numero: document.getElementById('caseNumero').value, bairro: document.getElementById('caseBairro').value, cidade: document.getElementById('caseCidade').value, prazo: document.getElementById('casePrazo').value, urgencia: document.getElementById('caseUrgencia').value, descricao_caso: document.getElementById('caseTextArea').value }; await updateLead(currentEditingDocId, dataToSave); caseModal.classList.add('hidden'); alert('Caso salvo com sucesso!'); }
+    
+    closeSalesModalBtn.addEventListener('click', () => salesModal.classList.add('hidden')); cancelSalesModalBtn.addEventListener('click', () => salesModal.classList.add('hidden')); saveSaleBtn.addEventListener('click', saveSaleData);
+    
+    // MODIFICADO: Lógica do Modal de Vendas com Produtos
+    async function openSalesModal(docId) { 
+        currentEditingDocId = docId; 
+        const docSnap = await getDoc(doc(db, 'leads', docId)); 
+        if (!docSnap.exists()) return alert('Lead não encontrado!'); 
+        const data = docSnap.data(); 
+        
+        // Preenche dados pessoais e de endereço
+        document.getElementById('saleNomeCompleto').value = data.nome_completo || ''; 
+        document.getElementById('saleCpfCnpj').value = data.cpfCnpj || ''; 
+        document.getElementById('saleRg').value = data.rg || ''; 
+        document.getElementById('saleDataNascimento').value = data.dataNascimento || ''; 
+        document.getElementById('saleTelefone').textContent = data.contato || 'N/A'; 
+        document.getElementById('saleEmail').value = data.email || ''; 
+        document.getElementById('saleCep').textContent = data.cep || 'N/A'; 
+        document.getElementById('saleRua').value = data.rua || ''; 
+        document.getElementById('saleNumero').value = data.numero || ''; 
+        document.getElementById('saleBairro').value = data.bairro || ''; 
+        document.getElementById('saleCidade').value = data.cidade || ''; 
+        
+        // Preenche dados da venda
+        document.getElementById('saleProtocolo').value = data.protocolo || ''; 
+        document.getElementById('saleContrato').value = data.contrato || ''; 
+        document.getElementById('saleFonteVenda').value = data.fonteVenda || data.fonte || ''; 
+        document.getElementById('saleVendedor').textContent = data.vendedor || 'N/A'; 
+        document.getElementById('saleObservacao').value = data.observacaoVenda || '';
+        
+        // Popula o seletor de produtos
+        saleProductSelect.innerHTML = '<option value="">Selecione um Produto</option>' + allProductsData.map(p => `<option value="${p.id}" ${data.productId === p.id ? 'selected' : ''}>${p.nome}</option>`).join('');
+        
+        // Atualiza os detalhes do produto se já houver um selecionado
+        updateProductDetails(data.productId);
+        
+        const adminFields = document.getElementById('admin-fields'); 
+        if (currentUserData && (currentUserData.role === 'admin' || currentUserData.role === 'gestor')) { 
+            adminFields.classList.remove('hidden'); 
+            const vendedorSelect = document.getElementById('sale-admin-vendedor-select'); 
+            vendedorSelect.innerHTML = allVendors.map(v => `<option value="${v.nome}" ${data.vendedor === v.nome ? 'selected' : ''}>${v.nome}</option>`).join(''); 
+            const dataVendaInput = document.getElementById('sale-admin-data-input'); 
+            dataVendaInput.value = data.dataVenda || new Date().toISOString().split('T')[0]; 
+        } else { 
+            adminFields.classList.add('hidden'); 
+        } 
+        
+        salesModal.classList.remove('hidden'); 
+    }
+
+    // NOVO: Atualiza os campos de valor, tipo e empresa ao selecionar um produto
+    function updateProductDetails(productId) {
+        const selectedProduct = allProductsData.find(p => p.id === productId);
+        if (selectedProduct) {
+            const displayPrice = selectedProduct.valorPromocional > 0 ? selectedProduct.valorPromocional : selectedProduct.valorOriginal;
+            document.getElementById('saleValorProduto').textContent = `R$ ${parseFloat(displayPrice || 0).toFixed(2)}`;
+            document.getElementById('saleTipoProduto').textContent = selectedProduct.tipo || '--';
+            document.getElementById('saleEmpresaProduto').textContent = selectedProduct.empresa || '--';
+        } else {
+            document.getElementById('saleValorProduto').textContent = 'R$ 0,00';
+            document.getElementById('saleTipoProduto').textContent = '--';
+            document.getElementById('saleEmpresaProduto').textContent = '--';
+        }
+    }
+    saleProductSelect.addEventListener('change', () => updateProductDetails(saleProductSelect.value));
+    
+    async function saveSaleData() { 
+        if (!currentEditingDocId) return;
+        
+        const selectedProductId = saleProductSelect.value;
+        if (!selectedProductId) {
+            return alert('Por favor, selecione um produto para a venda.');
+        }
+        const selectedProduct = allProductsData.find(p => p.id === selectedProductId);
+
+        const dataToSave = { 
+            nome_completo: document.getElementById('saleNomeCompleto').value, 
+            cpfCnpj: document.getElementById('saleCpfCnpj').value, 
+            rg: document.getElementById('saleRg').value, 
+            dataNascimento: document.getElementById('saleDataNascimento').value, 
+            email: document.getElementById('saleEmail').value, 
+            rua: document.getElementById('saleRua').value, 
+            numero: document.getElementById('saleNumero').value, 
+            bairro: document.getElementById('saleBairro').value, 
+            cidade: document.getElementById('saleCidade').value, 
+            protocolo: document.getElementById('saleProtocolo').value, 
+            contrato: document.getElementById('saleContrato').value, 
+            fonteVenda: document.getElementById('saleFonteVenda').value, 
+            observacaoVenda: document.getElementById('saleObservacao').value,
+            // Campos de produto
+            productId: selectedProductId,
+            plano: selectedProduct.nome,
+            valorPlano: selectedProduct.valorPromocional > 0 ? selectedProduct.valorPromocional : selectedProduct.valorOriginal,
+            operadora: selectedProduct.empresa // ou um campo específico se houver
+        }; 
+
+        if (currentUserData && (currentUserData.role === 'admin' || currentUserData.role === 'gestor')) { 
+            dataToSave.vendedor = document.getElementById('sale-admin-vendedor-select').value; 
+            dataToSave.dataVenda = document.getElementById('sale-admin-data-input').value; 
+            const vendedorSelecionado = allVendors.find(v => v.nome === dataToSave.vendedor); 
+            if (vendedorSelecionado) { dataToSave.userId = vendedorSelecionado.id; } 
+        } else { 
+            dataToSave.dataVenda = new Date().toISOString().split('T')[0]; 
+        } 
+        
+        await updateLead(currentEditingDocId, dataToSave); 
+        salesModal.classList.add('hidden'); 
+        alert('Dados da venda salvos com sucesso!'); 
+    }
+
+    // --- Lógica do Chat Global ---
+    function initializeGlobalChat(userData) {
+        if (!userData) return;
+        const chatToggleButton = document.getElementById('chat-toggle-btn'), chatWindow = document.getElementById('chat-window'), chatCloseButton = document.getElementById('chat-close-btn'), chatForm = document.getElementById('chat-form'), chatMessageInput = document.getElementById('chat-message-input'), chatNotificationBadge = document.getElementById('chat-notification-badge'), chatNotificationSound = document.getElementById('chat-notification-sound');
+        const toggleChatWindow = () => { isChatOpen = !isChatOpen; if (isChatOpen) { chatWindow.classList.remove('hidden'); setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatNotificationBadge.classList.add('hidden'); document.getElementById('chat-messages-container').scrollTop = document.getElementById('chat-messages-container').scrollHeight; }, 10); } else { chatWindow.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => { chatWindow.classList.add('hidden'); }, 300); } };
+        
+        if (!chatListenersAttached) {
+            chatToggleButton.addEventListener('click', toggleChatWindow);
+            chatCloseButton.addEventListener('click', toggleChatWindow);
+            chatListenersAttached = true;
+        }
+        
+        chatForm.onsubmit = async (e) => { e.preventDefault(); const messageText = chatMessageInput.value.trim(); if (messageText && auth.currentUser) { chatMessageInput.value = ''; await addDoc(collection(db, 'chat_messages'), { text: messageText, userId: auth.currentUser.uid, userName: userData.nome, userRole: userData.role, timestamp: serverTimestamp() }); } };
+        
+        if (chatUnsubscribe) chatUnsubscribe();
+        const q = query(collection(db, 'chat_messages'), orderBy('timestamp', 'asc'));
+        chatUnsubscribe = onSnapshot(q, (snapshot) => {
+            snapshot.docChanges().forEach(change => { if (change.type === "added" && !isInitialMessagesLoad) { if (change.doc.data().userId !== auth.currentUser.uid && !isChatOpen) { chatNotificationBadge.classList.remove('hidden'); chatNotificationSound.play().catch(e => {}); } } });
+            const chatMessagesContainer = document.getElementById('chat-messages-container');
+            chatMessagesContainer.innerHTML = '';
+            snapshot.forEach(doc => { renderChatMessage(doc.data(), auth.currentUser.uid); });
+            isInitialMessagesLoad = false;
+            if(isChatOpen) { chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight; }
+        });
+    }
+
+    function renderChatMessage(data, currentUserId) {
+        const messagesContainer = document.getElementById('chat-messages-container');
+        if (!messagesContainer) return;
+        const isSentByMe = data.userId === currentUserId;
+        const messageWrapper = document.createElement('div');
+        messageWrapper.className = `flex mb-3 ${isSentByMe ? 'justify-end' : 'justify-start'}`;
+        const roleBadges = { admin: 'bg-red-500 text-white', gestor: 'bg-purple-500 text-white', user: 'bg-blue-500 text-white' };
+        const roleNames = { admin: 'Admin', gestor: 'Gestor', user: 'Vendedor' };
+        messageWrapper.innerHTML = `
+            <div class="max-w-xs">
+                <div class="flex items-center gap-2 ${isSentByMe ? 'flex-row-reverse' : ''}">
+                    <span class="font-bold text-sm">${isSentByMe ? 'Você' : data.userName}</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full ${roleBadges[data.userRole] || 'bg-gray-500 text-white'}">${roleNames[data.userRole] || 'Usuário'}</span>
+                </div>
+                <div class="text-sm p-3 mt-1 rounded-lg ${isSentByMe ? 'bg-blue-100' : 'bg-gray-100'}">
+                    <p style="word-wrap: break-word;">${data.text}</p>
+                </div>
+                <p class="text-xs text-gray-400 mt-1 ${isSentByMe ? 'text-right' : 'text-left'}">
+                    ${data.timestamp ? data.timestamp.toDate().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : ''}
+                </p>
+            </div>
+        `;
+        messagesContainer.appendChild(messageWrapper);
+    }
+});

@@ -21,60 +21,161 @@
         <div class="relative flex min-h-screen bg-gray-100">
             <div id="sidebar" class="hidden md:flex flex-col w-64 bg-white shadow-lg">
                 <div class="flex items-center justify-center h-16 bg-white border-b"><i class="fas fa-headset text-2xl text-blue-600 mr-2"></i><span class="text-gray-800 font-bold text-xl">Piel Telecom</span></div>
-                <div class="flex flex-col flex-1 overflow-y-auto"><nav class="flex-1 px-2 py-4 bg-white">
-                    <a href="#dashboard" class="nav-link flex items-center px-4 py-2 text-gray-700 bg-gray-200 rounded-md"><i class="fas fa-tachometer-alt w-6 text-center"></i><span class="mx-4">Dashboard</span></a>
-                    <a href="./gestor.html" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-user-tie w-6 text-center"></i><span class="mx-4">Página do Gestor</span></a>
-                    <a href="http://central.desktop.com.br/" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-file-invoice-dollar w-6 text-center"></i><span class="mx-4">Central do Cliente</span></a>
-                    <a href="#vendas" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-dollar-sign w-6 text-center"></i><span class="mx-4">Vendas</span></a>
-                    <a href="#leads" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-users w-6 text-center"></i><span class="mx-4">Leads</span></a>
-                    <a href="#casos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-file-signature w-6 text-center"></i><span class="mx-4">Casos</span></a>
-                    <a href="#relatorios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-history w-6 text-center"></i><span class="mx-4">Relatórios Salvos</span></a>
-                    <a href="#usuarios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-user-shield w-6 text-center"></i><span class="mx-4">Usuários</span></a>
-                    <a href="#logs" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-clipboard-list w-6 text-center"></i><span class="mx-4">Logs</span></a>
-                    <a href="#configuracoes" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-cog w-6 text-center"></i><span class="mx-4">Configurações</span></a>
-                </nav></div>
+                <div class="flex flex-col flex-1 overflow-y-auto">
+                    <nav class="flex-1 px-2 py-4 bg-white">
+                        <a href="#dashboard" class="nav-link flex items-center px-4 py-2 text-gray-700 bg-gray-200 rounded-md"><i class="fas fa-tachometer-alt w-6 text-center"></i><span class="mx-4">Dashboard</span></a>
+                        <a href="./gestor.html" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-user-tie w-6 text-center"></i><span class="mx-4">Página do Gestor</span></a>
+                        <a href="http://central.desktop.com.br/" class="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md" target="_blank"><i class="fas fa-file-invoice-dollar w-6 text-center"></i><span class="mx-4">Central do Cliente</span></a>
+                        <a href="#vendas" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-dollar-sign w-6 text-center"></i><span class="mx-4">Vendas</span></a>
+                        <a href="#produtos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-box-open w-6 text-center"></i><span class="mx-4">Produtos</span></a>
+                        <a href="#leads" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-users w-6 text-center"></i><span class="mx-4">Leads</span></a>
+                        <a href="#casos" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-file-signature w-6 text-center"></i><span class="mx-4">Casos</span></a>
+                        <a href="#relatorios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-history w-6 text-center"></i><span class="mx-4">Relatórios Salvos</span></a>
+                        <a href="#usuarios" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-user-shield w-6 text-center"></i><span class="mx-4">Usuários</span></a>
+                        <a href="#times" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-sitemap w-6 text-center"></i><span class="mx-4">Times</span></a>
+                        <a href="#logs" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-clipboard-list w-6 text-center"></i><span class="mx-4">Logs</span></a>
+                        <a href="#configuracoes" class="nav-link flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200 rounded-md"><i class="fas fa-cog w-6 text-center"></i><span class="mx-4">Configurações</span></a>
+                    </nav>
+                </div>
             </div>
+            
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <header class="flex items-center justify-between h-16 bg-white border-b px-4">
-                    <div class="flex items-center"><button id="hamburger-btn" class="text-gray-600 md:hidden mr-4"><i class="fas fa-bars text-xl"></i></button><h1 id="page-title" class="text-2xl font-bold text-gray-800">Dashboard</h1></div>
+                    <div class="flex items-center">
+                        <button id="hamburger-btn" class="text-gray-600 md:hidden mr-4"><i class="fas fa-bars text-xl"></i></button>
+                        <h1 id="page-title" class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                    </div>
                     <a href="./index.html" class="text-sm text-blue-600 hover:underline">Voltar ao Qualificador</a>
                 </header>
+
                 <main class="p-4 md:p-8">
                     <div id="dashboard-section" class="page-section">
-                        <div class="flex justify-end gap-2 mb-4 flex-wrap"><button id="reset-dashboard-btn" class="bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-orange-600 text-sm flex items-center"><i class="fas fa-calendar-day mr-2"></i> Resetar Dashboard (Hoje)</button><button id="reset-qualificadores-btn" class="bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600 text-sm flex items-center"><i class="fas fa-users-slash mr-2"></i> Resetar Qualificadores</button><button id="refresh-dashboard-btn" class="bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-sm flex items-center"><i class="fas fa-sync-alt mr-2"></i> Atualizar Dados</button><button id="export-dashboard-btn" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 text-sm flex items-center"><i class="fas fa-file-pdf mr-2"></i> Exportar Resumo (PDF)</button></div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"><div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Total de Leads (no filtro)</h3><p id="kpi-total" class="text-3xl font-bold text-gray-800">0</p></div><div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendas Realizadas (vendedores)</h3><p id="kpi-vendas" class="text-3xl font-bold text-gray-800">0</p></div><div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendas Agendadas (vendedores)</h3><p id="kpi-agendadas" class="text-3xl font-bold text-gray-800">0</p></div><div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendedores Ativos</h3><p id="kpi-vendedores" class="text-3xl font-bold text-gray-800">0</p></div></div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Status (vendedores)</h3><canvas id="statusChart"></canvas></div><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Vendedor (vendedores)</h3><canvas id="vendedorChart"></canvas></div></div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Ranking de Qualificações (Top 10)</h3><canvas id="performanceChart"></canvas></div><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Ranking de Vendedores (Vendas)</h3><div class="overflow-y-auto max-h-64"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Pos.</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Vendas</th></tr></thead><tbody id="leaderboard-table"></tbody></table></div></div></div>
+                        <div class="flex justify-end gap-2 mb-4 flex-wrap">
+                            <button id="reset-dashboard-btn" class="bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-orange-600 text-sm flex items-center"><i class="fas fa-calendar-day mr-2"></i> Resetar (Hoje)</button>
+                            <button id="reset-qualificadores-btn" class="bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-yellow-600 text-sm flex items-center"><i class="fas fa-users-slash mr-2"></i> Resetar Qualificadores</button>
+                            <button id="refresh-dashboard-btn" class="bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-sm flex items-center"><i class="fas fa-sync-alt mr-2"></i> Atualizar Dados</button>
+                            <button id="export-dashboard-btn" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 text-sm flex items-center"><i class="fas fa-file-pdf mr-2"></i> Exportar Resumo (PDF)</button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Total de Leads (no filtro)</h3><p id="kpi-total" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendas Realizadas</h3><p id="kpi-vendas" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendas Agendadas</h3><p id="kpi-agendadas" class="text-3xl font-bold text-gray-800">0</p></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-sm font-medium text-gray-500">Vendedores Ativos</h3><p id="kpi-vendedores" class="text-3xl font-bold text-gray-800">0</p></div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Status</h3><canvas id="statusChart"></canvas></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Leads por Vendedor</h3><canvas id="vendedorChart"></canvas></div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Ranking de Qualificações (Top 10)</h3><canvas id="performanceChart"></canvas></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold mb-4">Ranking de Vendedores (Vendas)</h3><div class="overflow-y-auto max-h-64"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Pos.</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Vendas</th></tr></thead><tbody id="leaderboard-table"></tbody></table></div></div>
+                        </div>
                     </div>
-                    <div id="vendas-section" class="page-section hidden bg-white p-6 rounded-lg shadow"><h2 class="text-2xl font-bold text-gray-800 mb-4">Painel de Vendas</h2><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Plano</th><th class="p-2 text-left">Valor</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">Status Agend.</th><th class="p-2 text-left">Data da Venda</th></tr></thead><tbody id="sales-table-body"></tbody></table></div></div>
-                    <div id="leads-section" class="page-section hidden bg-white p-6 rounded-lg shadow"><div class="space-y-4 mb-4"><div class="grid grid-cols-1 md:grid-cols-4 gap-4"><select id="filter-qualificacao" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select><select id="filter-fonte" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select><select id="filter-vendedor" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select><select id="date-filter" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"><option value="all">Todo o Período</option><option value="today">Hoje</option><option value="7days">Últimos 7 dias</option><option value="30days">Últimos 30 dias</option></select></div><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="md:col-span-2"><input type="search" id="search-input" placeholder="Pesquisar por Contato ou Nome..." class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></div><button id="downloadBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 text-sm flex items-center justify-center w-full"><i class="fas fa-download mr-2"></i> Baixar CSV</button></div></div><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">CEP</th><th class="p-2 text-left">Número</th><th class="p-2 text-left">Status Agend.</th><th class="p-2 text-left">Data de Criação</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="all-leads-table"></tbody></table></div></div>
+
+                    <div id="vendas-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Painel de Vendas</h2>
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Plano</th><th class="p-2 text-left">Valor</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">Status Agend.</th><th class="p-2 text-left">Data da Venda</th></tr></thead><tbody id="sales-table-body"></tbody></table></div>
+                    </div>
+                    
+                    <div id="produtos-section" class="page-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-1">
+                                <div class="bg-white p-6 rounded-lg shadow sticky top-8">
+                                    <h3 id="product-form-title" class="font-semibold text-xl mb-4">Adicionar Novo Produto</h3>
+                                    <form id="product-form" class="space-y-4">
+                                        <div><label for="product-nome" class="block text-sm font-medium text-gray-700">Nome do Produto</label><input type="text" id="product-nome" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Fibra 500 Mega"></div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div><label for="product-valor-original" class="block text-sm font-medium text-gray-700">Valor Original (R$)</label><input type="number" id="product-valor-original" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: 119.90" step="0.01"></div>
+                                            <div><label for="product-valor-promocional" class="block text-sm font-medium text-gray-700">Valor Promocional (R$)</label><input type="number" id="product-valor-promocional" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Opcional" step="0.01"></div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                             <div><label for="product-tipo" class="block text-sm font-medium text-gray-700">Tipo</label><input type="text" id="product-tipo" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Fibra, Combo, Móvel"></div>
+                                            <div><label for="product-empresa" class="block text-sm font-medium text-gray-700">Empresa</label><input type="text" id="product-empresa" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Piel Telecom"></div>
+                                        </div>
+                                        <div><label for="product-inclusoes" class="block text-sm font-medium text-gray-700">Inclusões</label><textarea id="product-inclusoes" rows="4" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Descreva o que o plano inclui. Ex: Wi-Fi Grátis..."></textarea></div>
+                                        <div class="flex items-center gap-4 pt-2"><button type="submit" id="save-product-btn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Produto</button><button type="button" id="cancel-edit-product-btn" class="hidden w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button></div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-2">
+                                <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-xl mb-4">Produtos Cadastrados</h3><div id="products-list-container" class="space-y-4"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="leads-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="space-y-4 mb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <select id="filter-qualificacao" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select>
+                                <select id="filter-fonte" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select>
+                                <select id="filter-vendedor" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></select>
+                                <select id="date-filter" class="p-2 border rounded-md text-sm bg-white shadow-sm w-full">
+                                    <option value="all">Todo o Período</option><option value="today">Hoje</option><option value="7days">Últimos 7 dias</option><option value="30days">Últimos 30 dias</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="md:col-span-2"><input type="search" id="search-input" placeholder="Pesquisar por Contato ou Nome..." class="p-2 border rounded-md text-sm bg-white shadow-sm w-full"></div>
+                                <button id="downloadBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 text-sm flex items-center justify-center w-full"><i class="fas fa-download mr-2"></i> Baixar CSV</button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Qualificação</th><th class="p-2 text-left">CEP</th><th class="p-2 text-left">Número</th><th class="p-2 text-left">Status Agend.</th><th class="p-2 text-left">Data de Criação</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="all-leads-table"></tbody></table></div>
+                    </div>
+                    
                     <div id="casos-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
-                        <div class="flex justify-end gap-2 mb-4">
-                            <button id="export-cases-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-file-pdf mr-2"></i> Exportar Casos (PDF)</button>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm">
-                                <thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Descrição</th><th class="p-2 text-left">Comentário do Gestor</th><th class="p-2 text-left">Ações</th></tr></thead>
-                                <tbody id="all-cases-table"></tbody>
-                            </table>
-                        </div>
+                        <div class="flex justify-end gap-2 mb-4"><button id="export-cases-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-file-pdf mr-2"></i> Exportar Casos (PDF)</button></div>
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Contato</th><th class="p-2 text-left">Vendedor</th><th class="p-2 text-left">Descrição</th><th class="p-2 text-left">Comentário do Gestor</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="all-cases-table"></tbody></table></div>
                     </div>
-                    <div id="relatorios-section" class="page-section hidden bg-white p-6 rounded-lg shadow"><div class="flex justify-end gap-2 mb-4"><button id="saveReportBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-save mr-2"></i> Salvar Relatório do Dia</button></div><div class="overflow-x-auto mb-8"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data do Relatório</th><th class="p-2 text-left">Nº de Leads</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="reports-table"></tbody></table></div></div>
+                    
+                    <div id="relatorios-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="flex justify-end gap-2 mb-4"><button id="saveReportBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-save mr-2"></i> Salvar Relatório do Dia</button></div>
+                        <div class="overflow-x-auto mb-8"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data do Relatório</th><th class="p-2 text-left">Nº de Leads</th><th class="p-2 text-left">Ações</th></tr></thead><tbody id="reports-table"></tbody></table></div>
+                    </div>
+                    
                     <div id="usuarios-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">Gerenciamento de Usuários</h2>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm">
-                                <thead><tr class="bg-gray-50"><th class="p-2 text-left">Nome</th><th class="p-2 text-left">E-mail</th><th class="p-2 text-left">Função</th><th class="p-2 text-center">Atua como Vendedor?</th><th class="p-2 text-left">Ações de Cargo</th><th class="p-2 text-center">Relatório</th></tr></thead>
-                                <tbody id="users-table"></tbody>
-                            </table>
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Nome</th><th class="p-2 text-left">E-mail</th><th class="p-2 text-left">Função</th><th class="p-2 text-center">Atua como Vendedor?</th><th class="p-2 text-left">Ações de Cargo</th><th class="p-2 text-center">Relatório</th></tr></thead><tbody id="users-table"></tbody></table></div>
+                    </div>
+                    
+                    <div id="times-section" class="page-section hidden">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Gerenciamento de Times</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-1 bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Supervisores (Gestores/Admins)</h3><p class="text-sm text-gray-500 mb-4">Selecione um supervisor para ver e editar seu time.</p><div id="supervisores-list" class="space-y-2 max-h-96 overflow-y-auto"></div></div>
+                            <div class="md:col-span-2 bg-white p-6 rounded-lg shadow">
+                                <div id="vendedores-container" class="hidden">
+                                    <h3 id="vendedores-list-title" class="font-semibold text-lg mb-4">Time de [Supervisor]</h3><p class="text-sm text-gray-500 mb-4">Marque os vendedores que pertencem a este time.</p>
+                                    <div id="vendedores-list" class="space-y-3 max-h-80 overflow-y-auto border-t border-b py-4"></div>
+                                    <div class="mt-6 flex justify-end"><button id="save-assignments-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Alterações</button></div>
+                                </div>
+                                <div id="vendedores-placeholder" class="text-center py-10"><i class="fas fa-arrow-left text-3xl text-gray-400"></i><p class="mt-4 text-gray-600">Selecione um supervisor à esquerda para começar.</p></div>
+                            </div>
                         </div>
                     </div>
-                    <div id="logs-section" class="page-section hidden bg-white p-6 rounded-lg shadow"><div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-6"><h3 class="font-semibold text-lg text-blue-800 mb-2">Importação de Relatório CSV</h3><p class="text-sm text-blue-700 mb-4">Selecione um arquivo CSV. O nome deve conter a data no formato AAAA-MM-DD (ex: `relatorio_2025-08-15.csv`) para criar o relatório diário.</p><input type="file" id="csv-importer" class="hidden" accept=".csv"><button id="import-csv-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-upload mr-2"></i> Selecionar Arquivo</button></div><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data/Hora</th><th class="p-2 text-left">Ação</th><th class="p-2 text-left">Detalhes</th></tr></thead><tbody id="logs-table"></tbody></table></div></div>
-                    <div id="configuracoes-section" class="page-section hidden"><div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Qualificações</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-qualificacao-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Cliente em Potencial"><button id="add-qualificacao-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="qualificacoes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
-                        <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Fontes</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-fonte-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Indicação"><button id="add-fonte-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="fontes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
-                        <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Configurações Financeiras</h3><div class="space-y-4"><div><label for="config-comissao" class="block text-sm font-medium text-gray-700">Comissão Padrão (%)</label><input type="number" id="config-comissao" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 10"></div><div><label for="config-meta" class="block text-sm font-medium text-gray-700">Meta Mensal de Vendas (R$)</label><input type="number" id="config-meta" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 5000"></div><div><label for="config-bonus" class="block text-sm font-medium text-gray-700">Comissão Bônus (se meta atingida, %)</label><input type="number" id="config-bonus" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 15"></div><div><label for="config-estornos-toggle" class="block text-sm font-medium text-gray-700">Considerar Estornos no Cálculo</label><select id="config-estornos-toggle" class="mt-1 block w-full px-3 py-2 border rounded-md"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="mt-6"><button id="save-finance-config-btn" class="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700">Salvar Configurações</button></div></div>
-                    </div></div>
+
+                    <div id="logs-section" class="page-section hidden bg-white p-6 rounded-lg shadow">
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-6">
+                            <h3 class="font-semibold text-lg text-blue-800 mb-2">Importação de Relatório CSV</h3>
+                            <p class="text-sm text-blue-700 mb-4">Selecione um arquivo CSV. O nome deve conter a data no formato AAAA-MM-DD (ex: `relatorio_2025-08-15.csv`) para criar o relatório diário.</p>
+                            <input type="file" id="csv-importer" class="hidden" accept=".csv"><button id="import-csv-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 text-sm flex items-center"><i class="fas fa-upload mr-2"></i> Selecionar Arquivo</button>
+                        </div>
+                        <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data/Hora</th><th class="p-2 text-left">Ação</th><th class="p-2 text-left">Detalhes</th></tr></thead><tbody id="logs-table"></tbody></table></div>
+                    </div>
+                    
+                    <div id="configuracoes-section" class="page-section hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Qualificações</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-qualificacao-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Cliente em Potencial"><button id="add-qualificacao-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="qualificacoes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
+                            <div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Gerenciar Fontes</h3><div class="mt-1 flex gap-2 mb-4"><input type="text" id="new-fonte-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Indicação"><button id="add-fonte-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div><div id="fontes-list" class="space-y-2 max-h-60 overflow-y-auto"></div></div>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="font-semibold text-lg mb-4">Configurações Financeiras</h3>
+                                <div class="space-y-4">
+                                    <div><label for="config-comissao" class="block text-sm font-medium text-gray-700">Comissão Padrão (%)</label><input type="number" id="config-comissao" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 10"></div>
+                                    <div><label for="config-meta" class="block text-sm font-medium text-gray-700">Meta Mensal de Vendas (R$)</label><input type="number" id="config-meta" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 5000"></div>
+                                    <div><label for="config-bonus" class="block text-sm font-medium text-gray-700">Comissão Bônus (se meta atingida, %)</label><input type="number" id="config-bonus" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Ex: 15"></div>
+                                    <div><label for="config-estornos-toggle" class="block text-sm font-medium text-gray-700">Considerar Estornos no Cálculo</label><select id="config-estornos-toggle" class="mt-1 block w-full px-3 py-2 border rounded-md"><option value="true">Sim</option><option value="false">Não</option></select></div>
+                                </div>
+                                <div class="mt-6"><button id="save-finance-config-btn" class="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700">Salvar Configurações</button></div>
+                            </div>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>
@@ -87,313 +188,6 @@
     <div id="salesModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50"><div class="bg-white rounded-lg shadow-2xl max-w-md w-full"><div class="flex justify-between items-center p-6 border-b"><h2 class="text-xl font-bold text-gray-800">Dados da Venda</h2><button id="closeSalesModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div><div class="p-6 space-y-4"><div><label for="saleProtocolo" class="block text-sm font-medium text-gray-700">Número de Protocolo</label><input type="text" id="saleProtocolo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="saleContrato" class="block text-sm font-medium text-gray-700">Número de Contrato</label><input type="text" id="saleContrato" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div></div><div class="flex justify-end gap-4 p-6 bg-gray-50 rounded-b-lg"><button id="cancelSalesModal" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg">Cancelar</button><button id="saveSaleBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Salvar</button></div></div></div>
     <div id="sellerReportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto"><div class="bg-white rounded-lg shadow-2xl max-w-6xl w-full my-auto flex flex-col h-[95vh]"><div class="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10"><h2 id="sellerReportModalTitle" class="text-xl font-bold text-gray-800">Relatório do Vendedor</h2><div class="flex items-center gap-4"><button id="exportSellerReportPdf" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center text-sm"><i class="fas fa-file-pdf mr-2"></i> Baixar PDF</button><button id="closeSellerReportModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div></div><div id="sellerReportContent" class="p-6 overflow-y-auto flex-1"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"><div class="bg-green-50 p-4 rounded-lg border border-green-200"><h3 class="text-sm font-medium text-green-700">Vendas Realizadas</h3><p id="report-kpi-vendas" class="text-2xl font-bold text-green-800">0</p></div><div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><h3 class="text-sm font-medium text-blue-700">Valor Total (Vendas)</h3><p id="report-kpi-valor" class="text-2xl font-bold text-blue-800">R$ 0,00</p></div><div class="bg-red-50 p-4 rounded-lg border border-red-200"><h3 class="text-sm font-medium text-red-700">Total Estornos</h3><p id="report-kpi-estornos" class="text-2xl font-bold text-red-800">R$ 0,00</p></div><div class="bg-purple-50 p-4 rounded-lg border border-purple-200"><h3 class="text-sm font-medium text-purple-700">Comissão (Estimado)</h3><p id="report-kpi-comissao" class="text-2xl font-bold text-purple-800">R$ 0,00</p></div></div><div class="mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes das Vendas</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Operadora</th></tr></thead><tbody id="seller-sales-table-body"></tbody></table></div></div><div><h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes dos Estornos (Vendas Canceladas)</h3><div class="overflow-x-auto rounded-lg border max-h-64"><table class="min-w-full text-xs bg-white"><thead class="bg-gray-100 sticky top-0"><tr class="text-left"><th class="p-2 font-semibold">Data</th><th class="p-2 font-semibold">Cliente</th><th class="p-2 font-semibold">CPF</th><th class="p-2 font-semibold">Plano</th><th class="p-2 font-semibold">Valor</th><th class="p-2 font-semibold">Status</th></tr></thead><tbody id="seller-estornos-table-body"></tbody></table></div></div></div></div></div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-        import { getFirestore, collection, doc, addDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp, writeBatch, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-        const firebaseConfig = { apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4", authDomain: "qualificacao-a14ff.firebaseapp.com", projectId: "qualificacao-a14ff", storageBucket: "qualificacao-a14ff.appspot.com", messagingSenderId: "955642076737", appId: "1:955642076737:web:f6db77134cd6a18b8f30c0" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            onAuthStateChanged(auth, async (user) => {
-                const authCheckDiv=document.getElementById('auth-check'),accessDeniedDiv=document.getElementById('access-denied'),dashboardAppDiv=document.getElementById('dashboard-app');if(user){const userDoc=await getDoc(doc(db,'users',user.uid));if(userDoc.exists()&&userDoc.data().role==='admin'){authCheckDiv.classList.add('hidden');dashboardAppDiv.classList.remove('hidden');initializeAppDashboard(user)}else{authCheckDiv.classList.add('hidden');accessDeniedDiv.classList.remove('hidden')}}else{authCheckDiv.classList.add('hidden');accessDeniedDiv.classList.remove('hidden')}});
-        });
-
-        function initializeAppDashboard(adminUser) {
-            let allLeadsData = [], allUsersData = [], allQualificacoesData = [], chartInstances = {}, financeConfig = {}, confirmCallback, currentCaseData, currentReportData = null, currentEditingQualificacaoId = null, currentEditingLeadId = null, currentUserForReport = null;
-            const navLinks = document.querySelectorAll('.nav-link'), pageSections = document.querySelectorAll('.page-section'), pageTitle = document.getElementById('page-title'), confirmationModal = document.getElementById('confirmationModal'), caseDetailsModal = document.getElementById('caseDetailsModal'), reportDetailsModal = document.getElementById('reportDetailsModal'), reportsTable = document.getElementById('reports-table'), editQualificacaoModal = document.getElementById('editQualificacaoModal'), salesModal = document.getElementById('salesModal'), sellerReportModal = document.getElementById('sellerReportModal');
-            const renderTable = (tbodyId, data, rowTemplate) => document.getElementById(tbodyId).innerHTML = data.map(rowTemplate).join('');
-            const createLog = async (action, details) => await addDoc(collection(db, 'logs'), { action, details, userEmail: adminUser.email, timestamp: serverTimestamp() });
-            const showConfirmationModal = (title, msg, cb) => { document.getElementById('modalTitle').textContent = title; document.getElementById('modalMessage').textContent = msg; confirmCallback = cb; confirmationModal.classList.remove('hidden'); };
-            const downloadCSV = (data, filename) => { const headers = ["Contato", "Vendedor", "Fonte", "Qualificacao", "Status Agendamento"]; const csvRows = [headers.join(';')]; data.forEach(l => { const row = [`"${l.contato||''}"`, `"${l.vendedor||''}"`, `"${l.fonte||''}"`, `"${l.qualificacao||''}"`, `"${l.subStatusAgendamento||''}"`]; csvRows.push(row.join(';')); }); const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([`\uFEFF${csvRows.join('\r\n')}`], {type:'text/csv;charset=utf-8;'})); link.setAttribute("download", `${filename}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); };
-            
-            const renderCasesTable = leads => renderTable('all-cases-table', leads.filter(l => l.descricao_caso), l => {
-                const gestorComment = l.gestor_observacao ? l.gestor_observacao.substring(0, 40) + '...' : '<span class="text-gray-400">Nenhum</span>';
-                return `<tr class="border-b">
-                    <td class="p-2">${l.contato||''}</td>
-                    <td class="p-2">${l.vendedor||''}</td>
-                    <td class="p-2 text-xs">${l.descricao_caso.substring(0,50)}...</td>
-                    <td class="p-2 text-xs font-medium ${l.gestor_observacao ? 'text-blue-600' : ''}">${gestorComment}</td>
-                    <td class="p-2"><button data-lead-id="${l.id}" class="view-case-btn text-sm bg-gray-600 text-white py-1 px-2 rounded">Ver</button></td>
-                </tr>`;
-            });
-            
-            const renderUsersTable = users => renderTable('users-table', users.sort((a,b) => a.nome.localeCompare(b.nome)), u => {
-                const roleBadges = { admin: 'bg-red-100 text-red-800', gestor: 'bg-purple-100 text-purple-800', user: 'bg-blue-100 text-blue-800' };
-                const roleNames = { admin: 'Admin', gestor: 'Gestor', user: 'Vendedor' };
-
-                let isVendedorToggle = '<td class="p-2 text-center text-gray-400">N/A</td>';
-                if (u.role === 'gestor' || u.role === 'admin') {
-                    const active = u.isVendedor === true;
-                    isVendedorToggle = `<td class="p-2 text-center">
-                        <button data-uid="${u.id}" data-is-vendedor="${!active}" class="toggle-is-vendedor-btn text-sm font-semibold py-1 px-3 rounded-full ${active ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'}">
-                            ${active ? 'Sim' : 'Não'}
-                        </button>
-                    </td>`;
-                } else if (u.role === 'user') {
-                     isVendedorToggle = `<td class="p-2 text-center"><span class="font-semibold text-green-600">Sim</span></td>`;
-                }
-
-                return `<tr class="border-b">
-                    <td class="p-2 font-medium">${u.nome||'N/A'}</td>
-                    <td class="p-2 text-gray-600">${u.email}</td>
-                    <td class="p-2"><span class="px-2 py-1 text-xs font-semibold rounded-full ${roleBadges[u.role] || 'bg-gray-100'}">${roleNames[u.role] || 'N/A'}</span></td>
-                    ${isVendedorToggle}
-                    <td class="p-2 flex gap-1">
-                        <button data-uid="${u.id}" data-role="user" class="change-role-btn text-sm ${u.role === 'user' ? 'bg-blue-500' : 'bg-gray-300'} text-white py-1 px-2 rounded" title="Tornar Vendedor">V</button>
-                        <button data-uid="${u.id}" data-role="gestor" class="change-role-btn text-sm ${u.role === 'gestor' ? 'bg-purple-500' : 'bg-gray-300'} text-white py-1 px-2 rounded" title="Tornar Gestor">G</button>
-                        <button data-uid="${u.id}" data-role="admin" class="change-role-btn text-sm ${u.role === 'admin' ? 'bg-red-500' : 'bg-gray-300'} text-white py-1 px-2 rounded" title="Tornar Admin">A</button>
-                    </td>
-                    <td class="p-2 text-center"><button data-uid="${u.id}" class="view-seller-report-btn text-sm bg-blue-600 text-white font-semibold py-1 px-3 rounded-lg hover:bg-blue-700">Relatório</button></td>
-                </tr>`;
-            });
-
-            const renderReportsTable = reports => renderTable('reports-table', reports, r => `<tr class="border-b"><td class="p-2">${r.id}</td><td class="p-2">${r.leads.length}</td><td class="p-2 flex gap-2"><button data-report-id="${r.id}" class="view-report-btn text-sm bg-blue-600 text-white py-1 px-2 rounded hover:bg-blue-700">Ver</button><button data-report-id="${r.id}" class="export-report-btn text-sm bg-green-500 text-white py-1 px-2 rounded hover:bg-green-500">Exportar</button></td></tr>`);
-            const renderLogsTable = logs => renderTable('logs-table', logs, l => `<tr class="border-b"><td class="p-2 text-xs">${l.timestamp ? new Date(l.timestamp.seconds*1000).toLocaleString('pt-BR'):''}</td><td class="p-2">${l.action}</td><td class="p-2 text-xs">${l.details} por ${l.userEmail||''}</td></tr>`);
-            const renderFontesList = docs => document.getElementById('fontes-list').innerHTML = docs.map(d => `<div class="flex justify-between items-center bg-gray-100 p-2 rounded"><span>${d.data().nome}</span><button data-id="${d.id}" class="delete-btn text-red-500 hover:text-red-700 text-xs font-semibold">Excluir</button></div>`).join('');
-            const populateFilter = (id, options) => { const select = document.getElementById(id), current = select.value; select.innerHTML = `<option value="all">${id.includes('vendedor') ? 'Todos os Vendedores' : (id.includes('fonte') ? 'Todas as Fontes' : 'Todas as Qualificações')}</option>`; options.forEach(opt => select.innerHTML += `<option value="${opt}">${opt}</option>`); select.value = current || 'all'; };
-            const renderChart = (id, type, labels, data, label) => { if(chartInstances[id]) chartInstances[id].destroy(); chartInstances[id] = new Chart(document.getElementById(id).getContext('2d'), { type, data: { labels, datasets: [{ label, data, backgroundColor: ['#3B82F6', '#EF4444', '#FFC107', '#87CEEB', '#28A745', '#BDB76B', '#4682B4', '#8A2BE2', '#006400', '#FF4500', '#696969'] }] } }); };
-            const openReportModal = (reportId, report) => { currentReportData = report; document.getElementById('modalReportTitle').textContent = `Leads do Relatório - ${reportId}`; const tableBody = document.getElementById('report-leads-table-body'); if (report.leads && report.leads.length > 0) { tableBody.innerHTML = report.leads.map(l => `<tr class="border-b"><td class="p-2">${l.contato||''}</td><td class="p-2">${l.vendedor||''}</td><td class="p-2">${l.qualificacao||''}</td><td class="p-2">${l.subStatusAgendamento||'N/A'}</td></tr>`).join(''); } else { tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center">Nenhum lead neste relatório.</td></tr>`; } reportDetailsModal.classList.remove('hidden'); };
-            const renderQualificacoesList = (qualificacoes) => { const listDiv = document.getElementById('qualificacoes-list'); listDiv.innerHTML = qualificacoes.map(q => `<div class="flex justify-between items-center bg-gray-100 p-2 rounded"><span>${q.nome}</span><div class="flex gap-2"><button data-id="${q.id}" data-name="${q.nome}" data-kpi-link="${q.kpiLink || 'none'}" data-show-in-sales="${q.showInSales || 'false'}" class="edit-qualificacao-btn text-blue-500 hover:text-blue-700 text-xs font-semibold">Editar</button><button data-id="${q.id}" class="delete-btn text-red-500 hover:text-red-700 text-xs font-semibold">Excluir</button></div></div>`).join(''); };
-            const openCaseDetailsModal = (lead) => { currentCaseData = lead; document.getElementById('modalCaseTitle').textContent = `Detalhes do Caso: ${lead.contato}`; const body = document.getElementById('modalCaseBody'); const prazo = lead.prazo ? new Date(lead.prazo + 'T00:00:00').toLocaleDateString('pt-BR') : 'Não definido'; body.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><strong>Vendedor:</strong><p>${lead.vendedor||'N/A'}</p></div><div><strong>Qualificação:</strong><p>${lead.qualificacao||'N/A'}</p></div><div><strong>Nome Completo:</strong><p>${lead.nome_completo||'N/A'}</p></div><div><strong>CPF/CNPJ:</strong><p>${lead.cpf_cnpj||'N/A'}</p></div><div><strong>E-mail:</strong><p>${lead.email||'N/A'}</p></div><div><strong>Prazo de Retorno:</strong><p>${prazo}</p></div><div class="col-span-2"><strong>Endereço:</strong><p>${lead.rua||''} ${lead.numero||''}, ${lead.bairro||''} - ${lead.cidade||''} (CEP: ${lead.cep||''})</p></div><div class="col-span-2"><strong>Descrição do Caso:</strong><p class="whitespace-pre-wrap">${lead.descricao_caso||'N/A'}</p></div><div class="col-span-2"><strong>Comentário do Gestor:</strong><p class="whitespace-pre-wrap font-medium text-blue-700">${lead.gestor_observacao||'Nenhum'}</p></div></div>`; caseDetailsModal.classList.remove('hidden'); };
-            const renderLeadsTable = leads => { const scheduledKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasAgendadas').map(q => q.nome); const tableBody = document.getElementById('all-leads-table'); tableBody.innerHTML = leads.map(l => { let subStatusHtml = '<td class="p-2 text-xs">--</td>'; if (scheduledKpiNames.includes(l.qualificacao)) { const statuses = ['Agendado', 'Pendente', 'Cancelado', 'Ativo']; const options = statuses.map(s => `<option value="${s}" ${l.subStatusAgendamento === s ? 'selected' : ''}>${s}</option>`).join(''); subStatusHtml = `<td class="p-2 text-xs"><select data-id="${l.id}" class="substatus-select p-1 border rounded-md text-xs bg-white shadow-sm w-full">${options}</select></td>`; } return `<tr class="border-b"><td class="p-2">${l.contato||''}</td><td class="p-2">${l.vendedor||''}</td><td class="p-2">${l.qualificacao||''}</td><td class="p-2">${l.cep||''}</td><td class="p-2">${l.numero||''}</td>${subStatusHtml}<td class="p-2 text-xs">${l.createdAt ? new Date(l.createdAt.seconds*1000).toLocaleString('pt-BR'):''}</td><td class="p-2 text-center"><div class="flex items-center justify-center gap-1"><button data-id="${l.id}" class="open-sales-modal-btn text-green-600 p-1" title="Dados da Venda"><i class="fas fa-dollar-sign"></i></button></div></td></tr>`; }).join(''); };
-            const renderSalesTab = () => { const salesKpiNames = allQualificacoesData.filter(q => q.showInSales === 'true').map(q => q.nome); const salesLeads = allLeadsData.filter(l => salesKpiNames.includes(l.qualificacao)); renderTable('sales-table-body', salesLeads, l => `<tr class="border-b"><td class="p-2">${l.contato||''}</td><td class="p-2">${l.vendedor||''}</td><td class="p-2">${l.plano||'N/A'}</td><td class="p-2">R$ ${l.valorPlano||'0.00'}</td><td class="p-2">${l.qualificacao||''}</td><td class="p-2">${l.subStatusAgendamento||'N/A'}</td><td class="p-2 text-xs">${l.dataVenda ? new Date(l.dataVenda + 'T00:00:00').toLocaleDateString('pt-BR') : 'N/A'}</td></tr>`); };
-            
-            const updateDashboard = (leads) => {
-                const activeSellers = allUsersData.filter(u => u.role === 'user' || (u.role === 'gestor' && u.isVendedor === true) || (u.role === 'admin' && u.isVendedor === true));
-                const activeSellerNames = activeSellers.map(u => u.nome);
-                const leadsFromActiveSellers = allLeadsData.filter(l => activeSellerNames.includes(l.vendedor));
-
-                const salesKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasRealizadas').map(q => q.nome);
-                const scheduledKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasAgendadas').map(q => q.nome);
-
-                const kpiVendasTotal = leadsFromActiveSellers.filter(l => salesKpiNames.includes(l.qualificacao) || (scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento === 'Ativo')).length;
-                const kpiAgendadasTotal = leadsFromActiveSellers.filter(l => scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento !== 'Ativo').length;
-                
-                document.getElementById('kpi-total').textContent = leads.length;
-                document.getElementById('kpi-vendas').textContent = kpiVendasTotal;
-                document.getElementById('kpi-agendadas').textContent = kpiAgendadasTotal;
-                document.getElementById('kpi-vendedores').textContent = activeSellers.length;
-
-                const leadsForCharts = leads.filter(l => activeSellerNames.includes(l.vendedor));
-
-                const statusCounts = leadsForCharts.reduce((acc, l) => { if(l.qualificacao) acc[l.qualificacao] = (acc[l.qualificacao] || 0) + 1; return acc; }, {});
-                const vendedorCounts = leadsForCharts.reduce((acc, l) => { if(l.vendedor) acc[l.vendedor] = (acc[l.vendedor] || 0) + 1; return acc; }, {});
-                renderChart('statusChart', 'doughnut', Object.keys(statusCounts), Object.values(statusCounts));
-                renderChart('vendedorChart', 'bar', Object.keys(vendedorCounts), Object.values(vendedorCounts), 'Leads por Vendedor');
-                
-                const salesByVendedor = leadsForCharts.filter(l => salesKpiNames.includes(l.qualificacao) || (scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento === 'Ativo')).reduce((acc, lead) => { if (lead.vendedor) acc[lead.vendedor] = (acc[lead.vendedor] || 0) + 1; return acc; }, {});
-                const sortedVendedores = Object.entries(salesByVendedor).sort((a, b) => b[1] - a[1]);
-                const leaderboardTable = document.getElementById('leaderboard-table');
-                if (sortedVendedores.length > 0) { leaderboardTable.innerHTML = sortedVendedores.map(([nome, vendas], index) => `<tr class="border-b"><td class="p-2 font-bold">${index+1}º</td><td class="p-2">${nome}</td><td class="p-2">${vendas}</td></tr>`).join(''); } else { leaderboardTable.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-gray-500">Nenhuma venda no período.</td></tr>`; }
-                const qualificacoesCounts = leadsForCharts.reduce((acc, lead) => { if (lead.qualificacao) acc[lead.qualificacao] = (acc[lead.qualificacao] || 0) + 1; return acc; }, {});
-                const sortedQualificacoes = Object.entries(qualificacoesCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
-                renderChart('performanceChart', 'bar', sortedQualificacoes.map(item => item[0]), sortedQualificacoes.map(item => item[1]), 'Total de Ocorrências');
-            };
-
-            const applyFilters = () => { const searchTerm = document.getElementById('search-input').value.toLowerCase().trim(); const filters = { date: document.getElementById('date-filter').value, vendedor: document.getElementById('filter-vendedor').value, fonte: document.getElementById('filter-fonte').value, qualificacao: document.getElementById('filter-qualificacao').value }; let filteredLeads = allLeadsData; if (filters.date !== 'all') { const now = new Date(); let startDate = new Date(); if (filters.date === 'today') startDate.setHours(0,0,0,0); else if (filters.date === '7days') startDate.setDate(now.getDate() - 7); else if (filters.date === '30days') startDate.setDate(now.getDate() - 30); filteredLeads = filteredLeads.filter(l => l.createdAt && l.createdAt.toDate() >= startDate); } if (filters.vendedor !== 'all') filteredLeads = filteredLeads.filter(l => l.vendedor === filters.vendedor); if (filters.fonte !== 'all') filteredLeads = filteredLeads.filter(l => l.fonte === filters.fonte); if (filters.qualificacao !== 'all') filteredLeads = filteredLeads.filter(l => l.qualificacao === filters.qualificacao); if (searchTerm) { filteredLeads = filteredLeads.filter(l => (l.contato && l.contato.includes(searchTerm)) || (l.nome_completo && l.nome_completo.toLowerCase().includes(searchTerm)) ); } updateDashboard(filteredLeads); renderLeadsTable(filteredLeads); renderCasesTable(filteredLeads); renderSalesTab(); };
-            
-            const loadFinancialConfig = async () => {
-                const configRef = doc(db, 'configuracoes', 'financeiras');
-                const configSnap = await getDoc(configRef);
-                if (configSnap.exists()) {
-                    financeConfig = configSnap.data();
-                    document.getElementById('config-comissao').value = financeConfig.comissao || '';
-                    document.getElementById('config-meta').value = financeConfig.meta || '';
-                    document.getElementById('config-bonus').value = financeConfig.bonus || '';
-                    document.getElementById('config-estornos-toggle').value = financeConfig.considerarEstornos || 'true';
-                }
-            };
-
-            const listenToAllData = () => { onSnapshot(collection(db, 'leads'), s => { allLeadsData = s.docs.map(d => ({id: d.id, ...d.data()})); applyFilters(); }); onSnapshot(collection(db, 'users'), s => { allUsersData = s.docs.map(d => ({id: d.id, ...d.data()})); renderUsersTable(allUsersData); const activeSellers = allUsersData.filter(u => u.role === 'user' || (u.role === 'gestor' && u.isVendedor) || (u.role === 'admin' && u.isVendedor)); populateFilter('filter-vendedor', activeSellers.map(u => u.nome)); applyFilters(); }); onSnapshot(query(collection(db, 'qualificacoes'), orderBy('nome')), s => { allQualificacoesData = s.docs.map(d => ({ id: d.id, ...d.data() })); renderQualificacoesList(allQualificacoesData); populateFilter('filter-qualificacao', allQualificacoesData.map(q => q.nome)); }); onSnapshot(query(collection(db, 'fontes'), orderBy('nome')), s => { renderFontesList(s.docs); populateFilter('filter-fonte', s.docs.map(d => d.data().nome)); }); onSnapshot(query(collection(db, 'relatorios_diarios'), orderBy('createdAt', 'desc')), s => renderReportsTable(s.docs.map(d => ({id: d.id, ...d.data()})))); onSnapshot(query(collection(db, 'logs'), orderBy('timestamp', 'desc')), s => renderLogsTable(s.docs.map(d => d.data()))); };
-            async function handleFileUpload(event) { const file = event.target.files[0]; if (!file) return; const dateMatch = file.name.match(/(\d{4}-\d{2}-\d{2})/); if (!dateMatch) { alert('Erro: O nome do arquivo não contém data no formato AAAA-MM-DD.'); return event.target.value = ''; } const reportDateId = dateMatch[0]; const reportRef = doc(db, 'relatorios_diarios', reportDateId); if ((await getDoc(reportRef)).exists()) { alert(`Relatório para ${reportDateId} já existe.`); return event.target.value = ''; } const reader = new FileReader(); reader.onerror = () => alert('Erro ao ler o arquivo.'); reader.onload = async (e) => { const rows = e.target.result.split('\n').slice(1); const leadsForReport = [], notFoundVendors = new Set(); let createdCount = 0, updatedCount = 0; const batch = writeBatch(db); for (const rowStr of rows) { if (!rowStr.trim()) continue; const [contato, nomeVendedor, fonte, qualificacao] = rowStr.split(';').map(s => s.trim().replace(/"/g, '')); const vendedorEncontrado = allUsersData.find(u => u.nome && u.nome.toLowerCase() === nomeVendedor.toLowerCase()); if (vendedorEncontrado) { const q = query(collection(db, 'leads'), where("contato", "==", contato)); const existingLeadSnap = await getDocs(q); const leadData = { contato, vendedor: vendedorEncontrado.nome, userId: vendedorEncontrado.id, fonte: fonte || '', qualificacao: qualificacao || ''}; if (existingLeadSnap.empty) { leadData.createdAt = serverTimestamp(); leadData.lastAction = 'Criado'; batch.set(doc(collection(db, 'leads')), leadData); createdCount++; } else { const existingDocRef = existingLeadSnap.docs[0].ref; leadData.lastUpdatedAt = serverTimestamp(); leadData.lastAction = 'Atualizado'; batch.update(existingDocRef, leadData); updatedCount++; } leadsForReport.push(leadData); } else { notFoundVendors.add(nomeVendedor); } } if (createdCount > 0 || updatedCount > 0) { await setDoc(reportRef, { leads: leadsForReport, createdAt: serverTimestamp() }); await batch.commit(); } let feedback = `Importação concluída!\n\n- ${createdCount} leads criados.\n- ${updatedCount} leads atualizados.\n- Relatório para ${reportDateId} salvo.`; if (notFoundVendors.size > 0) feedback += `\n\nVendedores não encontrados: ${Array.from(notFoundVendors).join(', ')}`; alert(feedback); createLog('Importação CSV', feedback); }; reader.readAsText(file, 'UTF-8'); event.target.value = ''; }
-            const openEditQualificacaoModal = (id, name, kpiLink, showInSales) => { currentEditingQualificacaoId = id; document.getElementById('edit-qualificacao-name').value = name; document.getElementById('edit-qualificacao-kpi').value = kpiLink || 'none'; document.getElementById('edit-qualificacao-show-in-sales').value = showInSales || 'false'; editQualificacaoModal.classList.remove('hidden'); };
-            const exportSingleCasePDF = (lead) => { const { jsPDF } = window.jspdf; const doc = new jsPDF(); let cursorY = 20; const margin = 15, maxWidth = doc.internal.pageSize.getWidth() - margin * 2; doc.setFontSize(18).text(`Relatório de Caso: ${lead.contato||'N/A'}`, 105, cursorY, {align:'center'}); cursorY+=15; doc.setFontSize(10).setTextColor(100).text(`Vendedor: ${lead.vendedor||'N/A'}`, margin, cursorY); doc.setFontSize(10).setTextColor(100).text(`Nome: ${lead.nome_completo||'N/A'}`, 90, cursorY); cursorY+=10; doc.setFontSize(12).setTextColor(0).text("Descrição do Caso", margin, cursorY); cursorY+=5; doc.line(margin, cursorY, 200, cursorY); cursorY+=7; doc.setFontSize(10).text(doc.splitTextToSize(lead.descricao_caso||'S/ Descrição.', maxWidth), margin, cursorY); doc.save(`Caso_${lead.contato}.pdf`);};
-            const exportDashboardPDF = () => { const { jsPDF } = window.jspdf; const doc = new jsPDF(); let cursorY = 20; doc.setFontSize(18).text("Relatório de Performance - Piel Telecom", 105, cursorY, {align:'center'}); cursorY+=5; doc.setFontSize(10).text(new Date().toLocaleString('pt-BR'), 105, cursorY, {align:'center'}); cursorY+=15; doc.setFontSize(12).text("Resumo das Métricas", 14, cursorY); cursorY+=7; const kpiVendas=parseInt(document.getElementById('kpi-vendas').textContent), kpiAgendadas=parseInt(document.getElementById('kpi-agendadas').textContent), kpiTotalFiltrado=parseInt(document.getElementById('kpi-total').textContent), totalLeadsGeral=allLeadsData.length; const taxaConversao=totalLeadsGeral > 0 ? ((kpiVendas / totalLeadsGeral) * 100).toFixed(2) : 0; const summaryText=`Este relatório apresenta os dados de performance gerais e do filtro atual.\n\nMétricas Gerais (Todo o Período):\n- Total de Vendas Realizadas: ${kpiVendas}\n- Total de Vendas Agendadas: ${kpiAgendadas}\n- Taxa de Conversão Geral: ${taxaConversao}%\n\nMétricas no Filtro Atual:\n- Total de Leads no Filtro: ${kpiTotalFiltrado}`; doc.setFontSize(10); const lines=doc.splitTextToSize(summaryText, 180); doc.text(lines, 14, cursorY); cursorY+=(lines.length * 5) + 10; doc.setFontSize(12).text("Gráficos (Visão do Filtro Atual)", 14, cursorY); cursorY+=7; const statusChartImg=document.getElementById('statusChart').toDataURL('image/png',1.0); const vendedorChartImg=document.getElementById('vendedorChart').toDataURL('image/png',1.0); doc.addImage(statusChartImg,'PNG',14,cursorY,80,80); doc.addImage(vendedorChartImg,'PNG',115,cursorY,80,80); cursorY+=95; if(cursorY > 250) { doc.addPage(); cursorY = 20; } doc.setFontSize(12).text("Ranking de Vendedores (Vendas no Filtro Atual)", 14, cursorY); const salesKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasRealizadas').map(q => q.nome); const scheduledKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasAgendadas').map(q => q.nome); const leadsNoFiltro = allLeadsData.filter(lead => document.getElementById('all-leads-table').querySelector(`tr[data-id="${lead.id}"]`)); const salesByVendedor = leadsNoFiltro.filter(l => salesKpiNames.includes(l.qualificacao) || (scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento === 'Ativo')).reduce((acc, lead) => { if (lead.vendedor) acc[lead.vendedor] = (acc[lead.vendedor] || 0) + 1; return acc; }, {}); const sortedVendedores = Object.entries(salesByVendedor).sort((a, b) => b[1] - a[1]); doc.autoTable({ startY: cursorY+5, head: [['Pos.', 'Vendedor', 'Vendas']], body: sortedVendedores.map(([nome, vendas], index) => [ `${index+1}º`, nome, vendas ]), theme: 'grid' }); doc.save(`Resumo_Dashboard_${new Date().toISOString().split('T')[0]}.pdf`); };
-            const openSalesModal = async (leadId) => { currentEditingLeadId = leadId; const leadDoc = await getDoc(doc(db, 'leads', leadId)); if (leadDoc.exists()) { const data = leadDoc.data(); document.getElementById('saleProtocolo').value = data.protocolo || ''; document.getElementById('saleContrato').value = data.contrato || ''; salesModal.classList.remove('hidden'); } };
-            const saveSaleData = async () => { if (!currentEditingLeadId) return; await updateDoc(doc(db, 'leads', currentEditingLeadId), { protocolo: document.getElementById('saleProtocolo').value, contrato: document.getElementById('saleContrato').value }); salesModal.classList.add('hidden'); };
-            const autoSaveChanges = async () => { const now = new Date(); const todayStr = now.toISOString().split('T')[0]; const lastSave = localStorage.getItem('lastAutoSave'); if (lastSave === todayStr) { return; } const reportRef = doc(db, 'relatorios_diarios', todayStr); if ((await getDoc(reportRef)).exists()) { localStorage.setItem('lastAutoSave', todayStr); return; } const inicioDoDia = new Date(); inicioDoDia.setHours(0,0,0,0); const leadsDeHoje = allLeadsData.filter(lead => lead.createdAt && lead.createdAt.toDate() >= inicioDoDia); if (leadsDeHoje.length > 0) { await setDoc(reportRef, { leads: leadsDeHoje, createdAt: serverTimestamp() }); localStorage.setItem('lastAutoSave', todayStr); await createLog('Backup Automático', `Relatório de ${todayStr} salvo com ${leadsDeHoje.length} leads.`); } };
-            setInterval(autoSaveChanges, 1000 * 60 * 60);
-
-            const openSellerReportModal = (userId) => {
-                currentUserForReport = allUsersData.find(u => u.id === userId);
-                if (!currentUserForReport) return;
-                document.getElementById('sellerReportModalTitle').textContent = `Relatório de: ${currentUserForReport.nome}`;
-                
-                const salesKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasRealizadas').map(q => q.nome);
-                const scheduledKpiNames = allQualificacoesData.filter(q => q.kpiLink === 'vendasAgendadas').map(q => q.nome);
-                const sellerLeads = allLeadsData.filter(l => l.userId === userId);
-                const vendas = sellerLeads.filter(l => salesKpiNames.includes(l.qualificacao) || (scheduledKpiNames.includes(l.qualificacao) && l.subStatusAgendamento === 'Ativo'));
-                const estornos = sellerLeads.filter(l => l.subStatusAgendamento === 'Cancelado');
-                
-                let totalVendasValor = 0, totalEstornosValor = 0;
-                
-                renderTable('seller-sales-table-body', vendas, v => {
-                    const valor = parseFloat(v.valorPlano) || 0;
-                    totalVendasValor += valor;
-                    return `<tr class="border-b"><td class="p-2">${v.dataVenda || 'N/A'}</td><td class="p-2">${v.nome_completo || v.contato}</td><td class="p-2">${v.cpf_cnpj || 'N/A'}</td><td class="p-2">${v.plano || 'N/A'}</td><td class="p-2">R$ ${valor.toFixed(2)}</td><td class="p-2">${v.operadora || 'N/A'}</td></tr>`;
-                });
-                renderTable('seller-estornos-table-body', estornos, e => {
-                    const valor = parseFloat(e.valorPlano) || 0;
-                    totalEstornosValor += valor;
-                    return `<tr class="border-b"><td class="p-2">${e.dataVenda || 'N/A'}</td><td class="p-2">${e.nome_completo || e.contato}</td><td class="p-2">${e.cpf_cnpj || 'N/A'}</td><td class="p-2">${e.plano || 'N/A'}</td><td class="p-2">R$ ${valor.toFixed(2)}</td><td class="p-2">${e.subStatusAgendamento}</td></tr>`;
-                });
-
-                // Lógica de cálculo da comissão
-                const comissaoPadrao = parseFloat(financeConfig.comissao) || 0;
-                const metaMensal = parseFloat(financeConfig.meta) || 0;
-                const comissaoBonus = parseFloat(financeConfig.bonus) || 0;
-                const considerarEstornos = financeConfig.considerarEstornos === 'true';
-
-                let taxaComissao = comissaoPadrao;
-                if (metaMensal > 0 && totalVendasValor >= metaMensal && comissaoBonus > 0) {
-                    taxaComissao = comissaoBonus; // Aplica bônus se a meta foi atingida
-                }
-
-                const valorBaseComissao = totalVendasValor - (considerarEstornos ? totalEstornosValor : 0);
-                const comissaoCalculada = valorBaseComissao * (taxaComissao / 100);
-
-                document.getElementById('report-kpi-vendas').textContent = vendas.length;
-                document.getElementById('report-kpi-valor').textContent = `R$ ${totalVendasValor.toFixed(2)}`;
-                document.getElementById('report-kpi-estornos').textContent = `R$ ${totalEstornosValor.toFixed(2)}`;
-                document.getElementById('report-kpi-comissao').textContent = `R$ ${comissaoCalculada.toFixed(2)}`;
-                sellerReportModal.classList.remove('hidden');
-            };
-
-            const exportSellerReportPDF = () => {
-                if (!currentUserForReport) return;
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                const userName = currentUserForReport.nome || 'N/A';
-                let cursorY = 20;
-
-                doc.setFontSize(18).text(`Relatório de Vendas: ${userName}`, 105, cursorY, { align: 'center' });
-                cursorY += 10;
-                doc.setFontSize(10).text(new Date().toLocaleDateString('pt-BR'), 105, cursorY, { align: 'center' });
-                cursorY += 15;
-
-                // Resumo
-                const kpiVendas = document.getElementById('report-kpi-vendas').textContent;
-                const kpiValor = document.getElementById('report-kpi-valor').textContent;
-                const kpiEstornos = document.getElementById('report-kpi-estornos').textContent;
-                const kpiComissao = document.getElementById('report-kpi-comissao').textContent;
-                doc.setFontSize(12).text('Resumo do Período', 14, cursorY);
-                cursorY += 7;
-                doc.setFontSize(10).text(`- Vendas Realizadas: ${kpiVendas}`, 14, cursorY);
-                cursorY += 5;
-                doc.setFontSize(10).text(`- Valor Total (Vendas): ${kpiValor}`, 14, cursorY);
-                cursorY += 5;
-                doc.setFontSize(10).text(`- Total Estornos: ${kpiEstornos}`, 14, cursorY);
-                cursorY += 5;
-                doc.setFontSize(10).text(`- Comissão Estimada: ${kpiComissao}`, 14, cursorY);
-                cursorY += 15;
-
-                // Tabela de Vendas
-                if (document.getElementById('seller-sales-table-body').rows.length > 0) {
-                    doc.setFontSize(12).text('Detalhes das Vendas', 14, cursorY);
-                    doc.autoTable({
-                        startY: cursorY + 5,
-                        html: '#seller-sales-table-body',
-                        head: [['Data', 'Cliente', 'CPF', 'Plano', 'Valor', 'Operadora']],
-                        theme: 'grid'
-                    });
-                    cursorY = doc.autoTable.previous.finalY + 15;
-                }
-
-                // Tabela de Estornos
-                if (document.getElementById('seller-estornos-table-body').rows.length > 0) {
-                     if(cursorY > 250) { doc.addPage(); cursorY = 20; }
-                    doc.setFontSize(12).text('Detalhes dos Estornos', 14, cursorY);
-                    doc.autoTable({
-                        startY: cursorY + 5,
-                        html: '#seller-estornos-table-body',
-                        head: [['Data', 'Cliente', 'CPF', 'Plano', 'Valor', 'Status']],
-                        theme: 'grid'
-                    });
-                }
-                
-                doc.save(`Relatorio_${userName}_${new Date().toISOString().split('T')[0]}.pdf`);
-            };
-
-            const setupEventListeners = () => {
-                document.getElementById('hamburger-btn').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('hidden'); });
-                document.getElementById('all-leads-table').addEventListener('click', e => { const salesBtn = e.target.closest('.open-sales-modal-btn'); if(salesBtn) openSalesModal(salesBtn.dataset.id); });
-                document.getElementById('closeSalesModal').addEventListener('click', () => salesModal.classList.add('hidden'));
-                document.getElementById('cancelSalesModal').addEventListener('click', () => salesModal.classList.add('hidden'));
-                document.getElementById('saveSaleBtn').addEventListener('click', saveSaleData);
-                navLinks.forEach(link => link.addEventListener('click', e => { if (!link.href.includes('central.desktop.com.br')) { e.preventDefault(); const targetId = link.getAttribute('href').substring(1); pageSections.forEach(s => s.classList.add('hidden')); document.getElementById(`${targetId}-section`).classList.remove('hidden'); navLinks.forEach(l => l.classList.remove('bg-gray-200')); link.classList.add('bg-gray-200'); pageTitle.textContent = link.querySelector('span').textContent; }}));
-                document.querySelectorAll('#filter-qualificacao, #filter-fonte, #filter-vendedor, #date-filter, #search-input').forEach(el => el.addEventListener(el.id === 'search-input' ? 'input' : 'change', applyFilters));
-                document.getElementById('add-qualificacao-btn').addEventListener('click', async () => { const nome = document.getElementById('new-qualificacao-input').value.trim(); if (nome) { await addDoc(collection(db, 'qualificacoes'), { nome, kpiLink: 'none', showInSales: 'false' }); document.getElementById('new-qualificacao-input').value = ''; } });
-                document.getElementById('add-fonte-btn').addEventListener('click', async () => { const nome = document.getElementById('new-fonte-input').value.trim(); if (nome) { await addDoc(collection(db, 'fontes'), { nome }); document.getElementById('new-fonte-input').value = ''; } });
-                document.getElementById('qualificacoes-list').addEventListener('click', async e => { if (e.target.closest('.delete-btn')) { if (confirm('Tem certeza?')) { await deleteDoc(doc(db, 'qualificacoes', e.target.closest('.delete-btn').dataset.id)); } } if (e.target.closest('.edit-qualificacao-btn')) { const btn = e.target.closest('.edit-qualificacao-btn'); openEditQualificacaoModal(btn.dataset.id, btn.dataset.name, btn.dataset.kpiLink, btn.dataset.showInSales); } });
-                document.getElementById('fontes-list').addEventListener('click', async e => { if (e.target.closest('.delete-btn')) await deleteDoc(doc(db, 'fontes', e.target.closest('.delete-btn').dataset.id)); });
-                document.getElementById('saveReportBtn').addEventListener('click', () => showConfirmationModal('Salvar Relatório do Dia', 'Isto criará um backup apenas com os leads criados HOJE. Deseja continuar?', async () => { const date = new Date().toISOString().split('T')[0]; if ((await getDoc(doc(db, 'relatorios_diarios', date))).exists()) return alert('O relatório de hoje já foi salvo.'); const inicioDoDia = new Date(); inicioDoDia.setHours(0,0,0,0); const leadsDeHoje = allLeadsData.filter(lead => lead.createdAt && lead.createdAt.toDate() >= inicioDoDia); if (leadsDeHoje.length === 0) return alert('Nenhum lead novo foi criado hoje para salvar.'); await setDoc(doc(db, 'relatorios_diarios', date), { leads: leadsDeHoje, createdAt: serverTimestamp() }); createLog('Relatório Salvo', `Relatório de ${date} salvo com ${leadsDeHoje.length} leads.`); alert(`Relatório salvo com ${leadsDeHoje.length} leads de hoje!`); }));
-                document.getElementById('import-csv-btn').addEventListener('click', () => document.getElementById('csv-importer').click());
-                document.getElementById('csv-importer').addEventListener('change', handleFileUpload);
-                reportsTable.addEventListener('click', async (e) => { const target = e.target; const reportId = target.dataset.reportId; if (!reportId) return; if (target.classList.contains('view-report-btn')) { const reportSnap = await getDoc(doc(db, 'relatorios_diarios', reportId)); if (reportSnap.exists()) openReportModal(reportId, reportSnap.data()); else alert('Relatório não encontrado.'); } if (target.classList.contains('export-report-btn')) { const reportSnap = await getDoc(doc(db, 'relatorios_diarios', reportId)); if (reportSnap.exists()) downloadCSV(reportSnap.data().leads, `Relatorio-${reportId}`); } });
-                document.getElementById('all-cases-table').addEventListener('click', (e) => { const viewButton = e.target.closest('.view-case-btn'); if (viewButton) { const leadId = viewButton.dataset.leadId; const leadData = allLeadsData.find(l => l.id === leadId); if (leadData) { openCaseDetailsModal(leadData); } } });
-                document.getElementById('closeCaseDetailsModal').addEventListener('click', () => { caseDetailsModal.classList.add('hidden'); });
-                document.getElementById('closeReportModal').addEventListener('click', () => { reportDetailsModal.classList.add('hidden'); currentReportData = null; });
-                document.getElementById('exportReportModalBtn').addEventListener('click', () => { if (currentReportData && currentReportData.leads.length > 0) { const reportId = document.getElementById('modalReportTitle').textContent.split(' - ')[1]; downloadCSV(currentReportData.leads, `Relatorio-${reportId}`); } else { alert('Não há leads para exportar.'); } });
-                document.getElementById('cancelAction').addEventListener('click', () => confirmationModal.classList.add('hidden'));
-                document.getElementById('confirmAction').addEventListener('click', () => { if (confirmCallback) confirmCallback(); confirmationModal.classList.add('hidden'); });
-                document.getElementById('refresh-dashboard-btn').addEventListener('click', () => { const btn = document.getElementById('refresh-dashboard-btn'), icon = btn.querySelector('i'); icon.classList.add('fa-spin'); btn.disabled = true; applyFilters(); setTimeout(() => { icon.classList.remove('fa-spin'); btn.disabled = false; }, 500); });
-                document.getElementById('cancelEditQualificacao').addEventListener('click', () => editQualificacaoModal.classList.add('hidden'));
-                document.getElementById('saveEditQualificacao').addEventListener('click', async () => { if (!currentEditingQualificacaoId) return; const newName = document.getElementById('edit-qualificacao-name').value.trim(); const newKpiLink = document.getElementById('edit-qualificacao-kpi').value; const showInSales = document.getElementById('edit-qualificacao-show-in-sales').value; if (!newName) return alert('O nome não pode ser vazio.'); await updateDoc(doc(db, 'qualificacoes', currentEditingQualificacaoId), { nome: newName, kpiLink: newKpiLink, showInSales: showInSales }); editQualificacaoModal.classList.add('hidden'); currentEditingQualificacaoId = null; });
-                document.getElementById('all-leads-table').addEventListener('change', async (e) => { if (e.target.classList.contains('substatus-select')) { const leadId = e.target.dataset.id; const newStatus = e.target.value; if (leadId) { await updateDoc(doc(db, 'leads', leadId), { subStatusAgendamento: newStatus }); } } });
-                document.getElementById('exportCaseToPdfBtn').addEventListener('click', () => { if (currentCaseData) exportSingleCasePDF(currentCaseData); });
-                document.getElementById('export-cases-btn').addEventListener('click', () => { /* ... (código existente) ... */ });
-                document.getElementById('export-dashboard-btn').addEventListener('click', exportDashboardPDF);
-                document.getElementById('reset-qualificadores-btn').addEventListener('click', () => showConfirmationModal('Resetar Qualificadores', 'Esta ação apagará TODOS os leads de TODOS os vendedores. Esta ação não pode ser desfeita. Deseja continuar?', async () => { const leadsCollection = collection(db, 'leads'); const snapshot = await getDocs(leadsCollection); const batch = writeBatch(db); snapshot.docs.forEach(d => batch.delete(d.ref)); await batch.commit(); createLog('Reset Geral', `${snapshot.docs.length} leads foram apagados.`); alert('Todos os leads foram resetados com sucesso!'); }));
-                document.getElementById('reset-dashboard-btn').addEventListener('click', () => showConfirmationModal('Resetar Dashboard (Hoje)', 'Esta ação apagará TODOS os leads criados HOJE. Isso pode ser útil para limpar dados de teste do dia. Deseja continuar?', async () => { const inicioDoDia = new Date(); inicioDoDia.setHours(0,0,0,0); const q = query(collection(db, 'leads'), where('createdAt', '>=', inicioDoDia)); const snapshot = await getDocs(q); if (snapshot.empty) return alert('Nenhum lead criado hoje para resetar.'); const batch = writeBatch(db); snapshot.docs.forEach(d => batch.delete(d.ref)); await batch.commit(); await createLog('Reset Diário', `${snapshot.docs.length} leads de hoje foram apagados.`); alert(`${snapshot.docs.length} leads de hoje foram resetados com sucesso!`); }));
-                document.getElementById('save-finance-config-btn').addEventListener('click', async () => { const config = { comissao: document.getElementById('config-comissao').value, meta: document.getElementById('config-meta').value, bonus: document.getElementById('config-bonus').value, considerarEstornos: document.getElementById('config-estornos-toggle').value }; await setDoc(doc(db, 'configuracoes', 'financeiras'), config); await createLog('Config. Financeiras', 'Configurações financeiras foram atualizadas.'); alert('Configurações financeiras salvas!'); });
-
-                document.getElementById('users-table').addEventListener('click', (e) => {
-                    const reportBtn = e.target.closest('.view-seller-report-btn');
-                    const roleBtn = e.target.closest('.change-role-btn');
-                    const toggleBtn = e.target.closest('.toggle-is-vendedor-btn');
-                    
-                    if (reportBtn) openSellerReportModal(reportBtn.dataset.uid);
-                    
-                    if (toggleBtn) {
-                        const userId = toggleBtn.dataset.uid;
-                        const newIsVendedorStatus = toggleBtn.dataset.isVendedor === 'true';
-                        showConfirmationModal('Alterar Status de Vendedor', `Deseja confirmar que este usuário ${newIsVendedorStatus ? 'agora atua' : 'não atua mais'} como vendedor?`,
-                            async () => {
-                                await updateDoc(doc(db, 'users', userId), { isVendedor: newIsVendedorStatus });
-                                await createLog('Status de Vendedor Alterado', `Usuário ID ${userId} agora ${newIsVendedorStatus ? 'atua' : 'não atua'} como vendedor.`);
-                            }
-                        );
-                    }
-                    
-                    if (roleBtn) {
-                        const userId = roleBtn.dataset.uid;
-                        const newRole = roleBtn.dataset.role;
-                        const user = allUsersData.find(u => u.id === userId);
-                        if(user.id === adminUser.uid && newRole !== 'admin') { return alert('Você não pode remover seu próprio acesso de administrador.'); }
-                        showConfirmationModal('Mudar Função de Usuário', `Tem certeza que deseja alterar a função de ${user.nome} para ${newRole}?`,
-                            async () => {
-                                const dataToUpdate = { role: newRole };
-                                if (newRole !== 'gestor' && newRole !== 'admin') { dataToUpdate.isVendedor = null; }
-                                else if (user.role !== 'gestor' && user.role !== 'admin') { dataToUpdate.isVendedor = false; }
-                                await updateDoc(doc(db, 'users', userId), dataToUpdate);
-                                await createLog('Mudança de Função', `Usuário ${user.email} teve sua função alterada para ${newRole}.`);
-                            }
-                        );
-                    }
-                });
-                document.getElementById('closeSellerReportModal').addEventListener('click', () => sellerReportModal.classList.add('hidden'));
-                document.getElementById('exportSellerReportPdf').addEventListener('click', exportSellerReportPDF);
-            };
-
-            listenToAllData();
-            loadFinancialConfig(); // Carrega as configs financeiras ao iniciar
-            setupEventListeners();
-            autoSaveChanges();
-        }
-    </script>
+    <script type="module" src="./js/dashboard.js"></script>
 </body>
 </html>

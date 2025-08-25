@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piel Telecom - Qualificador de Leads</title>
+    <title>Piel Telecom - Painel do Vendedor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
                 <div class="text-center mb-8">
                     <i class="fas fa-headset text-5xl text-blue-600"></i>
                     <h1 class="text-3xl font-bold text-gray-800 mt-4">Piel Telecom</h1>
-                    <p class="text-gray-600">Qualificador de Leads</p>
+                    <p class="text-gray-600">Painel do Vendedor</p>
                 </div>
                 
                 <form id="login-form" class="space-y-4">
@@ -35,35 +35,27 @@
                     <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700">Cadastrar</button>
                 </form>
                 
-                <div class="relative flex py-3 items-center">
-                    <div class="flex-grow border-t border-gray-300"></div>
-                    <span class="flex-shrink mx-4 text-gray-400 text-sm">OU</span>
-                    <div class="flex-grow border-t border-gray-300"></div>
-                </div>
-                <button type="button" id="google-login-btn" class="w-full flex justify-center items-center gap-2 bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50">
-                    <img class="w-5 h-5" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo">
-                    Entrar com o Google
-                </button>
-
-                <div class="text-center mt-4">
-                    <a href="#" id="toggle-form" class="text-sm text-blue-600 hover:underline">Não tem uma conta? Cadastre-se</a>
-                </div>
+                <div class="relative flex py-3 items-center"><div class="flex-grow border-t border-gray-300"></div><span class="flex-shrink mx-4 text-gray-400 text-sm">OU</span><div class="flex-grow border-t border-gray-300"></div></div>
+                <button type="button" id="google-login-btn" class="w-full flex justify-center items-center gap-2 bg-white text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50"><img class="w-5 h-5" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo">Entrar com o Google</button>
+                <div class="text-center mt-4"><a href="#" id="toggle-form" class="text-sm text-blue-600 hover:underline">Não tem uma conta? Cadastre-se</a></div>
             </div>
         </div>
     </div>
 
     <div id="app" class="hidden w-full max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 my-4 sm:my-8">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <div class="text-center md:text-left"><h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Painel de Qualificação de Leads</h1><div id="user-info" class="text-sm text-gray-500"></div></div>
+        <header class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Painel do Vendedor</h1>
+                <div id="user-info" class="text-sm text-gray-500"></div>
+            </div>
             <div class="flex flex-wrap justify-center md:justify-end gap-2">
                 <a href="#" id="admin-gestor-link" class="bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 hidden items-center"><i class="fas fa-shield-alt mr-2"></i> Painel de Gestão</a>
-                <button id="addRowBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center"><i class="fas fa-plus mr-2"></i> Adicionar</button>
                 <button id="logoutBtn" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 flex items-center"><i class="fas fa-sign-out-alt mr-2"></i> Sair</button>
             </div>
-        </div>
+        </header>
 
-        <div class="border-t border-b border-gray-200 py-3 mb-4">
-            <div class="flex flex-wrap items-center gap-4">
+        <div class="border-t border-b border-gray-200 py-3 mb-6">
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
                 <span class="font-semibold text-gray-600">Acesso Rápido:</span>
                 <a href="https://central.desktop.com.br/bill" target="_blank" class="text-sm bg-gray-200 text-gray-800 font-medium py-1 px-3 rounded-full hover:bg-gray-300">Consulta CPF (Desktop)</a>
                 <a href="https://vendas.desktop.com.br/login" target="_blank" class="text-sm bg-gray-200 text-gray-800 font-medium py-1 px-3 rounded-full hover:bg-gray-300">Vendas Desktop</a>
@@ -72,217 +64,121 @@
             </div>
         </div>
 
-        <div class="mb-4"><div class="relative"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-search text-gray-400"></i></div><input type="search" id="qualificador-search-input" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Pesquisar por contato, nome ou endereço..."></div></div>
-        
-        <div class="overflow-x-auto rounded-lg border border-gray-200">
-            <table class="min-w-full bg-white">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Data de Criação</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Contato</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Fonte</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Qualificação</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">CEP</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Número</th>
-                        <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Observação Rápida</th>
-                        <th class="text-center p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="leadsTableBody" class="text-gray-700"></tbody>
-            </table>
-        </div>
+        <nav class="border-b border-gray-200 mb-6">
+            <div class="flex -mb-px flex-wrap" aria-label="Tabs">
+                <a href="#" id="tab-qualificador" class="nav-tab border-blue-500 text-blue-600 whitespace-nowrap py-4 px-3 border-b-2 font-medium text-sm"><i class="fas fa-list-check mr-2"></i>Qualificador de Leads</a>
+                <a href="#" id="tab-vendas" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-3 border-b-2 font-medium text-sm ml-4"><i class="fas fa-receipt mr-2"></i>Minhas Vendas</a>
+                <a href="#" id="tab-casos" class="nav-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-3 border-b-2 font-medium text-sm ml-4"><i class="fas fa-headset mr-2"></i>Meus Casos</a>
+            </div>
+        </nav>
+
+        <main>
+            <div id="qualificador-section" class="page-section">
+                <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                    <div class="relative flex-grow">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-search text-gray-400"></i></div>
+                        <input type="search" id="qualificador-search-input" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm" placeholder="Pesquisar por contato, nome ou endereço...">
+                    </div>
+                    <button id="addRowBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center"><i class="fas fa-plus mr-2"></i> Adicionar Lead</button>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Data de Criação</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Contato</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Fonte</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Qualificação</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">CEP</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Número</th>
+                                <th class="text-left p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Observação</th>
+                                <th class="text-center p-2 md:px-4 font-semibold text-xs sm:text-sm text-gray-600 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTableBody" class="text-gray-700"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="vendas-section" class="page-section hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Acompanhamento de Vendas</h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full text-sm bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-left">Cliente</th>
+                                <th class="p-3 font-semibold text-left">Plano</th>
+                                <th class="p-3 font-semibold text-left">Valor</th>
+                                <th class="p-3 font-semibold text-left">Data da Venda</th>
+                                <th class="p-3 font-semibold text-left">Status</th>
+                                <th class="p-3 font-semibold text-left">Comentário do Gestor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="my-sales-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="casos-section" class="page-section hidden">
+                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Acompanhamento de Casos</h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full text-sm bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-left">Cliente</th>
+                                <th class="p-3 font-semibold text-left">Descrição</th>
+                                <th class="p-3 font-semibold text-left">Prazo de Retorno</th>
+                                <th class="p-3 font-semibold text-left">Comentário do Gestor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="my-cases-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
     
     <div id="caseModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto"><div class="bg-white rounded-lg shadow-2xl max-w-3xl w-full my-auto flex flex-col"><div class="flex justify-between items-center p-6 border-b sticky top-0 bg-white rounded-t-lg"><h2 class="text-xl font-bold text-gray-800">Formulário de Caso</h2><button id="closeCaseModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div><div class="p-6 space-y-4 overflow-y-auto max-h-[70vh]"><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 p-4 bg-gray-50 rounded-lg"><div><label class="block text-sm font-medium text-gray-500">Contato</label><p id="caseContato" class="mt-1 text-gray-900 font-semibold"></p></div><div><label class="block text-sm font-medium text-gray-500">Vendedor(a)</label><p id="caseVendedor" class="mt-1 text-gray-900 font-semibold"></p></div></div><div><label for="caseNomeCompleto" class="block text-sm font-medium text-gray-700">Nome Completo</label><input type="text" id="caseNomeCompleto" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><fieldset class="border p-4 rounded-md"><legend class="text-sm font-medium text-gray-700 px-1">Endereço Completo</legend><div class="space-y-4 mt-2"><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div><label for="caseRua" class="block text-sm font-medium text-gray-700">Rua</label><input type="text" id="caseRua" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="caseNumero" class="block text-sm font-medium text-gray-700">Número</label><input type="text" id="caseNumero" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="caseBairro" class="block text-sm font-medium text-gray-700">Bairro</label><input type="text" id="caseBairro" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div></div><div><label for="caseCidade" class="block text-sm font-medium text-gray-700">Cidade</label><input type="text" id="caseCidade" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div></div></fieldset><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="casePrazo" class="block text-sm font-medium text-gray-700">Data de Retorno</label><input type="date" id="casePrazo" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></div><div><label for="caseUrgencia" class="block text-sm font-medium text-gray-700">Nível de Urgência</label><select id="caseUrgencia" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"><option value="Baixa">Baixa</option><option value="Média" selected>Média</option><option value="Alta">Alta</option><option value="Urgente">Urgente</option></select></div></div><div><label for="caseTextArea" class="block text-sm font-medium text-gray-700">Descrição Detalhada do Caso</label><textarea id="caseTextArea" rows="6" class="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm" placeholder="Descreva o que foi tratado, problemas, soluções..."></textarea></div></div><div class="flex justify-end gap-4 p-6 border-t sticky bottom-0 bg-white rounded-b-lg"><button id="cancelCaseModal" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button><button id="saveCaseBtn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Salvar Caso</button></div></div></div>
     
     <div id="salesModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
         <div class="bg-white rounded-lg shadow-2xl max-w-4xl w-full my-auto flex flex-col">
-            <div class="flex justify-between items-center p-6 border-b sticky top-0 bg-white rounded-t-lg"><h2 class="text-2xl font-bold text-gray-800">Formulário de Cadastro de Venda</h2><button id="closeSalesModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div>
+            <div class="flex justify-between items-center p-6 border-b sticky top-0 bg-white rounded-t-lg">
+                <h2 class="text-2xl font-bold text-gray-800">Formulário de Cadastro de Venda</h2>
+                <button id="closeSalesModal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
+            </div>
             <div class="p-6 space-y-6 overflow-y-auto max-h-[75vh]">
                 <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados Pessoais</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2"><div><label for="saleNomeCompleto" class="block text-sm font-medium text-gray-700">Nome Completo do Cliente</label><input type="text" id="saleNomeCompleto" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleCpfCnpj" class="block text-sm font-medium text-gray-700">CPF / CNPJ</label><input type="text" id="saleCpfCnpj" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleRg" class="block text-sm font-medium text-gray-700">RG</label><input type="text" id="saleRg" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleDataNascimento" class="block text-sm font-medium text-gray-700">Data de Nascimento</label><input type="date" id="saleDataNascimento" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleEmail" class="block text-sm font-medium text-gray-700">E-mail</label><input type="email" id="saleEmail" class="mt-1 w-full p-2 border rounded-md"></div><div><label class="block text-sm font-medium text-gray-500">Telefone</label><p id="saleTelefone" class="mt-1 w-full p-2 text-gray-600 bg-gray-100 rounded-md"></p></div></div></fieldset>
                 <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Endereço de Instalação</legend><div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2"><div class="md:col-span-4"><label class="block text-sm font-medium text-gray-500">CEP</label><p id="saleCep" class="mt-1 w-full p-2 text-gray-600 bg-gray-100 rounded-md"></p></div><div class="md:col-span-2"><label for="saleRua" class="block text-sm font-medium text-gray-700">Rua</label><input type="text" id="saleRua" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleNumero" class="block text-sm font-medium text-gray-700">Número</label><input type="text" id="saleNumero" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleBairro" class="block text-sm font-medium text-gray-700">Bairro</label><input type="text" id="saleBairro" class="mt-1 w-full p-2 border rounded-md"></div><div class="md:col-span-2"><label for="saleCidade" class="block text-sm font-medium text-gray-700">Cidade</label><input type="text" id="saleCidade" class="mt-1 w-full p-2 border rounded-md"></div></div></fieldset>
-                <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados da Venda</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2"><div><label for="salePlano" class="block text-sm font-medium text-gray-700">Plano Contratado</label><input type="text" id="salePlano" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleValorPlano" class="block text-sm font-medium text-gray-700">Valor do Plano (R$)</label><input type="number" id="saleValorPlano" class="mt-1 w-full p-2 border rounded-md" step="0.01"></div><div><label for="saleProtocolo" class="block text-sm font-medium text-gray-700">Nº de Protocolo</label><input type="text" id="saleProtocolo" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleContrato" class="block text-sm font-medium text-gray-700">Nº de Contrato</label><input type="text" id="saleContrato" class="mt-1 w-full p-2 border rounded-md"></div><div><label for="saleFonteVenda" class="block text-sm font-medium text-gray-700">Fonte da Venda</label><input type="text" id="saleFonteVenda" class="mt-1 w-full p-2 border rounded-md"></div><div><label class="block text-sm font-medium text-gray-500">Vendedor</label><p id="saleVendedor" class="mt-1 w-full p-2 text-gray-600 bg-gray-100 rounded-md"></p></div><div id="admin-fields" class="hidden md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="sale-admin-vendedor-select" class="block text-sm font-medium text-gray-700">Atribuir Venda a:</label><select id="sale-admin-vendedor-select" class="mt-1 w-full p-2 border rounded-md"></select></div><div><label for="sale-admin-data-input" class="block text-sm font-medium text-gray-700">Data da Venda:</label><input type="date" id="sale-admin-data-input" class="mt-1 w-full p-2 border rounded-md"></div></div><div class="md:col-span-2"><label for="saleObservacao" class="block text-sm font-medium text-gray-700">Observação</label><textarea id="saleObservacao" rows="3" class="mt-1 w-full p-2 border rounded-md"></textarea></div></div></fieldset>
+                <fieldset class="border p-4 rounded-lg"><legend class="text-lg font-medium text-gray-800 px-2">Dados da Venda</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div class="md:col-span-2">
+                            <label for="saleProductSelect" class="block text-sm font-medium text-gray-700">Produto Contratado</label>
+                            <select id="saleProductSelect" class="mt-1 w-full p-2 border rounded-md"></select>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 md:col-span-2 p-4 bg-gray-50 rounded-lg">
+                             <div><label class="block text-xs font-medium text-gray-500">Valor Promocional</label><p id="saleValorProduto" class="mt-1 font-bold text-lg text-green-600">R$ 0,00</p></div>
+                             <div><label class="block text-xs font-medium text-gray-500">Tipo</label><p id="saleTipoProduto" class="mt-1 text-gray-700">--</p></div>
+                             <div><label class="block text-xs font-medium text-gray-500">Empresa</label><p id="saleEmpresaProduto" class="mt-1 text-gray-700">--</p></div>
+                        </div>
+                        <div><label for="saleProtocolo" class="block text-sm font-medium text-gray-700">Nº de Protocolo</label><input type="text" id="saleProtocolo" class="mt-1 w-full p-2 border rounded-md"></div>
+                        <div><label for="saleContrato" class="block text-sm font-medium text-gray-700">Nº de Contrato</label><input type="text" id="saleContrato" class="mt-1 w-full p-2 border rounded-md"></div>
+                        <div><label for="saleFonteVenda" class="block text-sm font-medium text-gray-700">Fonte da Venda</label><input type="text" id="saleFonteVenda" class="mt-1 w-full p-2 border rounded-md"></div>
+                        <div><label class="block text-sm font-medium text-gray-500">Vendedor</label><p id="saleVendedor" class="mt-1 w-full p-2 text-gray-600 bg-gray-100 rounded-md"></p></div>
+                        <div id="admin-fields" class="hidden md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label for="sale-admin-vendedor-select" class="block text-sm font-medium text-gray-700">Atribuir Venda a:</label><select id="sale-admin-vendedor-select" class="mt-1 w-full p-2 border rounded-md"></select></div>
+                            <div><label for="sale-admin-data-input" class="block text-sm font-medium text-gray-700">Data da Venda:</label><input type="date" id="sale-admin-data-input" class="mt-1 w-full p-2 border rounded-md"></div>
+                        </div>
+                        <div class="md:col-span-2"><label for="saleObservacao" class="block text-sm font-medium text-gray-700">Observação</label><textarea id="saleObservacao" rows="3" class="mt-1 w-full p-2 border rounded-md"></textarea></div>
+                    </div>
+                </fieldset>
             </div>
             <div class="flex justify-end gap-4 p-6 bg-gray-50 rounded-b-lg"><button id="cancelSalesModal" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button><button id="saveSaleBtn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700">Salvar Venda</button></div>
         </div>
     </div>
-    <div id="chat-widget-container" class="fixed bottom-4 right-4 z-50 hidden">
-    <button id="chat-toggle-btn" class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
-        <i class="fas fa-comments fa-2x"></i>
-        <span id="chat-notification-badge" class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white hidden"></span>
-    </button>
 
-    <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl flex flex-col transition-all duration-300 transform opacity-0 translate-y-4" style="height: 500px;">
-        <div class="flex-shrink-0 flex justify-between items-center p-4 bg-gray-50 border-b rounded-t-xl">
-            <h3 class="font-bold text-gray-800">Chat Global da Equipe</h3>
-            <button id="chat-close-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
-        </div>
-        
-        <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto">
-            </div>
-        
-        <form id="chat-form" class="flex-shrink-0 p-4 border-t bg-gray-50 rounded-b-xl">
-            <div class="flex items-center gap-2">
-                <input type="text" id="chat-message-input" class="flex-1 w-full px-3 py-2 border rounded-lg" placeholder="Digite sua mensagem..." autocomplete="off">
-                <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-3 rounded-lg"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </form>
-    </div>
-</div>
+    <div id="chat-widget-container" class="fixed bottom-4 right-4 z-50 hidden"><button id="chat-toggle-btn" class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110"><i class="fas fa-comments fa-2x"></i><span id="chat-notification-badge" class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white hidden"></span></button><div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl flex flex-col transition-all duration-300 transform opacity-0 translate-y-4" style="height: 500px;"><div class="flex-shrink-0 flex justify-between items-center p-4 bg-gray-50 border-b rounded-t-xl"><h3 class="font-bold text-gray-800">Chat Global da Equipe</h3><button id="chat-close-btn" class="text-gray-500 hover:text-gray-800">&times;</button></div><div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto"></div><form id="chat-form" class="flex-shrink-0 p-4 border-t bg-gray-50 rounded-b-xl"><div class="flex items-center gap-2"><input type="text" id="chat-message-input" class="flex-1 w-full px-3 py-2 border rounded-lg" placeholder="Digite sua mensagem..." autocomplete="off"><button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-3 rounded-lg"><i class="fas fa-paper-plane"></i></button></div></form></div></div>
+    <audio id="chat-notification-sound" src="https://firebasestorage.googleapis.com/v0/b/qualificacao-a14ff.appspot.com/o/notification.mp3?alt=media&token=c1c2f0f4-9a4f-4a3a-8c8c-1e1b29a8f4b1" preload="auto"></audio>
 
-<audio id="chat-notification-sound" src="https://firebasestorage.googleapis.com/v0/b/qualificacao-a14ff.appspot.com/o/notification.mp3?alt=media&token=c1c2f0f4-9a4f-4a3a-8c8c-1e1b29a8f4b1" preload="auto"></audio>
-
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    import { getFirestore, collection, doc, addDoc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-    const firebaseConfig = { apiKey: "AIzaSyCTAaa5sF_O4S38FpyV_mL2hpB0xGXgAv4", authDomain: "qualificacao-a14ff.firebaseapp.com", projectId: "qualificacao-a14ff", storageBucket: "qualificacao-a14ff.appspot.com", messagingSenderId: "955642076737", appId: "1:955642076737:web:f6db77134cd6a18b8f30c0" };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    document.addEventListener('DOMContentLoaded', () => {
-        let currentUserData = null, leadsUnsubscribe = null, qualificacoesDinamicas = [], fontesDinamicas = [], currentEditingDocId = null, allUserLeads = [], allVendors = [];
-        let chatUnsubscribe = null, isChatOpen = false, isInitialMessagesLoad = true;
-
-        const authScreen = document.getElementById('auth-screen'), loginForm = document.getElementById('login-form'), registerForm = document.getElementById('register-form'), googleLoginBtn = document.getElementById('google-login-btn'), toggleFormLink = document.getElementById('toggle-form'), loginError = document.getElementById('login-error'), registerError = document.getElementById('register-error');
-        const appScreen = document.getElementById('app'), userInfo = document.getElementById('user-info'), logoutBtn = document.getElementById('logoutBtn'), adminGestorLink = document.getElementById('admin-gestor-link'), addRowBtn = document.getElementById('addRowBtn'), tableBody = document.getElementById('leadsTableBody');
-        const caseModal = document.getElementById('caseModal'), closeCaseModalBtn = document.getElementById('closeCaseModal'), cancelCaseModalBtn = document.getElementById('cancelCaseModal'), saveCaseBtn = document.getElementById('saveCaseBtn');
-        const salesModal = document.getElementById('salesModal'), closeSalesModalBtn = document.getElementById('closeSalesModal'), cancelSalesModalBtn = document.getElementById('cancelSalesModal'), saveSaleBtn = document.getElementById('saveSaleBtn');
-        const qualificadorSearchInput = document.getElementById('qualificador-search-input');
-        const chatWidgetContainer = document.getElementById('chat-widget-container');
-        
-        async function handleSuccessfulLogin(user) {
-            if (!user) return;
-            const userDocSnap = await getDoc(doc(db, 'users', user.uid));
-            if (userDocSnap.exists()) {
-                const userData = userDocSnap.data();
-                if (userData.role === 'gestor' && userData.isVendedor !== true) {
-                    window.location.href = './gestor.html';
-                } else {
-                    authScreen.classList.add('hidden');
-                    appScreen.classList.remove('hidden');
-                    chatWidgetContainer.classList.remove('hidden'); // MOSTRA O CHAT
-                    await setupQualificador(user);
-                }
-            } else {
-                await createUserProfileDocument(user);
-                await handleSuccessfulLogin(user);
-            }
-        }
-
-        onAuthStateChanged(auth, (user) => { 
-            if (!user) { 
-                appScreen.classList.add('hidden'); 
-                authScreen.classList.remove('hidden'); 
-                chatWidgetContainer.classList.add('hidden'); // ESCONDE O CHAT NO LOGOUT
-                if (leadsUnsubscribe) leadsUnsubscribe(); 
-                if (chatUnsubscribe) chatUnsubscribe(); 
-                tableBody.innerHTML = ''; 
-            } 
-        });
-        
-        async function handleEmailLogin(e) { e.preventDefault(); try { const cred = await signInWithEmailAndPassword(auth, loginForm['login-email'].value, loginForm['login-password'].value); await handleSuccessfulLogin(cred.user); } catch (error) { loginError.textContent = 'E-mail ou senha inválidos.'; loginError.classList.remove('hidden'); } }
-        async function handleGoogleLogin() { try { const result = await signInWithPopup(auth, googleProvider); await createUserProfileDocument(result.user); await handleSuccessfulLogin(result.user); } catch (error) { loginError.textContent = 'Não foi possível fazer login com o Google.'; loginError.classList.remove('hidden'); } }
-        loginForm.addEventListener('submit', handleEmailLogin);
-        googleLoginBtn.addEventListener('click', handleGoogleLogin);
-        registerForm.addEventListener('submit', handleEmailRegister);
-        toggleFormLink.addEventListener('click', toggleAuthForms);
-        logoutBtn.addEventListener('click', () => signOut(auth));
-        async function handleEmailRegister(e) { e.preventDefault(); const name = registerForm['register-name'].value; if (!name.trim()) { registerError.textContent = 'Por favor, insira seu nome.'; return registerError.classList.remove('hidden'); } try { const cred = await createUserWithEmailAndPassword(auth, registerForm['register-email'].value, registerForm['register-password'].value); await createUserProfileDocument(cred.user, { nome: name }); await handleSuccessfulLogin(cred.user); } catch (error) { registerError.textContent = error.code === 'auth/email-already-in-use' ? 'Este e-mail já está em uso.' : 'Ocorreu um erro ao cadastrar.'; registerError.classList.remove('hidden'); } }
-        function toggleAuthForms(e) { e.preventDefault(); loginForm.classList.toggle('hidden'); registerForm.classList.toggle('hidden'); loginError.classList.add('hidden'); registerError.classList.add('hidden'); toggleFormLink.textContent = loginForm.classList.contains('hidden') ? 'Já tem uma conta? Entre' : 'Não tem uma conta? Cadastre-se'; }
-        async function createUserProfileDocument(user, additionalData = {}) { if (!user) return; const userRef = doc(db, 'users', user.uid); const snapshot = await getDoc(userRef); if (!snapshot.exists()) { const { email, displayName } = user; await setDoc(userRef, { email, nome: additionalData.nome || displayName || 'Usuário', role: 'user', createdAt: serverTimestamp() }); } }
-        
-        async function setupQualificador(user) {
-            try {
-                const [userDoc, qualificacoesSnap, fontesSnap] = await Promise.all([ getDoc(doc(db, 'users', user.uid)), getDocs(collection(db, 'qualificacoes')), getDocs(collection(db, 'fontes')) ]);
-                if (!userDoc.exists()) return signOut(auth);
-                currentUserData = userDoc.data();
-                qualificacoesDinamicas = qualificacoesSnap.docs.map(d => d.data().nome).sort();
-                fontesDinamicas = fontesSnap.docs.map(d => d.data().nome).sort();
-                userInfo.textContent = `Vendedor: ${currentUserData.nome} (${currentUserData.email})`;
-                initializeGlobalChat(currentUserData);
-                if (currentUserData.role === 'admin') { adminGestorLink.href = './dashboard.html'; adminGestorLink.innerHTML = '<i class="fas fa-user-shield mr-2"></i> Painel Admin'; adminGestorLink.classList.remove('hidden'); } else if (currentUserData.role === 'gestor' && currentUserData.isVendedor === true) { adminGestorLink.href = './gestor.html'; adminGestorLink.innerHTML = '<i class="fas fa-user-tie mr-2"></i> Página do Gestor'; adminGestorLink.classList.remove('hidden'); } else { adminGestorLink.classList.add('hidden'); }
-                if (currentUserData.role === 'admin' || currentUserData.role === 'gestor') { const usersSnap = await getDocs(collection(db, 'users')); allVendors = usersSnap.docs.map(d => ({id: d.id, ...d.data()})); }
-                listenToLeads(user.uid);
-            } catch (error) { console.error("Erro ao configurar o qualificador:", error); signOut(auth); }
-        }
-        
-        addRowBtn.addEventListener('click', handleAddNewLead);
-        tableBody.addEventListener('change', e => { if (e.target.matches('input, select')) { const tr = e.target.closest('tr'); if (tr) updateLead(tr.dataset.id, { [e.target.dataset.field]: e.target.value }); } });
-        tableBody.addEventListener('click', e => { const removeBtn = e.target.closest('.removeRowBtn'), openCaseBtn = e.target.closest('.openCaseModalBtn'), openSalesBtn = e.target.closest('.openSalesModalBtn'); if (removeBtn && confirm('Tem certeza?')) deleteLead(removeBtn.closest('tr').dataset.id); if (openCaseBtn) openCaseModal(openCaseBtn.closest('tr').dataset.id); if (openSalesBtn) openSalesModal(openSalesBtn.closest('tr').dataset.id); });
-        qualificadorSearchInput.addEventListener('input', filterAndRenderLeads);
-        function filterAndRenderLeads() { const searchTerm = qualificadorSearchInput.value.toLowerCase().trim(); let leadsToRender = allUserLeads; if (searchTerm) { leadsToRender = allUserLeads.filter(leadDoc => { const data = leadDoc.data(); const searchText = [ data.contato, data.nome_completo, data.rua, data.bairro, data.cidade ].join(' ').toLowerCase(); return searchText.includes(searchTerm); }); } tableBody.innerHTML = ''; if (leadsToRender.length === 0 && allUserLeads.length > 0) { tableBody.innerHTML = `<tr><td colspan="8" class="text-center p-4 text-gray-500">Nenhum lead encontrado para "${qualificadorSearchInput.value}"</td></tr>`; } else { leadsToRender.forEach(renderLeadRow); } }
-        function listenToLeads(userId) { if (leadsUnsubscribe) leadsUnsubscribe(); const q = query(collection(db, 'leads'), where("userId", "==", userId), orderBy('createdAt', 'desc')); leadsUnsubscribe = onSnapshot(q, snap => { allUserLeads = snap.docs; if (snap.empty) { addNewLead(); } filterAndRenderLeads(); }); }
-        async function handleAddNewLead() { const firstRow = tableBody.firstElementChild; if (firstRow) { const contatoInput = firstRow.querySelector('[data-field="contato"]'); const qualificacaoSelect = firstRow.querySelector('[data-field="qualificacao"]'); if (contatoInput && qualificacaoSelect && (!contatoInput.value || !qualificacaoSelect.value)) { return alert('Preencha o Contato e a Qualificação do lead atual antes de adicionar um novo.'); } } await addNewLead(); }
-        async function addNewLead() { if (!auth.currentUser || !currentUserData) return; await addDoc(collection(db, 'leads'), { userId: auth.currentUser.uid, vendedor: currentUserData.nome, createdAt: serverTimestamp(), contato: '', fonte: '', qualificacao: '', cep: '', numero: '', observacao_rapida: '', nome_completo: '', rua: '', bairro: '', cidade: '', prazo: '', urgencia: 'Média', descricao_caso: '', protocolo: '', contrato: '', cpfCnpj: '', rg: '', dataNascimento: '', email: '', plano: '', valorPlano: '', operadora: '', fonteVenda: '', observacaoVenda: '', dataVenda: '' }); }
-        async function updateLead(docId, data) { await updateDoc(doc(db, 'leads', docId), data); }
-        async function deleteLead(docId) { await deleteDoc(doc(db, 'leads', docId)); }
-        function renderLeadRow(doc) { const data = doc.data(); const tr = document.createElement('tr'); tr.className = 'border-b border-gray-200 hover:bg-gray-50'; tr.dataset.id = doc.id; const options = (arr, sel) => arr.map(f => `<option value="${f}" ${sel === f ? 'selected' : ''}>${f}</option>`).join(''); tr.innerHTML = `<td class="p-2 align-middle text-xs text-gray-500">${data.createdAt ? data.createdAt.toDate().toLocaleString('pt-BR') : '...'}</td><td class="p-2 align-middle"><input type="text" value="${data.contato || ''}" data-field="contato" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Contato"></td><td class="p-2 align-middle"><select data-field="fonte" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md"><option value="" disabled ${!data.fonte ? 'selected' : ''}>Selecione</option>${options(fontesDinamicas, data.fonte)}</select></td><td class="p-2 align-middle"><select data-field="qualificacao" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md status-select"><option value="" disabled ${!data.qualificacao ? 'selected' : ''}>Selecione</option>${options(qualificacoesDinamicas, data.qualificacao)}</select></td><td class="p-2 align-middle"><input type="text" value="${data.cep || ''}" data-field="cep" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="CEP"></td><td class="p-2 align-middle"><input type="text" value="${data.numero || ''}" data-field="numero" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Nº"></td><td class="p-2 align-middle"><input type="text" value="${data.observacao_rapida || ''}" data-field="observacao_rapida" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" placeholder="Nota rápida"></td><td class="p-2 text-center align-middle"><div class="flex items-center justify-center gap-2"><button class="openSalesModalBtn text-green-600 hover:text-green-800 p-2 rounded-full" title="Registrar Venda"><i class="fas fa-dollar-sign fa-lg"></i></button><button class="openCaseModalBtn text-blue-600 hover:text-blue-800 p-2 rounded-full" title="Formular Caso"><i class="fas fa-file-alt fa-lg"></i></button><button class="removeRowBtn text-red-500 hover:text-red-700 p-2 rounded-full" title="Excluir"><i class="fas fa-trash-alt fa-lg"></i></button></div></td>`; tableBody.appendChild(tr); }
-        closeCaseModalBtn.addEventListener('click', () => caseModal.classList.add('hidden')); cancelCaseModalBtn.addEventListener('click', () => caseModal.classList.add('hidden')); saveCaseBtn.addEventListener('click', saveCaseData);
-        async function openCaseModal(docId) { currentEditingDocId = docId; const docSnap = await getDoc(doc(db, 'leads', docId)); if (docSnap.exists()) { const data = docSnap.data(); document.getElementById('caseContato').textContent = data.contato || 'N/A'; document.getElementById('caseVendedor').textContent = data.vendedor || 'N/A'; document.getElementById('caseNomeCompleto').value = data.nome_completo || ''; document.getElementById('caseRua').value = data.rua || ''; document.getElementById('caseNumero').value = data.numero || ''; document.getElementById('caseBairro').value = data.bairro || ''; document.getElementById('caseCidade').value = data.cidade || ''; document.getElementById('casePrazo').value = data.prazo || ''; document.getElementById('caseUrgencia').value = data.urgencia || 'Média'; document.getElementById('caseTextArea').value = data.descricao_caso || ''; caseModal.classList.remove('hidden'); } }
-        async function saveCaseData() { if (!currentEditingDocId) return; const dataToSave = { nome_completo: document.getElementById('caseNomeCompleto').value, rua: document.getElementById('caseRua').value, numero: document.getElementById('caseNumero').value, bairro: document.getElementById('caseBairro').value, cidade: document.getElementById('caseCidade').value, prazo: document.getElementById('casePrazo').value, urgencia: document.getElementById('caseUrgencia').value, descricao_caso: document.getElementById('caseTextArea').value }; await updateLead(currentEditingDocId, dataToSave); caseModal.classList.add('hidden'); alert('Caso salvo com sucesso!'); }
-        closeSalesModalBtn.addEventListener('click', () => salesModal.classList.add('hidden')); cancelSalesModalBtn.addEventListener('click', () => salesModal.classList.add('hidden')); saveSaleBtn.addEventListener('click', saveSaleData);
-        async function openSalesModal(docId) { currentEditingDocId = docId; const docSnap = await getDoc(doc(db, 'leads', docId)); if (!docSnap.exists()) return alert('Lead não encontrado!'); const data = docSnap.data(); document.getElementById('saleNomeCompleto').value = data.nome_completo || ''; document.getElementById('saleCpfCnpj').value = data.cpfCnpj || ''; document.getElementById('saleRg').value = data.rg || ''; document.getElementById('saleDataNascimento').value = data.dataNascimento || ''; document.getElementById('saleTelefone').textContent = data.contato || 'N/A'; document.getElementById('saleEmail').value = data.email || ''; document.getElementById('saleCep').textContent = data.cep || 'N/A'; document.getElementById('saleRua').value = data.rua || ''; document.getElementById('saleNumero').value = data.numero || ''; document.getElementById('saleBairro').value = data.bairro || ''; document.getElementById('saleCidade').value = data.cidade || ''; document.getElementById('salePlano').value = data.plano || ''; document.getElementById('saleValorPlano').value = data.valorPlano || ''; document.getElementById('saleProtocolo').value = data.protocolo || ''; document.getElementById('saleContrato').value = data.contrato || ''; document.getElementById('saleFonteVenda').value = data.fonteVenda || data.fonte || ''; document.getElementById('saleVendedor').textContent = data.vendedor || 'N/A'; document.getElementById('saleObservacao').value = data.observacaoVenda || ''; const adminFields = document.getElementById('admin-fields'); if (currentUserData && (currentUserData.role === 'admin' || currentUserData.role === 'gestor')) { adminFields.classList.remove('hidden'); const vendedorSelect = document.getElementById('sale-admin-vendedor-select'); vendedorSelect.innerHTML = allVendors.map(v => `<option value="${v.nome}" ${data.vendedor === v.nome ? 'selected' : ''}>${v.nome}</option>`).join(''); const dataVendaInput = document.getElementById('sale-admin-data-input'); dataVendaInput.value = data.dataVenda || new Date().toISOString().split('T')[0]; } else { adminFields.classList.add('hidden'); } salesModal.classList.remove('hidden'); }
-        async function saveSaleData() { if (!currentEditingDocId) return; const dataToSave = { nome_completo: document.getElementById('saleNomeCompleto').value, cpfCnpj: document.getElementById('saleCpfCnpj').value, rg: document.getElementById('saleRg').value, dataNascimento: document.getElementById('saleDataNascimento').value, email: document.getElementById('saleEmail').value, rua: document.getElementById('saleRua').value, numero: document.getElementById('saleNumero').value, bairro: document.getElementById('saleBairro').value, cidade: document.getElementById('saleCidade').value, plano: document.getElementById('salePlano').value, valorPlano: document.getElementById('saleValorPlano').value, protocolo: document.getElementById('saleProtocolo').value, contrato: document.getElementById('saleContrato').value, fonteVenda: document.getElementById('saleFonteVenda').value, observacaoVenda: document.getElementById('saleObservacao').value }; if (currentUserData && (currentUserData.role === 'admin' || currentUserData.role === 'gestor')) { dataToSave.vendedor = document.getElementById('sale-admin-vendedor-select').value; dataToSave.dataVenda = document.getElementById('sale-admin-data-input').value; const vendedorSelecionado = allVendors.find(v => v.nome === dataToSave.vendedor); if (vendedorSelecionado) { dataToSave.userId = vendedorSelecionado.id; } } await updateLead(currentEditingDocId, dataToSave); salesModal.classList.add('hidden'); alert('Dados da venda salvos com sucesso!'); }
-
-        // ======================================================
-        // INÍCIO DA LÓGICA DO CHAT GLOBAL (CORRIGIDO)
-        // ======================================================
-        function initializeGlobalChat(userData) {
-            if (!userData) return;
-            const chatToggleButton = document.getElementById('chat-toggle-btn');
-            const chatWindow = document.getElementById('chat-window');
-            const chatCloseButton = document.getElementById('chat-close-btn');
-            const chatForm = document.getElementById('chat-form');
-            const chatMessageInput = document.getElementById('chat-message-input');
-            const chatNotificationBadge = document.getElementById('chat-notification-badge');
-            const chatNotificationSound = document.getElementById('chat-notification-sound');
-            const toggleChatWindow = () => { isChatOpen = !isChatOpen; if (isChatOpen) { chatWindow.classList.remove('hidden'); setTimeout(() => { chatWindow.classList.remove('opacity-0', 'translate-y-4'); chatNotificationBadge.classList.add('hidden'); document.getElementById('chat-messages-container').scrollTop = document.getElementById('chat-messages-container').scrollHeight; }, 10); } else { chatWindow.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => { chatWindow.classList.add('hidden'); }, 300); } };
-            chatToggleButton.addEventListener('click', toggleChatWindow);
-            chatCloseButton.addEventListener('click', toggleChatWindow);
-            chatForm.addEventListener('submit', async (e) => { e.preventDefault(); const messageText = chatMessageInput.value.trim(); if (messageText && auth.currentUser) { chatMessageInput.value = ''; await addDoc(collection(db, 'chat_messages'), { text: messageText, userId: auth.currentUser.uid, userName: userData.nome, userRole: userData.role, timestamp: serverTimestamp() }); } });
-            if (chatUnsubscribe) chatUnsubscribe();
-            const q = query(collection(db, 'chat_messages'), orderBy('timestamp', 'asc'));
-            chatUnsubscribe = onSnapshot(q, (snapshot) => {
-                snapshot.docChanges().forEach(change => { if (change.type === "added" && !isInitialMessagesLoad) { if (change.doc.data().userId !== auth.currentUser.uid && !isChatOpen) { chatNotificationBadge.classList.remove('hidden'); chatNotificationSound.play().catch(e => console.log("Interação do usuário necessária para tocar som.")); } } });
-                const chatMessagesContainer = document.getElementById('chat-messages-container');
-                chatMessagesContainer.innerHTML = '';
-                snapshot.forEach(doc => { renderChatMessage(doc.data(), auth.currentUser.uid); });
-                isInitialMessagesLoad = false;
-                if(isChatOpen) { chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight; }
-            });
-        }
-        function renderChatMessage(data, currentUserId) {
-            const messagesContainer = document.getElementById('chat-messages-container');
-            if (!messagesContainer) return;
-            const isSentByMe = data.userId === currentUserId;
-            const messageWrapper = document.createElement('div');
-            messageWrapper.className = `flex mb-3 ${isSentByMe ? 'justify-end' : 'justify-start'}`;
-            const roleBadges = { admin: 'bg-red-500 text-white', gestor: 'bg-purple-500 text-white', user: 'bg-blue-500 text-white' };
-            const roleNames = { admin: 'Admin', gestor: 'Gestor', user: 'Vendedor' };
-            messageWrapper.innerHTML = `
-                <div class="max-w-xs">
-                    <div class="flex items-center gap-2 ${isSentByMe ? 'flex-row-reverse' : ''}">
-                        <span class="font-bold text-sm">${isSentByMe ? 'Você' : data.userName}</span>
-                        <span class="text-xs px-2 py-0.5 rounded-full ${roleBadges[data.userRole] || 'bg-gray-500 text-white'}">${roleNames[data.userRole] || 'Usuário'}</span>
-                    </div>
-                    <div class="text-sm p-3 mt-1 rounded-lg ${isSentByMe ? 'bg-blue-100' : 'bg-gray-100'}">
-                        <p style="word-wrap: break-word;">${data.text}</p>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 ${isSentByMe ? 'text-right' : 'text-left'}">
-                        ${data.timestamp ? data.timestamp.toDate().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : ''}
-                    </p>
-                </div>
-            `;
-            messagesContainer.appendChild(messageWrapper);
-        }
-        // ======================================================
-        // FIM DA LÓGICA DO CHAT GLOBAL
-        // ======================================================
-    });
-</script>
+    <script type="module" src="./js/vendedor.js"></script>
 </body>
 </html>
