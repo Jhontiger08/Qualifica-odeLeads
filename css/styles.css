@@ -1,109 +1,677 @@
-/* ============================================= */
-/* ===== VARIÁVEIS DE COR (CUSTOM PROPERTIES) ==== */
-/* ============================================= */
-/* Centralizar as cores aqui facilita a manutenção do tema. */
+/* ==========================================================================
+   FOLHA DE ESTILOS PERSONALIZADA - PIEL TELECOM
+   ========================================================================== */
+
+/* * -- VARIÁVEIS GLOBAIS (CUSTOM PROPERTIES) --
+ * Centraliza as cores e valores principais do tema para fácil manutenção.
+ */
 :root {
-    --color-primary: #3B82F6; /* Azul Principal */
-    --color-danger: #EF4444;  /* Vermelho Principal */
-    --font-family-base: 'Inter', sans-serif;
-    --font-family-qualificador: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    /* Cores de Status */
-    --status-venda-realizada: #FFC107;
-    --status-em-negociacao: #87CEEB;
-    --status-aguardando-dados: #FFD700;
-    --status-sem-interacao: #BDB76B;
-    --status-sem-viabilidade: #DC3545;
-    --status-instalacao-concluida: #28A745;
-    --status-agendada-instalacao: #4682B4;
-    --status-tentando-reversao: #8A2BE2;
-    --status-chamei-whatsapp: #006400;
-    --status-sem-interesse: #FF4500;
-    --status-ja-cliente: #696969;
-    --status-sem-porta-cto: #B22222;
-    --status-golpista-fraude: #000000;
-    --status-reprovado-credito: #800000;
+    --brand-gold: #e5a10d;
+    --brand-gold-dark: #d4910c;
+    --text-primary: #111827;      /* gray-900 */
+    --text-secondary: #4b5563;    /* gray-600 */
+    --border-color: #d1d5db;      /* gray-300 */
+    --background-light: #f9fafb;  /* gray-50 */
+    --success-green: #16a34a;     /* green-600 */
+    --error-red: #ef4444;         /* red-500 */
 }
 
-/* ============================================= */
-/* =========== ESTILOS GLOBAIS ================= */
-/* ============================================= */
-html, body { 
-    font-family: var(--font-family-base); 
-    scroll-behavior: smooth; 
-    background-color: #f3f4f6; /* Um cinza um pouco mais suave */
+/* * -- ESTILOS GLOBAIS E TIPOGRAFIA --
+ * Define a aparência base para o corpo do documento.
+ */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utilitário para esconder elementos */
-.hidden { 
-    display: none; 
+/* --- BACKGROUNDS E ACENTOS --- */
+.hero-bg {
+    background: linear-gradient(rgba(30, 20, 20, 0.85), rgba(15, 10, 10, 0.95)), url('imgs/fotofundo.jpg') no-repeat center center;
+    background-size: cover;
 }
 
-/* ============================================= */
-/* =========== COMPONENTES ===================== */
-/* ============================================= */
-
-/* --- Tabela do Qualificador --- */
-
-/* MUDANÇA: Aplica a fonte customizada e um tamanho de fonte consistente. */
-.qualificador-row {
-    font-family: var(--font-family-qualificador);
-    font-size: 14px; /* Tamanho de fonte base para as linhas */
-    transition: background-color 0.2s ease-in-out; /* Efeito de hover mais suave */
+.gold-accent {
+    color: var(--brand-gold);
 }
 
-.qualificador-row input,
-.qualificador-row select {
-    font-size: 14px; /* Garante que os inputs tenham o mesmo tamanho de fonte */
+/* ==========================================================================
+   COMPONENTES DE UI
+   ========================================================================== */
+
+/* --- Botão Principal de Ação (CTA) --- */
+.cta-button {
+    display: inline-flex;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--brand-gold);
+    color: white;
+    font-weight: 700;
+    padding: 0.9rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.125rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-out, background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    transform-origin: center;
+}
+
+.cta-button:hover {
+    background-color: var(--brand-gold-dark);
+    transform: scale(1.03);
+    box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.15), 0 6px 8px -2px rgba(0, 0, 0, 0.08);
+}
+
+.cta-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: scale(1);
+    background-color: var(--brand-gold);
+}
+
+@media (max-width: 640px) {
+    .cta-button {
+        width: 100%;
+    }
+}
+
+/* --- Card de Plano --- */
+.plan-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative; /* Contexto para o badge */
+}
+
+.plan-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Adiciona margem superior para o badge não ser cortado pelo overflow do carrossel */
+.plan-card.recommended-plan {
+    border-color: var(--brand-gold);
+    box-shadow: 0 10px 30px rgba(229, 161, 13, 0.3);
+    margin-top: 1rem;
 }
 
 
-/* --- Seletor de Status (Qualificação) --- */
-.status-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 0.5rem center;
-    background-repeat: no-repeat;
-    background-size: 1.5em 1.5em;
-    padding-right: 2.5rem;
-    color: #374151;
-    font-weight: 600; /* Um pouco mais de destaque */
-    border-radius: 6px; /* Bordas levemente arredondadas */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave de cor */
+/* --- Botão "Contratar" dentro do Card --- */
+.contratar-btn .arrow-icon {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
 }
 
-/* Usando as variáveis de cor para os status */
-.status-select.placeholder { color: #374151; background-color: #f9fafb; }
-.status-select.venda-realizada { background-color: var(--status-venda-realizada); color: black; }
-.status-select.em-negociacao { background-color: var(--status-em-negociacao); color: black; }
-.status-select.aguardando-dados { background-color: var(--status-aguardando-dados); color: black; }
-.status-select.sem-interacao { background-color: var(--status-sem-interacao); color: white; }
-.status-select.sem-viabilidade { background-color: var(--status-sem-viabilidade); color: white; }
-.status-select.instalacao-concluida { background-color: var(--status-instalacao-concluida); color: white; }
-.status-select.agendada-instalacao { background-color: var(--status-agendada-instalacao); color: white; }
-.status-select.tentando-reversao { background-color: var(--status-tentando-reversao); color: white; }
-.status-select.chamei-whatsapp { background-color: var(--status-chamei-whatsapp); color: white; }
-.status-select.sem-interesse { background-color: var(--status-sem-interesse); color: white; }
-.status-select.ja-cliente { background-color: var(--status-ja-cliente); color: white; }
-.status-select.sem-porta-cto { background-color: var(--status-sem-porta-cto); color: white; }
-.status-select.golpista-fraude { background-color: var(--status-golpista-fraude); color: white; }
-.status-select.reprovado-credito { background-color: var(--status-reprovado-credito); color: white; }
-
-
-/* --- Estilos para Modais --- */
-.modal-overlay { 
-    transition: opacity 0.3s ease; 
-    animation: fadeIn 0.3s ease-in-out; /* Animação de entrada */
+.contratar-btn:hover .arrow-icon {
+    opacity: 1;
+    transform: translateX(0);
 }
 
-/* Animação de entrada para o modal */
+/* --- Selos e Badges --- */
+.promo-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--error-red);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    transform: rotate(12deg);
+}
+
+.recommended-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--brand-gold);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+    z-index: 10;
+    width: max-content;
+}
+
+/* --- Ícones de Diferenciais --- */
+.feature-icon-bg {
+    background-color: #fefce8; /* yellow-50 */
+    border-radius: 9999px;
+    width: 5rem; /* 80px */
+    height: 5rem; /* 80px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+
+/* --- Card de Depoimento --- */
+.testimonial-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+.testimonial-card .testimonial-avatar {
+    width: 5rem; /* 80px */
+    height: 5rem; /* 80px */
+    border-radius: 9999px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -4rem; /* Puxa o avatar para cima */
+    border: 4px solid white;
+}
+.testimonial-card blockquote {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 1rem;
+}
+.testimonial-card figcaption {
+    text-align: right;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   FORMULÁRIOS
+   ========================================================================== */
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    background-color: white;
+    border-color: var(--brand-gold);
+    box-shadow: 0 0 0 3px rgba(229, 161, 13, 0.3);
+}
+
+.form-input.is-invalid {
+    border-color: var(--error-red);
+}
+
+.form-input.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4);
+}
+
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.form-legend {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.error-message {
+    color: var(--error-red);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem; /* Evita que o layout "pule" quando a mensagem aparece */
+}
+
+.form-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-radio-label:hover {
+    background-color: var(--background-light);
+    border-color: #9ca3af;
+}
+
+.form-radio-label.is-checked {
+    background-color: #fefce8; /* yellow-50 */
+    border-color: var(--brand-gold);
+    box-shadow: 0 0 0 2px rgba(229, 161, 13, 0.4);
+}
+
+/* ==========================================================================
+   MODAIS
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 60;
+}
+.modal-panel {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    width: 100%;
+    max-width: 32rem; /* 512px */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-1rem) scale(0.98);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.modal-overlay:not(.hidden) .modal-panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+.modal-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.modal-close-btn {
+    color: #9ca3af; /* gray-400 */
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+}
+.modal-close-btn:hover {
+    color: var(--error-red);
+}
+.modal-footer {
+    padding: 1.25rem;
+    background-color: var(--background-light);
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+}
+
+/* ==========================================================================
+   ANIMAÇÕES E LOADERS
+   ========================================================================== */
+
+/* --- Loader de Carregamento --- */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid var(--brand-gold);
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Animação de Fade In na Rolagem --- */
 @keyframes fadeIn {
-    from {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-element {
+    opacity: 0;
+}
+
+.fade-in-element.is-visible {
+    animation: fadeIn 0.7s ease-out forwards;
+}
+
+/* ==========================================================================
+   ESTILOS DE TERCEIROS (FLICKITY, ETC)
+   ========================================================================== */
+
+/* --- Carrossel (Flickity) / Grade de Planos --- */
+.carousel-cell {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) { 
+    .carousel-cell { 
+        width: 50%; 
+    } 
+}
+
+/* Regras para telas de DESKTOP (largura >= 1024px) */
+@media screen and (min-width: 1024px) {
+    /* Quando o Flickity não está ativo (em telas de desktop), usamos Grid Layout */
+    div#promo-carousel:not(.flickity-enabled) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem; /* Espaçamento entre os cards */
+        margin: 0; /* Reseta as margens negativas do carrossel */
+    }
+
+    /* As células se ajustam à grade */
+    div#promo-carousel:not(.flickity-enabled) .carousel-cell {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 0; /* Reseta a margem inferior */
+    }
+
+    /* Remove a margem de ajuste do card recomendado na visualização em grade */
+    div#promo-carousel:not(.flickity-enabled) .plan-card.recommended-plan {
+        margin-top: 0;
+    }
+}
+
+
+.flickity-prev-next-button {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.flickity-prev-next-button:hover {
+    background: var(--brand-gold);
+    color: white;
+}
+
+.flickity-page-dots .dot {
+    background: #ccc;
+}
+
+.flickity-page-dots .dot.is-selected {
+    background: var(--brand-gold);
+}
+
+
+/* --- Scrollbar Customizado --- */
+#city-list-container::-webkit-scrollbar,
+#jarvis-chat-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+#city-list-container::-webkit-scrollbar-track,
+#jarvis-chat-log::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#city-list-container::-webkit-scrollbar-thumb,
+#jarvis-chat-log::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+#city-list-container::-webkit-scrollbar-thumb:hover,
+#jarvis-chat-log::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af; /* gray-400 */
+}
+
+/* ==========================================================================
+   WIDGET DE CHAT (JARVIS)
+   ========================================================================== */
+#jarvis-chat-widget {
+    /* Container lógico */
+}
+
+#jarvis-chat-button {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--brand-gold);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2000;
+}
+
+#jarvis-chat-button:hover {
+    transform: scale(1.1);
+}
+
+#jarvis-chat-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 90vw;
+    max-width: 400px;
+    height: 70vh;
+    max-height: 600px;
+    background-color: #f3f4f6;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: bottom right;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+#jarvis-chat-container.is-open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.jarvis-header {
+    background-color: #1f2937; /* gray-800 */
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha itens nas extremidades */
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    flex-shrink: 0;
+}
+
+.jarvis-mobile-close-btn {
+    display: none; /* Escondido por padrão */
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#jarvis-chat-log {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.jarvis-input-area {
+    background-color: white;
+    padding: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    flex-shrink: 0;
+}
+
+/* CORREÇÃO DO BOTÃO ENVIAR */
+#jarvis-send-button {
+    display: flex !important; /* Garante que o botão seja exibido */
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: 0.75rem;
+    background-color: var(--brand-gold);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#jarvis-send-button:hover {
+    background-color: var(--brand-gold-dark);
+    transform: scale(1.1);
+}
+
+#jarvis-send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+.jarvis-message, .user-message {
+    display: flex;
+    margin-bottom: 1rem;
+    max-width: 85%;
+}
+
+.user-message {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+.message-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: 1.25rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.jarvis-message .message-bubble {
+    background-color: white;
+    color: var(--text-primary);
+    border-bottom-left-radius: 0.25rem;
+}
+
+.user-message .message-bubble {
+    background-color: var(--brand-gold);
+    color: white;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    margin: 0 2px;
+    background-color: #9E9E9E;
+    border-radius: 50%;
+    display: inline-block;
+    animation: jarvis-blinker 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: .2s; }
+.typing-indicator span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes jarvis-blinker {
+    0% { opacity: .2; }
+    20% { opacity: 1; }
+    100% { opacity: .2; }
+}
+
+/* ==========================================================================
+   ESTILOS RESPONSIVOS PARA O CHAT NO MOBILE
+   ========================================================================== */
+@media (max-width: 767px) {
+    /* Quando o chat estiver aberto... */
+    #jarvis-chat-container.is-open {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%; /* Ocupa a altura total da viewport */
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+        transform-origin: center;
+    }
+
+    #jarvis-chat-container.is-open .jarvis-header {
+        border-radius: 0;
+    }
+    
+    #jarvis-chat-container.is-open .jarvis-input-area {
+        border-radius: 0;
+    }
+
+    /* Mostra o botão de fechar interno */
+    .jarvis-mobile-close-btn {
+        display: block;
+    }
+
+    /* Esconde o botão flutuante principal */
+    #jarvis-chat-container.is-open ~ #jarvis-chat-button {
+        transform: scale(0);
         opacity: 0;
+        pointer-events: none;
     }
-    to {
-        opacity: 1;
-    }
+}
+
+
+/* ==========================================================================
+   ESTILOS DO RODAPÉ
+   ========================================================================== */
+.footer-link {
+    color: #9ca3af; /* gray-400 */
+    transition: color 0.2s ease;
+}
+.footer-link:hover {
+    color: var(--brand-gold);
+}
+.social-link {
+    color: #9ca3af; /* gray-400 */
+    transition: color 0.2s ease;
+}
+.social-link:hover {
+    color: var(--brand-gold);
 }

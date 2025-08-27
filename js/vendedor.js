@@ -26,7 +26,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const markAsSeenBtn = document.getElementById('markAsSeenBtn');
     
     // --- Lógica de Autenticação ---
-    async function handleSuccessfulLogin(user) { if (!user) return; const userDocSnap = await getDoc(doc(db, 'users', user.uid)); if (userDocSnap.exists()) { const userData = userDocSnap.data(); if (userData.role === 'gestor' && userData.isVendedor !== true) { window.location.href = './gestor.html'; } else { authScreen.classList.add('hidden'); appScreen.classList.remove('hidden'); chatWidgetContainer.classList.remove('hidden'); await setupQualificador(user); } } else { await createUserProfileDocument(user); await handleSuccessfulLogin(user); } }
+    async function handleSuccessfulLogin(user) {
+    if (!user) return;
+    const userDocSnap = await getDoc(doc(db, 'users', user.uid));
+    
+    if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+
+        // Lógica de redirecionamento baseada na função
+        if (userData.role === 'caixa') {
+            window.location.href = './estoque.html'; // <-- REDIRECIONA PARA O ESTOQUE
+        } else if (userData.role === 'gestor' && userData.isVendedor !== true) {
+            window.location.href = './gestor.html';
+        } else {
+            authScreen.classList.add('hidden');
+            appScreen.classList.remove('hidden');
+            chatWidgetContainer.classList.remove('hidden');
+            await setupQualificador(user);
+        }
+
+    } else {
+        await createUserProfileDocument(user);
+        await handleSuccessfulLogin(user); 
+    }
+}
     onAuthStateChanged(auth, (user) => { if (!user) { appScreen.classList.add('hidden'); authScreen.classList.remove('hidden'); chatWidgetContainer.classList.add('hidden'); if (leadsUnsubscribe) leadsUnsubscribe(); if (chatUnsubscribe) chatUnsubscribe(); tableBody.innerHTML = ''; } });
     async function handleEmailLogin(e) { e.preventDefault(); try { const cred = await signInWithEmailAndPassword(auth, loginForm['login-email'].value, loginForm['login-password'].value); await handleSuccessfulLogin(cred.user); } catch (error) { loginError.textContent = 'E-mail ou senha inválidos.'; loginError.classList.remove('hidden'); } }
     async function handleGoogleLogin() { try { const result = await signInWithPopup(auth, googleProvider); await createUserProfileDocument(result.user); await handleSuccessfulLogin(result.user); } catch (error) { loginError.textContent = 'Não foi possível fazer login com o Google.'; loginError.classList.remove('hidden'); } }

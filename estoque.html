@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Estoque - Piel Telecom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-gray-100">
+
+    <div id="auth-check" class="flex items-center justify-center min-h-screen"><p class="text-gray-600 flex items-center gap-2"><i class="fas fa-spinner fa-spin"></i> Verificando autorização...</p></div>
+    <div id="access-denied" class="hidden flex flex-col items-center justify-center min-h-screen text-center p-4"><i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i><h1 class="text-3xl font-bold text-gray-800">Acesso Negado</h1><p class="text-gray-600 mt-2">Você não tem permissão para acessar esta página.</p><a href="./index.html" class="mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700">Voltar</a></div>
+
+    <div id="estoque-app" class="hidden w-full max-w-[95vw] mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-6 my-4">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Gerenciamento de Estoque</h1>
+                <p id="user-info" class="text-sm text-gray-500"></p>
+            </div>
+            <a href="./dashboard.html" class="text-sm text-blue-600 hover:underline"><i class="fas fa-arrow-left mr-1"></i> Voltar ao Dashboard Principal</a>
+        </header>
+
+        <main>
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <a href="#" id="tab-estoque-geral" class="estoque-tab border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Visão Geral</a>
+                    <a href="#" id="tab-estoque-produtos" class="estoque-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Produtos</a>
+                    <a href="#" id="tab-estoque-movimentacoes" class="estoque-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Movimentações</a>
+                    <a href="#" id="tab-estoque-categorias" class="estoque-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Categorias</a>
+                </nav>
+            </div>
+
+            <div id="estoque-geral-content" class="estoque-sub-section">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200"><h3 class="text-sm font-medium text-blue-700">Valor do Estoque (Custo)</h3><p id="kpi-valor-estoque" class="text-3xl font-bold text-blue-800 mt-2">R$ 0,00</p></div>
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200"><h3 class="text-sm font-medium text-green-700">Itens em Estoque</h3><p id="kpi-itens-estoque" class="text-3xl font-bold text-green-800 mt-2">0</p></div>
+                    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200"><h3 class="text-sm font-medium text-yellow-700">Produtos Cadastrados</h3><p id="kpi-produtos-cadastrados" class="text-3xl font-bold text-yellow-800 mt-2">0</p></div>
+                    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200"><h3 class="text-sm font-medium text-purple-700">Categorias</h3><p id="kpi-categorias" class="text-3xl font-bold text-purple-800 mt-2">0</p></div>
+                </div>
+            </div>
+
+            <div id="estoque-produtos-content" class="estoque-sub-section hidden">
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+                        <h3 class="font-semibold text-xl">Gerenciar Produtos Físicos</h3>
+                        <div class="flex items-center gap-2">
+                            <input type="search" id="product-search-input" placeholder="Buscar produto..." class="w-full md:w-64 p-2 border rounded-md text-sm">
+                            <button id="add-product-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg whitespace-nowrap">Novo Produto</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Produto</th><th class="p-2 text-left">Categoria</th><th class="p-2 text-center">Estoque Atual</th><th class="p-2 text-right">Custo Unitário</th><th class="p-2 text-right">Preço de Venda</th><th class="p-2 text-center">Ações</th></tr></thead><tbody id="products-table-body"></tbody></table></div>
+                </div>
+            </div>
+
+            <div id="estoque-movimentacoes-content" class="estoque-sub-section hidden">
+                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow sticky top-8"><h3 class="font-semibold text-xl mb-4">Registrar Movimentação</h3><form id="movimentacao-form" class="space-y-4"><div><label for="mov-produto" class="block text-sm font-medium">Produto</label><select id="mov-produto" class="mt-1 w-full p-2 border rounded-md" required></select></div><div><label for="mov-tipo" class="block text-sm font-medium">Tipo</label><select id="mov-tipo" class="mt-1 w-full p-2 border rounded-md"><option value="entrada">Entrada (Compra)</option><option value="saida-venda">Saída (Venda)</option><option value="saida-perda">Saída (Perda/Ajuste)</option></select></div><div><label for="mov-quantidade" class="block text-sm font-medium">Quantidade</label><input type="number" id="mov-quantidade" class="mt-1 w-full p-2 border rounded-md" required min="1"></div><div id="mov-custo-container"><label for="mov-custo" class="block text-sm font-medium">Custo Unitário (R$)</label><input type="number" id="mov-custo" class="mt-1 w-full p-2 border rounded-md" step="0.01" placeholder="Custo de compra por item"></div><div id="mov-venda-container" class="hidden"><label for="mov-desconto" class="block text-sm font-medium">Desconto (%)</label><input type="number" id="mov-desconto" class="mt-1 w-full p-2 border rounded-md" step="0.1" value="0"></div><button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">Registrar</button></form></div></div>
+                    <div class="lg:col-span-2"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-xl mb-4">Histórico de Movimentações</h3><div class="overflow-x-auto"><table class="min-w-full text-sm"><thead><tr class="bg-gray-50"><th class="p-2 text-left">Data</th><th class="p-2 text-left">Produto</th><th class="p-2 text-center">Tipo</th><th class="p-2 text-center">Qtd.</th><th class="p-2 text-right">Valor Total</th></tr></thead><tbody id="movimentacoes-table-body"></tbody></table></div></div></div>
+                </div>
+            </div>
+
+            <div id="estoque-categorias-content" class="estoque-sub-section hidden">
+                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Nova Categoria</h3><div class="mt-1 flex gap-2"><input type="text" id="new-categoria-input" class="flex-1 w-full px-3 py-2 border rounded-md" placeholder="Ex: Roteadores, Cabos"><button id="add-categoria-btn" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Adicionar</button></div></div></div>
+                    <div class="lg:col-span-2"><div class="bg-white p-6 rounded-lg shadow"><h3 class="font-semibold text-lg mb-4">Categorias Cadastradas</h3><div id="categorias-list" class="space-y-2"></div></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full my-auto flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b"><h2 id="product-modal-title" class="text-xl font-bold text-gray-800">Novo Produto</h2><button id="close-product-modal" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button></div>
+            <form id="product-modal-form" class="p-6 space-y-4">
+                <div><label for="product-nome" class="block text-sm font-medium text-gray-700">Nome do Produto</label><input type="text" id="product-nome" class="mt-1 w-full p-2 border rounded-md" required></div>
+                <div><label for="product-categoria" class="block text-sm font-medium text-gray-700">Categoria</label><select id="product-categoria" class="mt-1 w-full p-2 border rounded-md" required></select></div>
+                <fieldset class="border p-4 rounded-md">
+                    <legend class="text-sm font-medium px-1">Valores</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div><label for="product-custo" class="block text-sm font-medium text-gray-700">Custo de Compra (Unitário)</label><input type="number" id="product-custo" step="0.01" class="mt-1 w-full p-2 border rounded-md" placeholder="R$" required></div>
+                        <div><label for="product-preco-venda" class="block text-sm font-medium text-gray-700">Preço de Venda (Unitário)</label><input type="number" id="product-preco-venda" step="0.01" class="mt-1 w-full p-2 border rounded-md" placeholder="R$" required></div>
+                    </div>
+                </fieldset>
+                <fieldset class="border p-4 rounded-md">
+                    <legend class="text-sm font-medium px-1">Controle de Estoque</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                         <div><label for="product-estoque-inicial" class="block text-sm font-medium text-gray-700">Estoque Inicial</label><input type="number" id="product-estoque-inicial" class="mt-1 w-full p-2 border rounded-md" value="0" min="0"></div>
+                         <div><label for="product-estoque-minimo" class="block text-sm font-medium text-gray-700">Estoque Mínimo</label><input type="number" id="product-estoque-minimo" class="mt-1 w-full p-2 border rounded-md" value="0" min="0"></div>
+                    </div>
+                </fieldset>
+                <div><label for="product-descricao" class="block text-sm font-medium text-gray-700">Descrição/Variáveis</label><textarea id="product-descricao" class="mt-1 w-full p-2 border rounded-md" rows="3" placeholder="Ex: Cor: Preto, Voltagem: Bivolt"></textarea></div>
+                <div class="flex justify-end gap-4 pt-4"><button type="button" id="cancel-product-modal" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg">Cancelar</button><button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Salvar Produto</button></div>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="./js/estoque.js"></script>
+</body>
+</html>

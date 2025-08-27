@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Planos - Piel Telecom</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="imgs/icone.png" type="image/png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Estilos Internos Otimizados -->
+    <style>
+        :root {
+            --brand-gold: #e5a10d;
+            --brand-gold-dark: #d4910c;
+            --text-primary: #111827; /* gray-900 */
+            --text-secondary: #4b5563; /* gray-600 */
+            --border-color: #d1d5db; /* gray-300 */
+            --background-light: #f9fafb; /* gray-50 */
+            --success-green: #16a34a; /* green-600 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .gold-accent { color: var(--brand-gold); }
+
+        .cta-button {
+            display: inline-flex;
+            width: auto;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: var(--brand-gold);
+            color: white;
+            font-weight: 700;
+            padding: 0.9rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+            transform-origin: center;
+        }
+        .cta-button:hover {
+            background-color: var(--brand-gold-dark);
+            transform: scale(1.03);
+        }
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .plan-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .plan-card:hover { transform: translateY(-6px); }
+        
+        .contratar-btn .arrow-icon {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        .contratar-btn:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            background-color: white;
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 3px rgba(229, 161, 13, 0.3);
+        }
+
+        .form-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .form-radio-label:hover {
+            background-color: var(--background-light);
+            border-color: #9ca3af;
+        }
+        .form-radio-label.is-checked {
+            background-color: #fefce8; /* yellow-50 */
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 2px rgba(229, 161, 13, 0.4);
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #ef4444; /* red-500 */
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            transform: rotate(12deg);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Estilo customizado para o scroll da lista de cidades */
+        #city-list-container::-webkit-scrollbar {
+          width: 8px;
+        }
+        #city-list-container::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+        #city-list-container::-webkit-scrollbar-thumb {
+          background: #d1d5db; /* gray-300 */
+          border-radius: 10px;
+        }
+        #city-list-container::-webkit-scrollbar-thumb:hover {
+          background: #9ca3af; /* gray-400 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- CABEÇALHO E NAVEGAÇÃO -->
+    <header class="bg-white/90 backdrop-blur-lg shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center" aria-label="Página Inicial da Piel Telecom">
+                <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="planos.html" class="text-brand-gold font-medium">Planos</a>
+                <a href="index.html" class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Diferenciais</a>
+                <a href="index.html" class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Depoimentos</a>
+                <a href="index.html" class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Área do Cliente</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" class="p-2">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
+                <a href="planos.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-white bg-brand-gold">Planos</a>
+                <a href="index.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Diferenciais</a>
+                <a href="index.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Depoimentos</a>
+                <a href="index.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Área do Cliente</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">Nossos Planos</h1>
+                <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">A velocidade e o preço ideais para cada necessidade. Encontre o plano perfeito para você.</p>
+            </div>
+
+            <!-- Grid com todos os planos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Plano 200M+ -->
+                <div class="plan-card relative" data-plan="Fibra Home 200M+" data-price="R$ 79,99/mês">
+                    <div class="promo-badge">OFERTA</div>
+                    <h3 class="text-2xl font-bold text-gray-900">Fibra Home 200M+</h3>
+                    <p class="text-gray-500 mb-4">Para quem busca o essencial com economia.</p>
+                    <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$79</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 200 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 100 Mbps</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Ideal para uso básico, redes sociais e vídeos HD.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 400M+ -->
+                <div class="plan-card relative" data-plan="Fibra Home 400M+" data-price="R$ 94,99/mês">
+                    <h3 class="text-2xl font-bold text-gray-900">Fibra Home 400M+</h3>
+                    <p class="text-gray-500 mb-4">A escolha inteligente para famílias e home office.</p>
+                    <div class="my-4 text-gray-800"><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$94</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 400 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 200 Mbps</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Garante videochamadas e uploads rápidos.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 600M+ -->
+                <div class="plan-card relative" data-plan="Fibra Home 600M+" data-price="R$ 99,99/mês" style="border-color: var(--brand-gold);">
+                    <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-sm font-bold px-4 py-1 rounded-full z-10" style="background-color: var(--brand-gold);">🏆 MELHOR CUSTO-BENEFÍCIO</span>
+                    <div class="promo-badge">OFERTA</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mt-2">Fibra Home 600M+</h3>
+                    <p class="text-gray-500 mb-4">Mais performance por um preço mínimo a mais.</p>
+                    <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$99</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 600 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 300 Mbps</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Perfeito para streaming 4K e múltiplos acessos.</li></ul></div>
+                    <button class="contratar-btn w-full text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto" style="background-color: var(--brand-gold);">Quero este! <span class="arrow-icon">&rarr;</span></button>
+                </div>
+                
+                <!-- Plano 1 Giga+ -->
+                <div class="plan-card relative" data-plan="Fibra Home 1G+" data-price="R$ 119,99/mês">
+                    <div class="promo-badge">OFERTA</div>
+                    <h3 class="text-2xl font-bold text-gray-900">Fibra Home 1G+</h3>
+                    <p class="text-gray-500 mb-4">Velocidade máxima para quem quer o melhor.</p>
+                    <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$119</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 1 Gbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 500 Mbps</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>A percepção de valor de "1 Giga" é muito forte.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 1 Giga+ Gamer -->
+                <div class="plan-card relative" data-plan="1 Giga+ Gamer" data-price="R$ 169,99/mês">
+                    <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Gamer</h3>
+                    <p class="text-gray-500 mb-4">Para jogadores e streamers competitivos.</p>
+                    <div class="my-4 text-gray-800"><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$169</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 1 Gbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 500 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Wi-Fi 6 Gamer e rotas otimizadas.</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Ping baixo é tudo. Baixe jogos em minutos.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 1 Giga+ Home Office -->
+                <div class="plan-card relative" data-plan="1 Giga+ Home Office" data-price="R$ 169,99/mês">
+                    <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Home Office</h3>
+                    <p class="text-gray-500 mb-4">A garantia de estabilidade para seu trabalho.</p>
+                    <div class="my-4 text-gray-800"><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$169</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 1 Gbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 500 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Otimização para videochamadas.</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Sua internet não vai te deixar na mão.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 1 Giga+ Black -->
+                <div class="plan-card relative" data-plan="1 Giga+ Black" data-price="R$ 199,99/mês">
+                    <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Black</h3>
+                    <p class="text-gray-500 mb-4">Para heavy users e casas conectadas.</p>
+                    <div class="my-4 text-gray-800"><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$199</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 1 Gbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 500 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Equipamentos Premium (Wi-Fi 6/6E).</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Sinal de qualidade em todos os seus dispositivos.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+                <!-- Plano 1 Giga+ Black com Disney+ -->
+                <div class="plan-card relative" data-plan="1 Giga+ Black c/ Disney+" data-price="R$ 239,99/mês">
+                    <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Black c/ Disney+</h3>
+                    <p class="text-gray-500 mb-4">O pacote de entretenimento definitivo.</p>
+                    <div class="my-4 text-gray-800"><p class="flex items-baseline"><span class="text-5xl font-extrabold">R$239</span><span class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 1 Gbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 500 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Disney+ incluso.</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Internet e streaming para a família toda, numa fatura só.</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Contratar Agora <span class="arrow-icon">&rarr;</span></button>
+                </div>
+                
+                <!-- Plano Sócio Torcedor -->
+                <div class="plan-card relative" data-plan="Sócio Torcedor 800M" data-price="Preço Especial">
+                    <h3 class="text-2xl font-bold text-gray-900">Sócio Torcedor 800M</h3>
+                    <p class="text-gray-500 mb-4">Exclusivo para torcedores de coração.</p>
+                    <div class="my-4 text-gray-800"><p class="text-3xl font-bold">Preço Especial</p></div>
+                    <div class="flex-grow"><ul class="space-y-3 mb-8 text-left"><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Download: 800 Mbps</li><li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Upload: 400 Mbps</li><li class="flex items-center text-sm text-gray-600"><svg class="w-5 h-5 text-blue-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Além da super velocidade, você ajuda seu time!</li></ul></div>
+                    <button class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-auto">Consultar <span class="arrow-icon">&rarr;</span></button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- RODAPÉ MELHORADO -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="flex items-center mb-4">
+                        <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
+                    </a>
+                    <p class="text-gray-400">Construindo conexões de verdade em Mongaguá. Internet 100% fibra óptica com a velocidade e estabilidade que você merece.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="planos.html" class="text-gray-400 hover:text-brand-gold transition-colors">Nossos Planos</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-brand-gold transition-colors">Diferenciais</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-brand-gold transition-colors">Área do Cliente</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-brand-gold transition-colors">Suporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Siga-nos</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-brand-gold transition-colors"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-brand-gold transition-colors"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://wa.me/5513992006688" aria-label="WhatsApp" class="text-gray-400 hover:text-brand-gold transition-colors"><i class="fab fa-whatsapp fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Piel Telecom. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================================================= -->
+    <!-- INÍCIO: MODAL DE FILTRAGEM DE CIDADE                    -->
+    <!-- ======================================================= -->
+    <div id="city-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="city-modal-title">
+        <div id="city-modal-panel" class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col transform transition-all opacity-0 -translate-y-4">
+            <!-- Cabeçalho do Modal -->
+            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                <h2 id="city-modal-title" class="text-xl font-bold text-gray-900">Consulte a disponibilidade</h2>
+                <button id="close-city-modal-btn" aria-label="Fechar modal" class="text-gray-400 hover:text-red-600 transition-colors p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Conteúdo do Modal -->
+            <div class="p-6 overflow-y-auto">
+                <p class="text-gray-600 mb-4">Primeiro, digite o nome da sua cidade para verificar se nossos serviços estão disponíveis na sua região.</p>
+                
+                <div class="relative">
+                    <input type="text" id="city-search-input" placeholder="Digite sua cidade..." class="form-input !pl-10 peer">
+                    <svg class="w-5 h-5 text-gray-400 absolute top-1/2 left-3 -translate-y-1/2 peer-focus:text-brand-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+
+                <p id="city-list-error" class="text-center text-red-500 my-4 hidden">Nenhuma cidade encontrada.</p>
+                
+                <!-- Lista de Cidades (será preenchida via JS) -->
+                <div id="city-list-container" class="mt-4 border border-gray-200 rounded-lg max-h-64 overflow-y-auto">
+                    <!-- Cidades filtradas aparecerão aqui -->
+                </div>
+            </div>
+
+            <!-- Rodapé do Modal -->
+            <div class="p-5 bg-gray-50 border-t border-gray-200 text-right rounded-b-xl">
+                <button id="confirm-city-btn" class="cta-button w-full sm:w-auto" disabled>
+                    Confirmar Cidade
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CHECKOUT -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[95vh] flex flex-col">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-start">
+                <div>
+                    <h2 id="modal-title" class="text-2xl font-bold text-gray-900">Finalizar Contratação</h2>
+                    <p class="text-gray-600 mt-1">Plano: <span id="selected-plan-name" class="font-bold text-brand-gold"></span></p>
+                </div>
+                <button id="close-modal-btn" aria-label="Fechar modal" class="text-gray-500 hover:text-red-600 transition-colors p-1">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 md:p-8 overflow-y-auto">
+                <div id="whatsapp-form-container">
+                    <form id="whatsapp-form" class="space-y-8" novalidate>
+                        <fieldset><legend class="font-semibold text-lg text-gray-800 border-b pb-2 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>Dados Pessoais</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4"><div><label for="wa-nome" class="block font-medium text-gray-700 mb-1">Nome Completo</label><input type="text" id="wa-nome" name="wa-nome" class="form-input" required><div class="error-message"></div></div><div><label for="wa-mae" class="block font-medium text-gray-700 mb-1">Nome da Mãe</label><input type="text" id="wa-mae" name="wa-mae" class="form-input" required><div class="error-message"></div></div><div class="md:col-span-2"><label for="wa-nascimento" class="block font-medium text-gray-700 mb-1">Data de Nascimento</label><input type="date" id="wa-nascimento" name="wa-nascimento" class="form-input" required><div class="error-message"></div></div></div></fieldset>
+                        <fieldset><legend class="font-semibold text-lg text-gray-800 border-b pb-2 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" /><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm3 0a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>Documentos & Contato</legend><div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4"><div><label for="wa-cpf" class="block font-medium text-gray-700 mb-1">CPF</label><input type="text" id="wa-cpf" name="wa-cpf" class="form-input" required placeholder="000.000.000-00"><div class="error-message"></div></div><div><label for="wa-rg" class="block font-medium text-gray-700 mb-1">RG</label><input type="text" id="wa-rg" name="wa-rg" class="form-input" required><div class="error-message"></div></div><div><label for="wa-email" class="block font-medium text-gray-700 mb-1">E-mail</label><input type="email" id="wa-email" name="wa-email" class="form-input" required><div class="error-message"></div></div><div><label for="wa-tel1" class="block font-medium text-gray-700 mb-1">Telefone Titular</label><input type="tel" id="wa-tel1" name="wa-tel1" class="form-input" required placeholder="(00) 90000-0000"><div class="error-message"></div></div></div></fieldset>
+                        <fieldset><legend class="font-semibold text-lg text-gray-800 border-b pb-2 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>Endereço de Instalação</legend><div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4"><div><label for="wa-cep" class="block font-medium text-gray-700 mb-1">CEP</label><input type="text" id="wa-cep" name="wa-cep" class="form-input" required placeholder="00000-000"><div class="error-message"></div></div><div class="md:col-span-2"><label for="wa-rua" class="block font-medium text-gray-700 mb-1">Rua</label><input type="text" id="wa-rua" name="wa-rua" class="form-input" required><div class="error-message"></div></div><div><label for="wa-numero" class="block font-medium text-gray-700 mb-1">Número</label><input type="text" id="wa-numero" name="wa-numero" class="form-input" required><div class="error-message"></div></div><div><label for="wa-bairro" class="block font-medium text-gray-700 mb-1">Bairro</label><input type="text" id="wa-bairro" name="wa-bairro" class="form-input" required><div class="error-message"></div></div><div><label for="wa-cidade" class="block font-medium text-gray-700 mb-1">Cidade</label><input type="text" id="wa-cidade" name="wa-cidade" class="form-input" required><div class="error-message"></div></div></div></fieldset>
+                        <fieldset><legend class="font-semibold text-lg text-gray-800 border-b pb-2 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>Agendamento da Instalação</legend><div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2"><label for="periodo-manha" class="form-radio-label"><input type="radio" id="periodo-manha" name="installation_period" value="MANHÃ - 8 as 12h" class="hidden" required>Manhã (8h às 12h)</label><label for="periodo-tarde" class="form-radio-label"><input type="radio" id="periodo-tarde" name="installation_period" value="TARDE - 14 as 18h" class="hidden">Tarde (14h às 18h)</label></div><div id="radio-error-message" class="error-message"></div></fieldset>
+                        <div class="pt-6 text-right"><button type="submit" id="submit-whatsapp-btn" class="cta-button">Continuar Cadastro</button></div>
+                    </form>
+                </div>
+                <div id="whatsapp-success" class="text-center hidden py-10">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto"><svg class="w-10 h-10 text-success-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div>
+                    <h2 class="text-3xl font-bold text-gray-800 mt-6">Tudo pronto!</h2>
+                    <p class="text-gray-600 mt-4 max-w-md mx-auto">Preparamos uma mensagem com seus dados. Para finalizar, clique no botão abaixo e envie a mensagem no WhatsApp.</p>
+                    <a id="whatsapp-send-link" href="#" target="_blank" class="cta-button mt-8" style="background-color: var(--success-green);"><svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 14.21a1.2 1.2 0 00-1.69.19l-1.22 1.52a10.05 10.05 0 01-4.88-4.88l1.52-1.22a1.2 1.2 0 00.19-1.69l-1.6-3.83a1.2 1.2 0 00-1.58-.72L4.58 4.7a1.2 1.2 0 00-.86 1.15c-.01.07 0 .14.02.2 1.24 5.23 6.37 10.36 11.6 11.6.06.02.13.03.2.03a1.2 1.2 0 001.15-.86l1.2-2.73a1.2 1.2 0 00-.72-1.58l-3.83-1.6zM12 2.04a10 10 0 00-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10z"></path></svg>Abrir WhatsApp e Enviar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="https://wa.me/5513992006688?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20planos." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // =======================================================
+        // CONFIGURAÇÕES GLOBAIS E MAPEAMENTO DO DOM
+        // =======================================================
+        const CONFIG = {
+            whatsappNumber: '5513992006688'
+        };
+
+        const NODES = {
+            // Navegação e Menu
+            menuBtn: document.getElementById('menu-btn'),
+            mobileMenu: document.getElementById('mobile-menu'),
+            menuIconOpen: document.getElementById('menu-icon-open'),
+            menuIconClose: document.getElementById('menu-icon-close'),
+            mobileMenuLinks: document.querySelectorAll('.mobile-menu-link'),
+
+            // Modal de Cidade
+            cityModal: document.getElementById('city-modal'),
+            cityModalPanel: document.getElementById('city-modal-panel'),
+            closeCityModalBtn: document.getElementById('close-city-modal-btn'),
+            citySearchInput: document.getElementById('city-search-input'),
+            cityListContainer: document.getElementById('city-list-container'),
+            cityListError: document.getElementById('city-list-error'),
+            confirmCityBtn: document.getElementById('confirm-city-btn'),
+
+            // Modal de Checkout
+            checkoutModal: document.getElementById('checkout-modal'),
+            closeModalBtn: document.getElementById('close-modal-btn'),
+            selectedPlanNameSpan: document.getElementById('selected-plan-name'),
+            
+            // Formulário WhatsApp
+            whatsappFormContainer: document.getElementById('whatsapp-form-container'),
+            whatsappSuccessContainer: document.getElementById('whatsapp-success'),
+            whatsappForm: document.getElementById('whatsapp-form'),
+            whatsappSendLink: document.getElementById('whatsapp-send-link'),
+            radioLabels: document.querySelectorAll('.form-radio-label'),
+            cepInput: document.getElementById('wa-cep'),
+            cpfInput: document.getElementById('wa-cpf'),
+            telInput: document.getElementById('wa-tel1')
+        };
+        
+        let selectedPlanInfo = {};
+
+        // =======================================================
+        // FUNÇÕES DE UTILIDADE GERAL
+        // =======================================================
+
+        function toggleMobileMenu() {
+            const isExpanded = NODES.menuBtn.getAttribute('aria-expanded') === 'true';
+            NODES.menuBtn.setAttribute('aria-expanded', !isExpanded);
+            NODES.mobileMenu.classList.toggle('hidden');
+            NODES.menuIconOpen.classList.toggle('hidden');
+            NODES.menuIconClose.classList.toggle('hidden');
+        }
+        
+        // =======================================================
+        // LÓGICA DO MODAL DE CIDADE
+        // =======================================================
+        const citiesString = "Aguaí, Águas de Santa Bárbara, Agudos, Alumínio, Americana, Américo Brasiliense, Amparo, Araçariguama, Arandu, Araraquara, Araras, Areiópolis, Artur Nogueira, Atibaia, Avaí, Avaré, Bady Bassitt, Barra Bonita, Barretos, Bauru, Bebedouro, Biritiba-Mirim, Boa Esperança do Sul, Bocaina, Bom Jesus dos Perdões, Borborema, Borebi, Botucatu, Bragança Paulista, Cabreúva, Caçapava, Cafelândia, Caieiras, Campinas, Campo Limpo Paulista, Cândido Rodrigues, Capivari, Casa Branca, Cedral, Cerqueira César, Colina, Conchal, Cordeirópolis, Cosmópolis, Cravinhos, Cristais Paulista, Cubatão, Descalvado, Dobrada, Dois Córregos, Dourado, Engenheiro Coelho, Estiva Gerbi, Fernando Prestes, Franca, Francisco Morato, Franco da Rocha, Gavião Peixoto, Guaíra, Guapiaçu, Guararema, Guariba, Guarujá, Guatapará, Holambra, Hortolândia, Iaras, Ibaté, Ibitinga, Igaraçu do Tietê, Igaratá, Indaiatuba, Iracemápolis, Itaí, Itajobi, Itaju, Itanhaém, Itápolis, Itapuí, Itatinga, Itirapuã, Itupeva, Jaborandi, Jaboticabal, Jacareí, Jaguariúna, Jarinu, Jaú, Jundiaí, Leme, Lençóis Paulista, Limeira, Lindóia, Lins, Louveira, Macatuba, Mairiporã, Manduri, Matão, Mineiros do Tietê, Mirassol, Mogi das Cruzes, Mogi Guaçu, Mogi Mirim, Mongaguá, Monte Alto, Monte Mor, Motuca, Nazaré Paulista, Nova Europa, Nova Odessa, Óleo, Olímpia, Paranapanema, Pardinho, Patrocínio Paulista, Paulínia, Pederneiras, Pedreira, Peruíbe, Pindorama, Piracaia, Piracicaba, Pirajuí, Pirassununga, Piratininga, Pitangueiras, Porto Ferreira, Praia Grande, Pratânia, Presidente Alves, Rafard, Ribeirão Bonito, Ribeirão Corrente, Ribeirão Preto, Rincão, Salesópolis, Santa Adélia, Santa Bárbara d'Oeste, Santa Branca, Santa Cruz das Palmeiras, Santa Ernestina, Santa Gertrudes, Santa Lúcia, Santa Rita do Passa Quatro, Santa Rosa de Viterbo, Santo Antônio de Posse, Santos, São Bernardo do Campo, São Carlos, São José do Rio Preto, São José dos Campos, São Manuel, São Vicente, Serra Azul, Serra Negra, Sorocaba, Sumaré, Tabatinga, Tambaú, Taquaritinga, Taubaté, Trabiju, Tremembé, Uchoa, Valinhos, Várzea Paulista, Vinhedo, Votorantim";
+        const availableCities = citiesString.split(', ').sort();
+
+        const openCityModal = () => {
+            NODES.citySearchInput.value = '';
+            renderCityList(availableCities);
+            NODES.confirmCityBtn.disabled = true;
+            NODES.cityModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                NODES.cityModalPanel.classList.remove('opacity-0', '-translate-y-4');
+            }, 10);
+        };
+
+        const closeCityModal = () => {
+            NODES.cityModalPanel.classList.add('opacity-0', '-translate-y-4');
+            setTimeout(() => {
+                NODES.cityModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        };
+
+        const normalizeText = (text) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        
+        const renderCityList = (cities) => {
+            NODES.cityListContainer.innerHTML = '';
+            NODES.cityListError.classList.toggle('hidden', cities.length === 0);
+            cities.forEach(city => {
+                const cityButton = document.createElement('button');
+                cityButton.className = 'w-full text-left px-4 py-2 text-gray-700 hover:bg-yellow-50 hover:text-brand-gold transition-colors duration-150';
+                cityButton.textContent = city;
+                cityButton.type = 'button';
+                NODES.cityListContainer.appendChild(cityButton);
+            });
+        };
+        
+        const filterCities = () => {
+            const searchTerm = normalizeText(NODES.citySearchInput.value);
+            const filtered = availableCities.filter(city => normalizeText(city).includes(searchTerm));
+            renderCityList(filtered);
+            validateCitySelection();
+        };
+
+        const validateCitySelection = () => {
+            const currentInput = normalizeText(NODES.citySearchInput.value);
+            const isValid = availableCities.some(city => normalizeText(city) === currentInput);
+            NODES.confirmCityBtn.disabled = !isValid;
+        };
+
+        // =======================================================
+        // LÓGICA DO MODAL DE CHECKOUT E FORMULÁRIO
+        // =======================================================
+
+        function openCheckoutModal(planData) {
+            NODES.selectedPlanNameSpan.textContent = planData.plan;
+            NODES.whatsappForm.dataset.plan = planData.plan;
+            NODES.whatsappForm.dataset.price = planData.price;
+
+            NODES.whatsappForm.reset();
+            NODES.radioLabels.forEach(label => label.classList.remove('is-checked'));
+            NODES.whatsappFormContainer.classList.remove('hidden');
+            NODES.whatsappSuccessContainer.classList.add('hidden');
+            NODES.checkoutModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            NODES.checkoutModal.focus();
+        }
+
+        function closeCheckoutModal() {
+            NODES.checkoutModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleRadioChange(event) {
+            const currentLabel = event.currentTarget;
+            NODES.radioLabels.forEach(label => label.classList.remove('is-checked'));
+            currentLabel.classList.add('is-checked');
+        }
+        
+        async function handleWhatsappSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(NODES.whatsappForm);
+            const data = Object.fromEntries(formData.entries());
+            const { plan, price } = NODES.whatsappForm.dataset;
+            const message = `✨ NOVO PEDIDO DE CADASTRO ✨\n-----------------------------------\nPlano Escolhido: *${plan}*\nValor: *${price}*\n-----------------------------------\n🔹 NOME COMPLETO: ${data['wa-nome']}\n🔹 NOME DA MÃE: ${data['wa-mae']}\n🔹 DATA DE NASCIMENTO: ${data['wa-nascimento']}\n🔹 CPF: ${data['wa-cpf']}\n🔹 RG: ${data['wa-rg']}\n🔹 E-MAIL: ${data['wa-email']}\n🔹 TELEFONE TITULAR: ${data['wa-tel1']}\n🔹 ENDEREÇO: Rua ${data['wa-rua']}, Nº ${data['wa-numero']}, Bairro ${data['wa-bairro']}, Cidade ${data['wa-cidade']}, CEP ${data['wa-cep']}\n🔹 INSTALAÇÃO: ${data.installation_period}`;
+
+            NODES.whatsappSendLink.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+            NODES.whatsappFormContainer.classList.add('hidden');
+            NODES.whatsappSuccessContainer.classList.remove('hidden');
+        }
+
+        // =======================================================
+        // INICIALIZAÇÃO E EVENT LISTENERS GLOBAIS
+        // =======================================================
+        
+        NODES.menuBtn.addEventListener('click', toggleMobileMenu);
+        NODES.mobileMenuLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+        
+        // Eventos do Modal de Cidade
+        NODES.closeCityModalBtn.addEventListener('click', closeCityModal);
+        NODES.cityModal.addEventListener('click', (e) => { if (e.target === NODES.cityModal) closeCityModal(); });
+        NODES.citySearchInput.addEventListener('input', filterCities);
+        NODES.cityListContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                NODES.citySearchInput.value = e.target.textContent;
+                filterCities();
+            }
+        });
+        NODES.confirmCityBtn.addEventListener('click', () => {
+            openCheckoutModal(selectedPlanInfo);
+            closeCityModal();
+        });
+
+        // Eventos do Modal de Checkout
+        NODES.closeModalBtn.addEventListener('click', closeCheckoutModal);
+        NODES.checkoutModal.addEventListener('click', (e) => { if (e.target === NODES.checkoutModal) closeCheckoutModal(); });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !NODES.checkoutModal.classList.contains('hidden')) closeCheckoutModal();
+        });
+        
+        // Delegação de evento para os botões "Contratar"
+        document.body.addEventListener('click', (e) => {
+            const contratarBtn = e.target.closest('.contratar-btn');
+            if (contratarBtn) {
+                e.preventDefault();
+                const card = contratarBtn.closest('.plan-card');
+                if (card) {
+                    selectedPlanInfo = { 
+                        plan: card.dataset.plan, 
+                        price: card.dataset.price 
+                    };
+                    openCityModal();
+                }
+            }
+        });
+
+        NODES.whatsappForm.addEventListener('submit', handleWhatsappSubmit);
+        NODES.radioLabels.forEach(label => label.addEventListener('click', handleRadioChange));
+    });
+    </script>
+</body>
+</html>
