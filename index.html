@@ -4,25 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Piel Telecom - A melhor e mais rápida internet fibra óptica de Mongaguá. Planos para gamers, home office e toda a família.">
-    <title>Piel Telecom - A Melhor Internet Fibra Óptica</title>
+    <meta name="description" content="Piel Telecom - A melhor e mais rápida internet fibra óptica e via satélite. Planos para todas as necessidades.">
+    <title>Piel Telecom - A Melhor Internet Fibra Óptica e Satélite</title>
 
     <link rel="icon" href="imgs/icone.png" type="image/png">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
@@ -31,211 +23,132 @@
     <header class="bg-white/90 backdrop-blur-lg shadow-sm sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center" aria-label="Página Inicial da Piel Telecom">
-                <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto"
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
+                <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
             </a>
 
             <div class="hidden md:flex items-center space-x-6">
-                <a href="planos.html"
-                    class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Planos</a>
-                <a href="#diferenciais"
-                    class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Diferenciais</a>
-                <a href="#depoimentos"
-                    class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Depoimentos</a>
-
-                <a href="vendedor.html"
-                    class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Executivos</a>
-                <a href="parceiro.html"
-                    class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Parceiros</a>
-
-                <a href="#"
-                    class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Área
-                    do Cliente</a>
+                <a href="planos.html" class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Planos</a>
+                <a href="#diferenciais" class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Diferenciais</a>
+                <a href="#depoimentos" class="text-gray-600 hover:text-brand-gold font-medium transition-colors">Depoimentos</a>
+                <a href="vendedor.html" class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Executivos</a>
+                <a href="#" class="bg-yellow-100 text-brand-gold font-semibold px-4 py-2 rounded-lg hover:bg-yellow-200 transition-colors">Área do Cliente</a>
             </div>
 
             <div class="md:hidden">
-                <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu"
-                    class="p-2">
-                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
+                <button id="menu-btn" aria-label="Abrir menu" class="p-2">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden" role="navigation">
+
+        <div id="mobile-menu" class="hidden md:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
-                <a href="planos.html"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Planos</a>
-                <a href="#diferenciais"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Diferenciais</a>
-                <a href="#depoimentos"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Depoimentos</a>
-
-                <a href="vendedor.html"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Executivos</a>
-                <a href="parceiro.html"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Parceiros</a>
-
-                <a href="#"
-                    class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Área
-                    do Cliente</a>
+                <a href="planos.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Planos</a>
+                <a href="#diferenciais" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Diferenciais</a>
+                <a href="#depoimentos" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Depoimentos</a>
+                <a href="vendedor.html" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Executivos</a>
+                <a href="#" class="mobile-menu-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-brand-gold">Área do Cliente</a>
             </div>
         </div>
     </header>
 
     <main>
         <section id="hero-section" class="hero-bg text-white py-20 md:py-32">
-            <div class="container mx-auto px-6 text-center fade-in-element is-visible">
-                <span
-                    class="inline-block bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm font-semibold mb-6">🏆
-                    A Melhor Internet de São Paulo</span>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Conexão de verdade, <br
-                        class="hidden sm:block">sempre ao seu lado.</h1>
-                <p class="text-lg md:text-xl text-yellow-100/90 mb-10 max-w-3xl mx-auto">Navegue, trabalhe, jogue e
-                    assista com a estabilidade e a velocidade que só a Piel Telecom oferece.</p>
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Conexão de verdade, <br class="hidden sm:block">onde você estiver.</h1>
+                <p class="text-lg md:text-xl text-yellow-100/90 mb-10 max-w-3xl mx-auto">Navegue, trabalhe e jogue com a estabilidade e a velocidade que só a Piel Telecom oferece, seja com Fibra Óptica ou via Satélite.</p>
                 <a href="planos.html" class="cta-button">Conheça Nossos Planos</a>
-            </div>
-        </section>
-
-        <section id="recomendador" class="py-20 bg-white">
-            <div class="container mx-auto px-6 text-center fade-in-element">
-                <h2 class="text-3xl font-bold text-gray-900">Não sabe qual plano escolher?</h2>
-                <p class="text-lg text-gray-600 mt-2 mb-8">Descreva sua necessidade e deixe nossa IA encontrar o plano
-                    perfeito para você!</p>
-                <div class="max-w-3xl mx-auto bg-gray-50 p-6 md:p-8 rounded-xl shadow-lg">
-                    <div class="space-y-4">
-                        <div class="text-left">
-                            <label for="needs-input" class="font-semibold text-gray-700">Como você e sua família usam a
-                                internet?</label>
-                            <textarea id="needs-input" class="form-input mt-2" rows="3"
-                                placeholder="Ex: Somos 4 pessoas, usamos para filmes em 4K, jogos online e trabalho de casa."></textarea>
-                        </div>
-                        <button id="recommend-btn" class="cta-button">
-                            <span class="gemini-icon mr-2">✨</span> Encontrar meu plano ideal
-                        </button>
-                        <div id="recommend-loader" class="hidden mx-auto loader"></div>
-                        <p id="recommender-error" class="text-red-600 mt-2 hidden"></p>
-                    </div>
-                </div>
             </div>
         </section>
 
         <section id="planos" class="py-12 md:py-20 bg-gray-100">
             <div class="container mx-auto px-4 sm:px-6">
 
-                <div id="recommended-plans-container" class="hidden">
+                 <div class="mb-16">
                     <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Aqui estão os 3 melhores planos para o
-                            seu perfil!</h2>
-                        <p class="text-md md:text-lg text-gray-600 mt-2">Analisamos suas respostas e separamos as opções
-                            com o melhor custo-benefício.</p>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Planos <span class="gold-accent">Fibra Óptica</span> em Destaque</h2>
+                        <p class="text-md md:text-lg text-gray-600 mt-2">As melhores ofertas para você aproveitar a ultravelocidade.</p>
                     </div>
-                    <div id="recommended-plans-grid" class="main-carousel -mx-3">
+                    <div id="promo-carousel-fibra" class="main-carousel -mx-3">
                         </div>
-                    <div class="text-center mt-12">
-                        <a href="planos.html"
-                            class="bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors">Ver
-                            todos os planos</a>
-                    </div>
                 </div>
 
-                <div id="all-plans-container">
-                    <div class="mb-16">
-                        <div class="text-center mb-12 fade-in-element">
-                            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Planos em <span
-                                    class="gold-accent">Promoção</span></h2>
-                            <p class="text-md md:text-lg text-gray-600 mt-2">As melhores ofertas para você aproveitar a
-                                ultravelocidade pagando menos.</p>
-                        </div>
-
-                        <div id="promo-carousel" class="main-carousel -mx-3">
-                        </div>
+                <div class="mb-16">
+                    <div id="satelite-section-title" class="text-center mb-12 hidden">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Planos <span class="gold-accent">Via Satélite</span> em Destaque</h2>
+                        <p class="text-md md:text-lg text-gray-600 mt-2">Conexão de qualidade em qualquer lugar do Brasil.</p>
                     </div>
+                     <div id="promo-carousel-satelite" class="main-carousel -mx-3">
+                        </div>
                 </div>
+
+                 <div class="text-center mt-12">
+                    <a href="planos.html" class="bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors">Ver todos os planos</a>
+                </div>
+            </div>
         </section>
-
+        
         <section id="diferenciais" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16 fade-in-element">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Não é só internet, é uma experiência <span
-                            class="gold-accent">Piel Telecom</span></h2>
-                    <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Entenda por que somos a escolha de quem
-                        busca mais do que uma simples conexão.</p>
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Não é só internet, é uma experiência <span class="gold-accent">Piel Telecom</span></h2>
+                    <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Entenda por que somos a escolha de quem busca mais do que uma simples conexão.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div class="text-center fade-in-element">
+                    <div class="text-center">
                         <div class="feature-icon-bg"><i class="fas fa-wave-square fa-2x text-brand-gold-dark"></i></div>
                         <h3 class="text-xl font-bold mb-2">Rede 100% Fibra</h3>
-                        <p class="text-gray-600">Levamos a fibra óptica até dentro da sua casa (FTTH), garantindo máxima
-                            velocidade e uma conexão à prova de interferências.</p>
+                        <p class="text-gray-600">Levamos a fibra óptica até dentro da sua casa (FTTH), garantindo máxima velocidade e uma conexão à prova de interferências.</p>
                     </div>
-                    <div class="text-center fade-in-element" style="animation-delay: 0.1s;">
+                    <div class="text-center">
                         <div class="feature-icon-bg"><i class="fas fa-headset fa-2x text-brand-gold-dark"></i></div>
                         <h3 class="text-xl font-bold mb-2">Suporte que Resolve</h3>
-                        <p class="text-gray-600">Nosso atendimento é local, humanizado e focado em resolver seu problema
-                            na primeira chamada.</p>
+                        <p class="text-gray-600">Nosso atendimento é local, humanizado e focado em resolver seu problema na primeira chamada.</p>
                     </div>
-                    <div class="text-center fade-in-element" style="animation-delay: 0.2s;">
+                    <div class="text-center">
                         <div class="feature-icon-bg"><i class="fas fa-wifi fa-2x text-brand-gold-dark"></i></div>
                         <h3 class="text-xl font-bold mb-2">Wi-Fi de Verdade</h3>
-                        <p class="text-gray-600">Oferecemos os melhores equipamentos, incluindo a tecnologia Wi-Fi 6,
-                            para que a ultravelocidade chegue em todos os cantos.</p>
+                        <p class="text-gray-600">Oferecemos os melhores equipamentos, incluindo a tecnologia Wi-Fi 6, para que a ultravelocidade chegue em todos os cantos.</p>
                     </div>
-                    <div class="text-center fade-in-element" style="animation-delay: 0.3s;">
-                        <div class="feature-icon-bg"><i class="fas fa-medal fa-2x text-brand-gold-dark"></i></div>
-                        <h3 class="text-xl font-bold mb-2">A Melhor da Região</h3>
-                        <p class="text-gray-600">Somos reconhecidos pela velocidade e estabilidade, um reflexo da nossa
-                            dedicação à qualidade superior.</p>
+                     <div class="text-center">
+                        <div class="feature-icon-bg"><i class="fas fa-satellite-dish fa-2x text-brand-gold-dark"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Cobertura Nacional</h3>
+                        <p class="text-gray-600">Com nossa tecnologia de internet via satélite, levamos conexão de alta velocidade para as áreas mais remotas do Brasil.</p>
                     </div>
                 </div>
             </div>
         </section>
-
+        
         <section id="depoimentos" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16 fade-in-element">
-                    <h2 class="text-4xl font-bold text-gray-900">O que nossos <span class="gold-accent">clientes</span>
-                        dizem</h2>
-                    <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">A confiança de quem usa e aprova a nossa
-                        conexão todos os dias.</p>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900">O que nossos <span class="gold-accent">clientes</span> dizem</h2>
+                    <p class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">A confiança de quem usa e aprova a nossa conexão todos os dias.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <figure class="testimonial-card fade-in-element"><img loading="lazy"
-                            src="https://placehold.co/80x80/E2E8F0/4A5568?text=MS" alt="Foto da cliente Maria S."
-                            class="testimonial-avatar">
+                    <figure class="testimonial-card"><img loading="lazy" src="https://placehold.co/80x80/E2E8F0/4A5568?text=MS" alt="Foto da cliente Maria S." class="testimonial-avatar">
                         <blockquote class="flex-grow">
-                            <p>"Finalmente uma internet que não cai no meio da minha reunião! O suporte da Piel Telecom
-                                é rápido e resolve de verdade. Recomendo de olhos fechados."</p>
+                            <p>"Finalmente uma internet que não cai no meio da minha reunião! O suporte da Piel Telecom é rápido e resolve de verdade. Recomendo de olhos fechados."</p>
                         </blockquote>
                         <figcaption>- Maria S., Santos</figcaption>
                     </figure>
-                    <figure class="testimonial-card fade-in-element" style="animation-delay: 0.1s;"><img loading="lazy"
-                            src="https://placehold.co/80x80/E2E8F0/4A5568?text=JP" alt="Foto do cliente João P."
-                            class="testimonial-avatar">
+                    <figure class="testimonial-card"><img loading="lazy" src="https://placehold.co/80x80/E2E8F0/4A5568?text=JP" alt="Foto do cliente João P." class="testimonial-avatar">
                         <blockquote class="flex-grow">
-                            <p>"Sou gamer e o ping baixo faz toda a diferença. Com a Piel Telecom, consigo jogar online
-                                sem lag nenhum. A estabilidade é incrível, valeu cada centavo."</p>
+                            <p>"Sou gamer e o ping baixo faz toda a diferença. Com a Piel Telecom, consigo jogar online sem lag nenhum. A estabilidade é incrível, valeu cada centavo."</p>
                         </blockquote>
                         <figcaption>- João P., Campinas</figcaption>
                     </figure>
-                    <figure class="testimonial-card fade-in-element" style="animation-delay: 0.2s;"><img loading="lazy"
-                            src="https://placehold.co/80x80/E2E8F0/4A5568?text=AC" alt="Foto da cliente Ana C."
-                            class="testimonial-avatar">
+                    <figure class="testimonial-card"><img loading="lazy" src="https://placehold.co/80x80/E2E8F0/4A5568?text=AC" alt="Foto da cliente Ana C." class="testimonial-avatar">
                         <blockquote class="flex-grow">
-                            <p>"Trabalho em home office e preciso enviar arquivos pesados o tempo todo. A velocidade de
-                                upload da Piel Telecom é fantástica, agilizou muito a minha rotina."</p>
+                            <p>"Trabalho em home office e preciso enviar arquivos pesados o tempo todo. A velocidade de upload da Piel Telecom é fantástica, agilizou muito a minha rotina."</p>
                         </blockquote>
                         <figcaption>- Ana C., Jundiaí</figcaption>
                     </figure>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="bg-gray-800 text-white">
@@ -243,11 +156,9 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="col-span-1 md:col-span-2">
                     <a href="index.html" class="flex items-center mb-4">
-                        <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto"
-                            onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
+                        <img src="imgs/logo.png" alt="Logo Piel Telecom" class="h-10 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/150x40/111827/e5a10d?text=Piel+Telecom';">
                     </a>
-                    <p class="text-gray-400">Construindo conexões de verdade no estado de São Paulo. Internet 100% fibra
-                        óptica com a velocidade e estabilidade que você merece.</p>
+                    <p class="text-gray-400">Construindo conexões de verdade no estado de São Paulo. Internet 100% fibra óptica com a velocidade e estabilidade que você merece.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Links Rápidos</h3>
@@ -263,12 +174,9 @@
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Siga-nos</h3>
                     <div class="flex space-x-4">
-                        <a href="#" aria-label="Facebook" class="social-link"><i
-                                class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" aria-label="Instagram" class="social-link"><i
-                                class="fab fa-instagram fa-lg"></i></a>
-                        <a href="https://wa.me/5513992006688" target="_blank" rel="noopener noreferrer"
-                            aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://wa.me/5513992006688" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp fa-lg"></i></a>
                     </div>
                 </div>
             </div>
@@ -278,350 +186,84 @@
         </div>
     </footer>
 
-    <template id="all-plans-storage">
-        <div id="plan-200" class="plan-card" data-price="R$ 79,99/mês" data-plan="Fibra Home 200M+">
-            <h3 class="text-2xl font-bold text-gray-900">Fibra 200M+</h3>
-            <p class="text-gray-500 mb-4">Uso básico, redes sociais, vídeos HD</p>
-            <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span>
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$79</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 200 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 100 Mbps</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-400" class="plan-card" data-price="R$ 94,99/mês" data-plan="Fibra Home 400M+">
-            <h3 class="text-2xl font-bold text-gray-900">Fibra 400M+</h3>
-            <p class="text-gray-500 mb-4">Família pequena e home office</p>
-            <div class="my-4"><span class="text-5xl font-extrabold">R$94</span><span
-                    class="text-2xl font-bold">,99</span><span class="font-medium">/mês</span></div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 400 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 200 Mbps</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-600" class="plan-card" data-price="R$ 99,99/mês" data-plan="Fibra Home 600M+">
-            <h3 class="text-2xl font-bold text-gray-900">Fibra 600M+</h3>
-            <p class="text-gray-500 mb-4">Família, streaming 4K, ótimo custo-benefício</p>
-            <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span>
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$99</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 600 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 300 Mbps</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-1000" class="plan-card" data-price="R$ 119,99/mês" data-plan="Fibra Home 1G+">
-            <h3 class="text-2xl font-bold text-gray-900">Fibra 1 Giga+</h3>
-            <p class="text-gray-500 mb-4">Velocidade máxima com preço de oferta</p>
-            <div class="my-4 text-gray-800"><span class="text-sm">Por apenas</span>
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$119</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 1 Gbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 500 Mbps</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-1000-homeoffice" class="plan-card" data-price="R$ 169,99/mês" data-plan="Fibra 1G+ Home Office">
-            <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Home Office</h3>
-            <p class="text-gray-500 mb-4">Otimizado para trabalho remoto</p>
-            <div class="my-4 text-gray-800">
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$169</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 1 Gbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 500 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Otimização para
-                        videochamadas</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-1000-gamer" class="plan-card" data-price="R$ 169,99/mês" data-plan="Fibra 1G+ Gamer">
-            <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Gamer</h3>
-            <p class="text-gray-500 mb-4">Ping baixo e rotas otimizadas</p>
-            <div class="my-4 text-gray-800">
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$169</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 1 Gbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 500 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Wi-Fi 6 Gamer</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-1000-black" class="plan-card" data-price="R$ 199,99/mês" data-plan="Fibra 1G+ Black">
-            <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Black</h3>
-            <p class="text-gray-500 mb-4">Para heavy users e casa conectada</p>
-            <div class="my-4 text-gray-800">
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$199</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 1 Gbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 500 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Equipamentos Premium
-                        (Wi-Fi 6/6E)</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-1000-black-disney" class="plan-card" data-price="R$ 239,99/mês"
-            data-plan="Fibra 1G+ Black c/ Disney+">
-            <h3 class="text-2xl font-bold text-gray-900">1 Giga+ Black c/ Disney+</h3>
-            <p class="text-gray-500 mb-4">Pacote completo com streaming</p>
-            <div class="my-4 text-gray-800">
-                <p class="flex items-baseline"><span class="text-5xl font-extrabold">R$239</span><span
-                        class="text-2xl font-bold">,99</span><span class="font-medium ml-1">/mês</span></p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 1 Gbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 500 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Disney+ incluso</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Contratar
-                Agora <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-socio-torcedor" class="plan-card" data-price="Preço Especial" data-plan="Sócio Torcedor 800M">
-            <h3 class="text-2xl font-bold text-gray-900">Sócio Torcedor 800M</h3>
-            <p class="text-gray-500 mb-4">Exclusivo para torcedores</p>
-            <div class="my-4 text-gray-800">
-                <p class="text-3xl font-bold">Preço Especial</p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 800 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Upload: 400 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Ajude seu time do coração
-                    </li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Consultar
-                <span class="arrow-icon">&rarr;</span></button>
-        </div>
-        <div id="plan-combo-movel" class="plan-card" data-price="Consultar" data-plan="Fibra 600M+ Combo Móvel">
-            <h3 class="text-2xl font-bold text-gray-900">Fibra 600M+ Combo Móvel</h3>
-            <p class="text-gray-500 mb-4">Conveniência e economia</p>
-            <div class="my-4 text-gray-800">
-                <p class="text-3xl font-bold">Consultar Preço</p>
-            </div>
-            <div class="flex-grow">
-                <ul class="space-y-3 mb-8 text-left">
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Download: 600 Mbps</li>
-                    <li class="flex items-center"><i
-                            class="fas fa-check-circle text-green-500 mr-2 flex-shrink-0"></i>Plano de celular com 10GB
-                        ou 15GB</li>
-                </ul>
-            </div>
-            <div class="gemini-reason-container mt-auto"></div><button
-                class="contratar-btn w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 flex items-center justify-center gap-2 mt-4">Consultar
-                <span class="arrow-icon">&rarr;</span></button>
-        </div>
-    </template>
-
-    <div id="city-modal" class="modal-overlay hidden" role="dialog" aria-modal="true"
-        aria-labelledby="city-modal-title">
-        <div id="city-modal-panel" class="modal-panel">
-            <div class="modal-header">
-                <h2 id="city-modal-title" class="modal-title">Consulte a disponibilidade</h2>
-                <button id="close-city-modal-btn" aria-label="Fechar modal" class="modal-close-btn">
-                    <i class="fas fa-times fa-lg"></i>
+    <div id="city-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="city-modal-title">
+        <div id="city-modal-panel" class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col transform transition-all opacity-0 -translate-y-4">
+            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                <h2 id="city-modal-title" class="text-xl font-bold text-gray-900">Consulte a disponibilidade</h2>
+                <button id="close-city-modal-btn" aria-label="Fechar modal" class="text-gray-400 hover:text-red-600 transition-colors p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             <div class="p-6 overflow-y-auto">
-                <p class="text-gray-600 mb-4">Primeiro, digite o nome da sua cidade para verificar se nossos serviços
-                    estão disponíveis na sua região.</p>
+                <p id="city-modal-description" class="text-gray-600 mb-4">Primeiro, digite o nome da sua cidade para verificar se nossos serviços estão disponíveis na sua região.</p>
                 <div class="relative">
-                    <input type="text" id="city-search-input" placeholder="Digite sua cidade..."
-                        class="form-input !pl-10 peer">
-                    <i
-                        class="fas fa-search text-gray-400 absolute top-1/2 left-3 -translate-y-1/2 peer-focus:text-brand-gold"></i>
+                    <input type="text" id="city-search-input" placeholder="Digite sua cidade..." class="form-input !pl-10 peer">
+                    <i class="fas fa-search text-gray-400 absolute top-1/2 left-3 -translate-y-1/2 peer-focus:text-brand-gold"></i>
                 </div>
                 <p id="city-list-error" class="text-center text-red-500 my-4 hidden">Nenhuma cidade encontrada.</p>
-                <div id="city-list-container" class="mt-4 border border-gray-200 rounded-lg max-h-64 overflow-y-auto">
-                    </div>
+                <div id="city-list-container" class="mt-4 border border-gray-200 rounded-lg max-h-64 overflow-y-auto"></div>
             </div>
-            <div class="modal-footer">
-                <button id="confirm-city-btn" class="cta-button w-full sm:w-auto" disabled>
-                    Confirmar Cidade
-                </button>
+            <div class="p-5 bg-gray-50 border-t border-gray-200 text-right rounded-b-xl">
+                <button id="confirm-city-btn" class="cta-button w-full sm:w-auto" disabled>Confirmar Cidade</button>
             </div>
         </div>
     </div>
 
-    <div id="checkout-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[95vh] flex flex-col">
-            <div class="modal-header">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-start">
                 <div>
-                    <h2 id="modal-title" class="modal-title">Finalizar Contratação</h2>
-                    <p class="text-gray-600 mt-1">Plano: <span id="selected-plan-name"
-                            class="font-bold text-brand-gold"></span></p>
+                    <h2 id="modal-title" class="text-2xl font-bold text-gray-900">Finalizar Contratação</h2>
+                    <p class="text-gray-600 mt-1">Plano: <span id="selected-plan-name" class="font-bold text-brand-gold"></span></p>
                 </div>
-                <button id="close-modal-btn" aria-label="Fechar modal" class="modal-close-btn">
-                    <i class="fas fa-times fa-lg"></i>
-                </button>
+                <button id="close-modal-btn" aria-label="Fechar modal" class="text-gray-500 hover:text-red-600 transition-colors p-1"><i class="fas fa-times fa-lg"></i></button>
             </div>
             <div class="p-6 md:p-8 overflow-y-auto">
                 <div id="whatsapp-form-container">
                     <form id="whatsapp-form" class="space-y-8" novalidate>
                         <fieldset>
-                            <legend class="form-legend"><i class="fas fa-user-circle text-gray-500"></i>Dados Pessoais
-                            </legend>
+                            <legend class="form-legend"><i class="fas fa-user-circle text-gray-500"></i>Dados Pessoais</legend>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                                <div><label for="wa-nome" class="form-label">Nome Completo</label><input type="text"
-                                        id="wa-nome" name="wa-nome" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-mae" class="form-label">Nome da Mãe</label><input type="text"
-                                        id="wa-mae" name="wa-mae" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div class="md:col-span-2"><label for="wa-nascimento" class="form-label">Data de
-                                        Nascimento</label><input type="date" id="wa-nascimento" name="wa-nascimento"
-                                        class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
+                                <div><label for="wa-nome" class="form-label">Nome Completo</label><input type="text" id="wa-nome" name="wa-nome" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-mae" class="form-label">Nome da Mãe</label><input type="text" id="wa-mae" name="wa-mae" class="form-input" required><div class="error-message"></div></div>
+                                <div class="md:col-span-2"><label for="wa-nascimento" class="form-label">Data de Nascimento</label><input type="date" id="wa-nascimento" name="wa-nascimento" class="form-input" required><div class="error-message"></div></div>
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend class="form-legend"><i class="fas fa-address-card text-gray-500"></i>Documentos &
-                                Contato</legend>
+                            <legend class="form-legend"><i class="fas fa-address-card text-gray-500"></i>Documentos & Contato</legend>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                                <div><label for="wa-cpf" class="form-label">CPF</label><input type="text" id="wa-cpf"
-                                        name="wa-cpf" class="form-input" required placeholder="000.000.000-00">
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-rg" class="form-label">RG</label><input type="text" id="wa-rg"
-                                        name="wa-rg" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-email" class="form-label">E-mail</label><input type="email"
-                                        id="wa-email" name="wa-email" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-tel1" class="form-label">Telefone Titular</label><input type="tel"
-                                        id="wa-tel1" name="wa-tel1" class="form-input" required
-                                        placeholder="(00) 90000-0000">
-                                    <div class="error-message"></div>
-                                </div>
+                                <div><label for="wa-cpf" class="form-label">CPF</label><input type="text" id="wa-cpf" name="wa-cpf" class="form-input" required placeholder="000.000.000-00"><div class="error-message"></div></div>
+                                <div><label for="wa-rg" class="form-label">RG</label><input type="text" id="wa-rg" name="wa-rg" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-email" class="form-label">E-mail</label><input type="email" id="wa-email" name="wa-email" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-tel1" class="form-label">Telefone Titular</label><input type="tel" id="wa-tel1" name="wa-tel1" class="form-input" required placeholder="(00) 90000-0000"><div class="error-message"></div></div>
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend class="form-legend"><i class="fas fa-map-marked-alt text-gray-500"></i>Endereço de
-                                Instalação</legend>
+                            <legend class="form-legend"><i class="fas fa-map-marked-alt text-gray-500"></i>Endereço de Instalação</legend>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
-                                <div><label for="wa-cep" class="form-label">CEP</label><input type="text" id="wa-cep"
-                                        name="wa-cep" class="form-input" required placeholder="00000-000">
-                                    <div class="error-message"></div>
-                                </div>
-                                <div class="md:col-span-2"><label for="wa-rua" class="form-label">Rua</label><input
-                                        type="text" id="wa-rua" name="wa-rua" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-numero" class="form-label">Número</label><input type="text"
-                                        id="wa-numero" name="wa-numero" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-bairro" class="form-label">Bairro</label><input type="text"
-                                        id="wa-bairro" name="wa-bairro" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
-                                <div><label for="wa-cidade" class="form-label">Cidade</label><input type="text"
-                                        id="wa-cidade" name="wa-cidade" class="form-input" required>
-                                    <div class="error-message"></div>
-                                </div>
+                                <div><label for="wa-cep" class="form-label">CEP</label><input type="text" id="wa-cep" name="wa-cep" class="form-input" required placeholder="00000-000"><div class="error-message"></div></div>
+                                <div class="md:col-span-2"><label for="wa-rua" class="form-label">Rua</label><input type="text" id="wa-rua" name="wa-rua" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-numero" class="form-label">Número</label><input type="text" id="wa-numero" name="wa-numero" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-bairro" class="form-label">Bairro</label><input type="text" id="wa-bairro" name="wa-bairro" class="form-input" required><div class="error-message"></div></div>
+                                <div><label for="wa-cidade" class="form-label">Cidade</label><input type="text" id="wa-cidade" name="wa-cidade" class="form-input" required><div class="error-message"></div></div>
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend class="form-legend"><i class="fas fa-calendar-alt text-gray-500"></i>Agendamento da
-                                Instalação</legend>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2"><label for="periodo-manha"
-                                    class="form-radio-label"><input type="radio" id="periodo-manha"
-                                        name="installation_period" value="MANHÃ - 8h às 12h" class="hidden" required><i
-                                        class="far fa-circle"></i><i class="fas fa-dot-circle hidden"></i>Manhã (8h às
-                                    12h)</label><label for="periodo-tarde" class="form-radio-label"><input type="radio"
-                                        id="periodo-tarde" name="installation_period" value="TARDE - 14h às 18h"
-                                        class="hidden"><i class="far fa-circle"></i><i
-                                        class="fas fa-dot-circle hidden"></i>Tarde (14h às 18h)</label></div>
+                            <legend class="form-legend"><i class="fas fa-calendar-alt text-gray-500"></i>Agendamento da Instalação</legend>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                <label for="periodo-manha" class="form-radio-label"><input type="radio" id="periodo-manha" name="installation_period" value="MANHÃ - 8h às 12h" class="hidden" required><i class="far fa-circle"></i><i class="fas fa-dot-circle hidden"></i>Manhã (8h às 12h)</label>
+                                <label for="periodo-tarde" class="form-radio-label"><input type="radio" id="periodo-tarde" name="installation_period" value="TARDE - 14h às 18h" class="hidden"><i class="far fa-circle"></i><i class="fas fa-dot-circle hidden"></i>Tarde (14h às 18h)</label>
+                            </div>
                             <div id="radio-error-message" class="error-message"></div>
                         </fieldset>
-                        <div class="pt-6 text-right"><button type="submit" id="submit-whatsapp-btn"
-                                class="cta-button">Continuar Cadastro</button></div>
+                        <div class="pt-6 text-right"><button type="submit" id="submit-whatsapp-btn" class="cta-button">Continuar Cadastro</button></div>
                     </form>
                 </div>
                 <div id="whatsapp-success" class="text-center hidden py-10">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto"><i
-                            class="fas fa-check-circle fa-2x text-success-green"></i></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-check-circle fa-2x text-success-green"></i></div>
                     <h2 class="text-3xl font-bold text-gray-800 mt-6">Tudo pronto!</h2>
-                    <p class="text-gray-600 mt-4 max-w-md mx-auto">Preparamos uma mensagem com seus dados. Para
-                        finalizar, clique no botão abaixo e envie a mensagem no WhatsApp para nossa equipe de vendas.
-                    </p>
-                    <a id="whatsapp-send-link" href="#" target="_blank" rel="noopener noreferrer"
-                        class="cta-button mt-8" style="background-color: var(--success-green);"><i
-                            class="fab fa-whatsapp fa-lg mr-2"></i>Abrir WhatsApp e Enviar</a>
+                    <p class="text-gray-600 mt-4 max-w-md mx-auto">Preparamos uma mensagem com seus dados. Para finalizar, clique no botão abaixo e envie a mensagem no WhatsApp para nossa equipe de vendas.</p>
+                    <a id="whatsapp-send-link" href="#" target="_blank" rel="noopener noreferrer" class="cta-button mt-8" style="background-color: var(--success-green);"><i class="fab fa-whatsapp fa-lg mr-2"></i>Abrir WhatsApp e Enviar</a>
                 </div>
             </div>
         </div>
@@ -632,7 +274,7 @@
     </a>
 
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="script.js" defer></script>
-</body>
+    <script type="module" src="script.js"></script>
 
+</body>
 </html>
