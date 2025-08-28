@@ -110,10 +110,74 @@ function initializeAppDashboard(adminUser) {
     const renderFontesList = (fontes) => { const manualList = document.getElementById('fontes-manual-list'); const parceiroList = document.getElementById('fontes-parceiro-list'); if (!manualList || !parceiroList) return; const fontesManuais = fontes.filter(f => f.tipo !== 'parceiro'); const fontesParceiro = fontes.filter(f => f.tipo === 'parceiro'); manualList.innerHTML = fontesManuais.map(f => `<div class="flex justify-between items-center bg-gray-100 p-2 rounded"><span>${f.nome}</span><button data-id="${f.id}" class="delete-fonte-btn text-red-500 hover:text-red-700 text-xs font-semibold">Excluir</button></div>`).join('') || `<p class="text-xs text-gray-400 text-center p-2">Nenhuma fonte manual criada.</p>`; if (fontesParceiro.length > 0) { parceiroList.innerHTML = fontesParceiro.map(f => `<div class="flex justify-between items-center bg-blue-50 p-2 rounded"><span class="flex items-center gap-2"><i class="fas fa-store text-blue-500"></i>${f.nome}</span><span class="text-xs text-gray-500">Gerenciado em Parceiros</span></div>`).join(''); } else { parceiroList.innerHTML = `<p class="text-xs text-gray-400 text-center p-2">Nenhuma fonte de parceiro cadastrada.</p>`; } };
     
     // --- Lógica de Gerenciamento de Produtos (Serviços) ---
-    const renderProductsList = (products) => { const container = document.getElementById('products-list-container'); if (!container) return; if (products.length === 0) { container.innerHTML = `<div class="text-center py-10 border-dashed border-2 rounded-lg"><p class="text-gray-500">Nenhum produto (serviço) cadastrado ainda.</p></div>`; return; } container.innerHTML = products.map(p => { const originalPrice = p.valorOriginal ? p.valorOriginal.toFixed(2) : '0.00'; const promoPrice = p.valorPromocional && p.valorPromocional > 0 ? p.valorPromocional.toFixed(2) : originalPrice; return `<div class="border rounded-lg p-4 transition-shadow hover:shadow-md"><div class="flex justify-between items-start"><div><p class="font-bold text-lg text-gray-800">${p.nome}</p><p class="text-sm text-gray-500">${p.empresaNome} - ${p.tipo}</p></div><div class="flex-shrink-0 flex items-center gap-2"><button data-id="${p.id}" class="edit-product-btn text-blue-600 hover:text-blue-800" title="Editar"><i class="fas fa-pencil-alt"></i></button><button data-id="${p.id}" class="delete-product-btn text-red-500 hover:text-red-700" title="Excluir"><i class="fas fa-trash-alt"></i></button></div></div><div class="mt-3 border-t pt-3"><div class="flex items-end gap-4"><p class="text-sm text-gray-500">Original: <span class="line-through">R$ ${originalPrice}</span></p><p class="text-xl font-bold text-green-600">R$ ${promoPrice}</p></div><p class="text-sm text-gray-600 mt-2 whitespace-pre-wrap">${p.inclusoes || 'Nenhuma inclusão descrita.'}</p></div></div>`; }).join(''); };
-    const clearProductForm = () => { productForm.reset(); currentEditingProductId = null; document.getElementById('product-form-title').textContent = 'Adicionar Novo Produto (Serviço)'; document.getElementById('save-product-btn').textContent = 'Salvar Produto'; document.getElementById('cancel-edit-product-btn').classList.add('hidden'); };
-    const handleEditProduct = (productId) => { const product = allProductsData.find(p => p.id === productId); if (!product) return; currentEditingProductId = productId; document.getElementById('product-nome').value = product.nome; document.getElementById('product-valor-original').value = product.valorOriginal; document.getElementById('product-valor-promocional').value = product.valorPromocional || ''; document.getElementById('product-tipo').value = product.tipo; document.getElementById('product-empresa').value = product.empresaId; document.getElementById('product-inclusoes').value = product.inclusoes || ''; document.getElementById('product-form-title').textContent = 'Editando Produto (Serviço)'; document.getElementById('save-product-btn').textContent = 'Atualizar Produto'; document.getElementById('cancel-edit-product-btn').classList.remove('hidden'); productForm.scrollIntoView({ behavior: 'smooth' }); };
-    const handleSaveProduct = async (e) => { e.preventDefault(); const empresaSelect = document.getElementById('product-empresa'); const productData = { nome: document.getElementById('product-nome').value.trim(), valorOriginal: parseFloat(document.getElementById('product-valor-original').value), valorPromocional: parseFloat(document.getElementById('product-valor-promocional').value) || 0, tipo: document.getElementById('product-tipo').value.trim(), empresaId: empresaSelect.value, empresaNome: empresaSelect.options[empresaSelect.selectedIndex].text, inclusoes: document.getElementById('product-inclusoes').value.trim(), }; if (!productData.nome || !productData.valorOriginal || !productData.tipo || !productData.empresaId) { return showToast('Por favor, preencha todos os campos obrigatórios.', 'error'); } if (currentEditingProductId) { await updateDoc(doc(db, 'produtos', currentEditingProductId), productData); showToast('Produto atualizado com sucesso!', 'success'); } else { productData.createdAt = serverTimestamp(); await addDoc(collection(db, 'produtos'), productData); showToast('Produto adicionado com sucesso!', 'success'); } clearProductForm(); };
+    const renderProductsList = (products) => { 
+        const container = document.getElementById('products-list-container'); 
+        if (!container) return; 
+        if (products.length === 0) { 
+            container.innerHTML = `<div class="text-center py-10 border-dashed border-2 rounded-lg"><p class="text-gray-500">Nenhum produto (serviço) cadastrado ainda.</p></div>`; 
+            return; 
+        } 
+        container.innerHTML = products.map(p => { 
+            const originalPrice = p.valorOriginal ? p.valorOriginal.toFixed(2) : '0.00'; 
+            const promoPrice = p.valorPromocional && p.valorPromocional > 0 ? p.valorPromocional.toFixed(2) : originalPrice; 
+            const techBadge = p.tecnologia === 'Satélite' 
+                ? '<span class="ml-2 text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">Satélite</span>' 
+                : '<span class="ml-2 text-xs font-semibold bg-green-100 text-green-800 px-2 py-0.5 rounded-full">Fibra</span>';
+            return `<div class="border rounded-lg p-4 transition-shadow hover:shadow-md"><div class="flex justify-between items-start"><div><p class="font-bold text-lg text-gray-800 flex items-center">${p.nome} ${techBadge}</p><p class="text-sm text-gray-500">${p.empresaNome}</p></div><div class="flex-shrink-0 flex items-center gap-2"><button data-id="${p.id}" class="edit-product-btn text-blue-600 hover:text-blue-800" title="Editar"><i class="fas fa-pencil-alt"></i></button><button data-id="${p.id}" class="delete-product-btn text-red-500 hover:text-red-700" title="Excluir"><i class="fas fa-trash-alt"></i></button></div></div><div class="mt-3 border-t pt-3"><div class="flex items-end gap-4"><p class="text-sm text-gray-500">Original: <span class="line-through">R$ ${originalPrice}</span></p><p class="text-xl font-bold text-green-600">R$ ${promoPrice}</p></div><p class="text-sm text-gray-600 mt-2 whitespace-pre-wrap">${p.inclusoes || 'Nenhuma inclusão descrita.'}</p></div></div>`; 
+        }).join(''); 
+    };
+    
+    const clearProductForm = () => { 
+        productForm.reset(); 
+        currentEditingProductId = null; 
+        document.getElementById('product-form-title').textContent = 'Adicionar Novo Produto (Serviço)'; 
+        document.getElementById('product-tecnologia').value = 'Fibra'; // Valor padrão
+        document.getElementById('save-product-btn').textContent = 'Salvar Produto'; 
+        document.getElementById('cancel-edit-product-btn').classList.add('hidden'); 
+    };
+
+    const handleEditProduct = (productId) => { 
+        const product = allProductsData.find(p => p.id === productId); 
+        if (!product) return; 
+        currentEditingProductId = productId; 
+        document.getElementById('product-nome').value = product.nome; 
+        document.getElementById('product-valor-original').value = product.valorOriginal; 
+        document.getElementById('product-valor-promocional').value = product.valorPromocional || ''; 
+        document.getElementById('product-empresa').value = product.empresaId; 
+        document.getElementById('product-tecnologia').value = product.tecnologia || 'Fibra'; // Carrega a tecnologia
+        document.getElementById('product-inclusoes').value = product.inclusoes || ''; 
+        document.getElementById('product-form-title').textContent = 'Editando Produto (Serviço)'; 
+        document.getElementById('save-product-btn').textContent = 'Atualizar Produto'; 
+        document.getElementById('cancel-edit-product-btn').classList.remove('hidden'); 
+        productForm.scrollIntoView({ behavior: 'smooth' }); 
+    };
+
+    const handleSaveProduct = async (e) => { 
+        e.preventDefault(); 
+        const empresaSelect = document.getElementById('product-empresa'); 
+        const productData = { 
+            nome: document.getElementById('product-nome').value.trim(), 
+            valorOriginal: parseFloat(document.getElementById('product-valor-original').value), 
+            valorPromocional: parseFloat(document.getElementById('product-valor-promocional').value) || 0, 
+            empresaId: empresaSelect.value, 
+            empresaNome: empresaSelect.options[empresaSelect.selectedIndex].text, 
+            tecnologia: document.getElementById('product-tecnologia').value, // Salva a tecnologia
+            tipo: 'Serviço', // Tipo fixo
+            inclusoes: document.getElementById('product-inclusoes').value.trim(), 
+        }; 
+        if (!productData.nome || !productData.valorOriginal || !productData.empresaId) { 
+            return showToast('Por favor, preencha todos os campos obrigatórios.', 'error'); 
+        } 
+        if (currentEditingProductId) { 
+            await updateDoc(doc(db, 'produtos', currentEditingProductId), productData); 
+            showToast('Produto atualizado com sucesso!', 'success'); 
+        } else { 
+            productData.createdAt = serverTimestamp(); 
+            await addDoc(collection(db, 'produtos'), productData); 
+            showToast('Produto adicionado com sucesso!', 'success'); 
+        } 
+        clearProductForm(); 
+    };
     const handleDeleteProduct = (productId) => { const product = allProductsData.find(p => p.id === productId); if (!product) return; showConfirmationModal('Excluir Produto', `Tem certeza que deseja excluir o produto "${product.nome}"? Esta ação não pode ser desfeita.`, async () => { await deleteDoc(doc(db, 'produtos', productId)); showToast('Produto excluído com sucesso!', 'success'); }); };
 
     // --- Lógica de Gerenciamento de Parceiros ---
