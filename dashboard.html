@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="bg-gray-100">
 
@@ -246,15 +246,22 @@
                                             <div><label for="product-valor-promocional" class="block text-sm font-medium text-gray-700">Valor Promocional (R$)</label><input type="number" id="product-valor-promocional" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Opcional" step="0.01"></div>
                                         </div>
                                         <div class="grid grid-cols-2 gap-4">
-                                             <div><label for="product-tipo" class="block text-sm font-medium text-gray-700">Tipo</label><input type="text" id="product-tipo" class="mt-1 block w-full px-3 py-2 border rounded-md" required placeholder="Ex: Fibra, Combo, Móvel"></div>
                                              <div>
                                                 <label for="product-empresa" class="block text-sm font-medium text-gray-700">Empresa</label>
                                                 <select id="product-empresa" class="mt-1 block w-full px-3 py-2 border rounded-md" required>
                                                     <option value="">Selecione uma Empresa</option>
                                                 </select>
                                             </div>
+                                            <div>
+                                                <label for="product-tecnologia" class="block text-sm font-medium text-gray-700">Tecnologia</label>
+                                                <select id="product-tecnologia" class="mt-1 block w-full px-3 py-2 border rounded-md" required>
+                                                    <option value="Fibra">Fibra Óptica</option>
+                                                    <option value="Satélite">Satélite</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div><label for="product-inclusoes" class="block text-sm font-medium text-gray-700">Inclusões</label><textarea id="product-inclusoes" rows="4" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Descreva o que o plano inclui. Ex: Wi-Fi Grátis..."></textarea></div>
+                                        <div><label for="product-inclusoes" class="block text-sm font-medium text-gray-700">Inclusões (um por linha)</label><textarea id="product-inclusoes" rows="4" class="mt-1 block w-full px-3 py-2 border rounded-md" placeholder="Descreva o que o plano inclui. Ex: Wi-Fi Grátis..."></textarea></div>
+                                        <input type="hidden" id="product-tipo" value="Serviço">
                                         <div class="flex items-center gap-4 pt-2"><button type="submit" id="save-product-btn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700">Salvar Produto</button><button type="button" id="cancel-edit-product-btn" class="hidden w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300">Cancelar</button></div>
                                     </form>
                                 </div>
