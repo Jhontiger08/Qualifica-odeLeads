@@ -375,10 +375,14 @@ body {
     } 
 }
 
-/* Regras para telas de DESKTOP (largura >= 1024px) */
+/*
+ * CÓDIGO ALTERADO:
+ * As regras de grid agora se aplicam aos dois novos IDs de carrossel.
+*/
 @media screen and (min-width: 1024px) {
     /* Quando o Flickity não está ativo (em telas de desktop), usamos Grid Layout */
-    div#promo-carousel:not(.flickity-enabled) {
+    div#promo-carousel-fibra:not(.flickity-enabled),
+    div#promo-carousel-satelite:not(.flickity-enabled) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem; /* Espaçamento entre os cards */
@@ -386,14 +390,16 @@ body {
     }
 
     /* As células se ajustam à grade */
-    div#promo-carousel:not(.flickity-enabled) .carousel-cell {
+    div#promo-carousel-fibra:not(.flickity-enabled) .carousel-cell,
+    div#promo-carousel-satelite:not(.flickity-enabled) .carousel-cell {
         width: 100%;
         padding: 0;
         margin-bottom: 0; /* Reseta a margem inferior */
     }
 
     /* Remove a margem de ajuste do card recomendado na visualização em grade */
-    div#promo-carousel:not(.flickity-enabled) .plan-card.recommended-plan {
+    div#promo-carousel-fibra:not(.flickity-enabled) .plan-card.recommended-plan,
+    div#promo-carousel-satelite:not(.flickity-enabled) .plan-card.recommended-plan {
         margin-top: 0;
     }
 }
@@ -444,7 +450,7 @@ body {
 }
 
 /* ==========================================================================
-   WIDGET DE CHAT (JARVIS)
+   WIDGET DE CHAT (JARVIS) E BOTÃO WHATSAPP
    ========================================================================== */
 #jarvis-chat-widget {
     /* Container lógico */
@@ -674,4 +680,30 @@ body {
 }
 .social-link:hover {
     color: var(--brand-gold);
+}
+
+
+/* ==========================================================================
+   COMPONENTES FLUTUANTES
+   ========================================================================== */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
 }
